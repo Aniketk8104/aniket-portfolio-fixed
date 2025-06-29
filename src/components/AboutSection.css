@@ -5,6 +5,23 @@
     rgba(26, 26, 46, 0.3) 0%,
     transparent 100%
   );
+  position: relative;
+  overflow: hidden;
+}
+
+.about::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(245, 87, 108, 0.05) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
 }
 
 .about-container {
@@ -14,13 +31,19 @@
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .about-content h2 {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   margin-bottom: 2rem;
-  background: linear-gradient(135deg, #ffffff 0%, #667eea 100%);
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    var(--accent-color) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -28,14 +51,131 @@
 
 .about-text {
   font-size: 1.1rem;
-  color: #b3b3cc;
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   line-height: 1.8;
 }
 
 .highlight {
-  color: #667eea;
+  color: var(--accent-color);
+  font-weight: 600;
+  position: relative;
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.highlight:hover::after {
+  transform: scaleX(1);
+}
+
+/* Experience Timeline */
+.experience-timeline {
+  margin-top: 3rem;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent-color) 0%, transparent 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+.timeline-content h4 {
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+  color: var(--text-primary);
   font-weight: 600;
 }
 
-/* Reuse code-editor and stats-grid styles from HeroSection.css */
+/* About Code Editor */
+.about-code {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Skill Badges */
+.skill-badges {
+  position: absolute;
+  top: -2rem;
+  right: -2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 300px;
+}
+
+.skill-badge {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .skill-badges {
+    position: static;
+    margin-top: 2rem;
+    max-width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 4rem 1.5rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
+  }
+
+  .experience-timeline {
+    margin-top: 2rem;
+  }
+}

@@ -1,12 +1,31 @@
-# React + Vite
+# Aniket K. - Elite MERN Stack Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A cutting-edge, high-performance portfolio website showcasing advanced web development skills and projects. Built with React, Three.js, and Framer Motion for an immersive user experience.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Advanced 3D Animations**: WebGL-powered particle effects using Three.js
+- **Smooth Animations**: Framer Motion for fluid page transitions
+- **Glassmorphism Design**: Modern UI with glass-effect components
+- **Custom Cursor**: Interactive cursor with magnetic effects
+- **Responsive Design**: Perfect experience across all devices
+- **Performance Optimized**: Lightning-fast load times and smooth interactions
+- **SEO Optimized**: Meta tags and structured content for better visibility
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React 18.3** - UI Library
+- **Three.js** - 3D Graphics
+- **Framer Motion** - Animation Library
+- **React Three Fiber** - React renderer for Three.js
+- **Vite** - Build Tool
+- **CSS3** - Advanced styling with custom properties
+
+## 📦 Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/aniket/portfolio.git
+cd aniket-portfolio-fix
+```

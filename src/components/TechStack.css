@@ -5,11 +5,31 @@
     transparent 0%,
     rgba(26, 26, 46, 0.3) 100%
   );
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-stack::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(
+    circle,
+    rgba(102, 126, 234, 0.1) 0%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .section-container {
   max-width: 1400px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .section-header {
@@ -21,7 +41,11 @@
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ffffff 0%, #667eea 100%);
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    var(--accent-color) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -29,7 +53,7 @@
 
 .section-subtitle {
   font-size: 1.15rem;
-  color: #b3b3cc;
+  color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.7;
@@ -42,60 +66,156 @@
   margin-top: 3rem;
 }
 
+.tech-card-wrapper {
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
 .tech-card {
-  background: rgba(26, 26, 46, 0.4);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 25px;
   padding: 2.5rem 1.5rem;
   text-align: center;
-  transition: all 0.5s ease;
+  transition: all var(--transition-spring);
+  cursor: pointer;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .tech-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    var(--tech-color, var(--accent-color)),
+    transparent
+  );
+  border-radius: 25px;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  z-index: -1;
 }
 
 .tech-card:hover::before {
-  transform: scaleX(1);
+  opacity: 0.5;
 }
 
-.tech-card:hover {
-  transform: translateY(-15px) scale(1.05);
-  box-shadow: 0 0 40px rgba(102, 126, 234, 0.3);
-  border-color: rgba(102, 126, 234, 0.5);
+.tech-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
 }
 
 .tech-icon {
   font-size: 3.5rem;
   margin-bottom: 1.5rem;
+  display: block;
   filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.3));
-  transition: all 0.3s ease;
-}
-
-.tech-card:hover .tech-icon {
-  transform: scale(1.1) rotateY(180deg);
+  transition: all var(--transition-normal);
 }
 
 .tech-name {
   font-weight: 700;
   font-size: 1.1rem;
-  color: white;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .tech-level {
-  color: #8888aa;
+  color: var(--text-muted);
   font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.tech-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.tech-progress-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-progress-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Hover effects for different screen sizes */
+@media (hover: hover) {
+  .tech-card:hover .tech-icon {
+    transform: scale(1.2) rotateY(180deg);
+    filter: drop-shadow(0 10px 30px rgba(102, 126, 234, 0.5));
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tech-card {
+    padding: 2rem 1rem;
+  }
+
+  .tech-icon {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+  }
 }

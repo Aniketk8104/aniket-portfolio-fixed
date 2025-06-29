@@ -3,19 +3,21 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(26, 26, 46, 0.4);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
+  border-radius: var(--radius-full);
   padding: 1rem 2rem;
-  z-index: 1000;
-  transition: all 0.3s ease;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  z-index: var(--z-fixed);
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-xl);
+  max-width: 90%;
 }
 
 .navbar.scrolled {
   background: rgba(26, 26, 46, 0.9);
-  box-shadow: 0 0 40px rgba(102, 126, 234, 0.3);
+  box-shadow: var(--shadow-glow);
 }
 
 .nav-content {
@@ -27,35 +29,109 @@
 .logo {
   font-weight: 800;
   font-size: 1.25rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  cursor: pointer;
+  user-select: none;
 }
 
 .nav-links {
   display: flex;
   gap: 1.5rem;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
-  color: #b3b3cc;
+  color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
-  border-radius: 25px;
-  transition: all 0.3s ease;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-normal);
+  position: relative;
+  display: block;
 }
 
 .nav-links a:hover {
-  color: white;
+  color: var(--text-primary);
   background: rgba(102, 126, 234, 0.1);
-  transform: translateY(-2px);
 }
 
 .nav-links a.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 0 40px rgba(102, 126, 234, 0.3);
+  color: var(--text-primary);
+}
+
+.nav-indicator {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: var(--primary-gradient);
+  border-radius: var(--radius-full);
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-normal);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    top: 10px;
+    padding: 0.75rem 1.5rem;
+    width: calc(100% - 20px);
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .nav-content {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+/* Magnetic effect on hover */
+.nav-links a::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%) scale(0);
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-normal);
+  z-index: -1;
+}
+
+.nav-links a:hover::before {
+  transform: translate(-50%, -50%) scale(1.2);
 }

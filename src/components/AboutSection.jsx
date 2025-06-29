@@ -1,12 +1,52 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import "./AboutSection.css";
 
 const AboutSection = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const codeLines = [
+    {
+      line: 1,
+      content: `<span class="comment">// My Development Approach</span>`,
+    },
+    {
+      line: 2,
+      content: `<span class="keyword">class</span> <span class="function">MyWork</span> <span class="bracket">{</span>`,
+    },
+    {
+      line: 3,
+      content: `  <span class="function">constructor</span><span class="bracket">()</span> <span class="bracket">{</span>`,
+    },
+    {
+      line: 4,
+      content: `    <span class="keyword">this</span>.<span class="property">performance</span> = <span class="string">'optimized'</span>;`,
+    },
+    {
+      line: 5,
+      content: `    <span class="keyword">this</span>.<span class="property">scalability</span> = <span class="string">'enterprise'</span>;`,
+    },
+    {
+      line: 6,
+      content: `    <span class="keyword">this</span>.<span class="property">codeQuality</span> = <span class="string">'excellent'</span>;`,
+    },
+    { line: 7, content: `  <span class="bracket">}</span>` },
+    { line: 8, content: `<span class="bracket">}</span>` },
+  ];
+
   return (
-    <section id="about" className="about">
+    <section id="about" className="about" ref={ref}>
       <div className="about-container">
-        {/* Left: Text */}
-        <div className="about-content">
+        <motion.div
+          className="about-content"
+          initial={{ opacity: 0, x: -50 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
           <h2>About Me</h2>
           <p className="about-text">
             I'm a Computer Science graduate and{" "}
@@ -30,70 +70,98 @@ const AboutSection = () => {
             experience to deliver exceptional results.
           </p>
 
-          <div className="stats-grid">
-            <div className="stat-card">
-              <span className="stat-number">2+</span>
-              <span className="stat-label">Years Experience</span>
+          {/* Experience Timeline */}
+          <motion.div
+            className="experience-timeline"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <div className="timeline-item">
+              <div className="timeline-dot"></div>
+              <div className="timeline-content">
+                <h4>2023 - Present</h4>
+                <p>Elite MERN Stack Developer</p>
+              </div>
             </div>
-            <div className="stat-card">
-              <span className="stat-number">5+</span>
-              <span className="stat-label">Projects Completed</span>
+            <div className="timeline-item">
+              <div className="timeline-dot"></div>
+              <div className="timeline-content">
+                <h4>2022 - 2023</h4>
+                <p>Full Stack Development Journey</p>
+              </div>
             </div>
-            <div className="stat-card">
-              <span className="stat-number">100%</span>
-              <span className="stat-label">Client Satisfaction</span>
+            <div className="timeline-item">
+              <div className="timeline-dot"></div>
+              <div className="timeline-content">
+                <h4>2021 - Present</h4>
+                <p>B.Sc Computer Science - CKT College</p>
+              </div>
             </div>
-            <div className="stat-card">
-              <span className="stat-number">24/7</span>
-              <span className="stat-label">Support Available</span>
-            </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Right: Code philosophy window */}
-        <div className="hero-visual">
-          <div className="code-editor">
+        <motion.div
+          className="hero-visual"
+          initial={{ opacity: 0, x: 50 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div className="code-editor about-code">
             <div className="editor-header">
               <div className="window-controls">
-                <div className="control-dot dot-red" />
-                <div className="control-dot dot-yellow" />
-                <div className="control-dot dot-green" />
+                <div className="control-dot dot-red"></div>
+                <div className="control-dot dot-yellow"></div>
+                <div className="control-dot dot-green"></div>
               </div>
               <div className="editor-title">philosophy.js</div>
             </div>
-
             <div className="code-content">
-              <div className="code-line" data-line="1">
-                <span className="comment">// My Development Approach</span>
-              </div>
-              <div className="code-line" data-line="2">
-                <span className="keyword">class</span>{" "}
-                <span className="function">MyWork</span> {"{"}
-              </div>
-              <div className="code-line" data-line="3">
-                <span className="function">constructor</span>() {"{"}
-              </div>
-              <div className="code-line" data-line="4">
-                <span className="keyword">this</span>.performance ={" "}
-                <span className="string">'optimized'</span>;
-              </div>
-              <div className="code-line" data-line="5">
-                <span className="keyword">this</span>.scalability ={" "}
-                <span className="string">'enterprise'</span>;
-              </div>
-              <div className="code-line" data-line="6">
-                <span className="keyword">this</span>.codeQuality ={" "}
-                <span className="string">'excellent'</span>;
-              </div>
-              <div className="code-line" data-line="7">
-                {"}"}
-              </div>
-              <div className="code-line" data-line="8">
-                {"}"}
-              </div>
+              {codeLines.map((codeLine, index) => (
+                <motion.div
+                  key={codeLine.line}
+                  className="code-line"
+                  data-line={codeLine.line}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.5 + index * 0.1 }}
+                  dangerouslySetInnerHTML={{ __html: codeLine.content }}
+                />
+              ))}
             </div>
           </div>
-        </div>
+
+          {/* Floating skill badges */}
+          <motion.div
+            className="skill-badges"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            {[
+              "Problem Solver",
+              "Team Player",
+              "Quick Learner",
+              "Creative Thinker",
+            ].map((skill, index) => (
+              <motion.div
+                key={skill}
+                className="skill-badge"
+                animate={{
+                  y: [0, -10, 0],
+                  rotate: [-2, 2, -2],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: index * 0.5,
+                }}
+              >
+                {skill}
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

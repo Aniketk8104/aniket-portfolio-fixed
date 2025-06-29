@@ -1,0 +1,22 @@
+# Robots.txt for Aniket K. Portfolio
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://aniket-portfolio.com/sitemap.xml
+Sitemap: https://aniket-portfolio.com/sitemap-images.xml
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: GPTBot
+Disallow: /

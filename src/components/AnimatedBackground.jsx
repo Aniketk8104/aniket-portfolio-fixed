@@ -1,176 +1,108 @@
-import React, { useCallback } from "react";
-import Particles from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
+import React, { useRef, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Points, PointMaterial } from '@react-three/drei';
+import * as THREE from 'three';
+import { motion } from 'framer-motion';
 
-const AnimatedBackground = () => {
-  const particlesInit = useCallback(async (engine) => {
-    await loadSlim(engine);
+// Particle System Component
+function ParticleField() {
+  const ref = useRef();
+  const [sphere] = useMemo(() => {
+    const points = [];
+    for (let i = 0; i < 2000; i++) {
+      const r = 800 * Math.sqrt(Math.random());
+      const theta = Math.random() * 2 * Math.PI;
+      const phi = Math.acos(2 * Math.random() - 1);
+
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+
+      points.push(x, y, z);
+    }
+    return [new Float32Array(points)];
   }, []);
 
-  const particlesLoaded = useCallback(async (container) => {
-    console.log("Particles container loaded", container);
-  }, []);
+  useFrame((state, delta) => {
+    if (ref.current) {
+      ref.current.rotation.x -= delta / 10;
+      ref.current.rotation.y -= delta / 15;
+    }
+  });
 
   return (
+    <group rotation={[0, 0, Math.PI / 4]}>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
+        <PointMaterial
+          transparent
+          color="#667eea"
+          size={2}
+          sizeAttenuation={true}
+          depthWrite={false}
+        />
+      </Points>
+    </group>
+  );
+}
+
+// Floating Shapes Component
+const FloatingShapes = () => {
+  const shapes = [
+    { top: '10%', left: '10%', delay: -2 },
+    { top: '70%', right: '10%', delay: -8 },
+    { top: '40%', left: '80%', delay: -15 },
+  ];
+
+  return (
+    <div className="floating-shapes">
+      {shapes.map((shape, index) => (
+        <motion.div
+          key={index}
+          className={`shape shape-${index + 1}`}
+          style={shape}
+          animate={{
+            y: [-30, -60, -30],
+            rotate: [0, 360],
+            scale: [1, 1.1, 0.9, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: shape.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const AnimatedBackground = () => {
+  return (
     <>
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
-        options={{
-          fullScreen: {
-            enable: false,
-            zIndex: -1,
-          },
-          background: {
-            color: {
-              value: "transparent",
-            },
-          },
-          fpsLimit: 120,
-          interactivity: {
-            events: {
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
-              onHover: {
-                enable: true,
-                mode: "grab",
-              },
-              resize: true,
-            },
-            modes: {
-              grab: {
-                distance: 140,
-                links: {
-                  opacity: 1,
-                },
-              },
-              push: {
-                quantity: 4,
-              },
-            },
-          },
-          particles: {
-            color: {
-              value: "#667eea",
-            },
-            links: {
-              color: "#667eea",
-              distance: 150,
-              enable: true,
-              opacity: 0.2,
-              width: 1,
-            },
-            move: {
-              direction: "none",
-              enable: true,
-              outModes: {
-                default: "out",
-              },
-              random: false,
-              speed: 2,
-              straight: false,
-            },
-            number: {
-              density: {
-                enable: true,
-                area: 800,
-              },
-              value: 80,
-            },
-            opacity: {
-              value: 0.3,
-            },
-            shape: {
-              type: "circle",
-            },
-            size: {
-              value: { min: 1, max: 5 },
-              random: true,
-            },
-          },
-          detectRetina: true,
-        }}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: -1,
-        }}
-      />
-
-      {/* Background canvas */}
-      <div
-        className="bg-canvas"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
-          zIndex: -2,
-        }}
-      />
-
-      {/* Floating shapes */}
-      <div className="floating-shapes">
-        <div
-          className="shape"
+      {/* WebGL 3D Background */}
+      <div className="webgl-background">
+        <Canvas
+          camera={{ position: [0, 0, 500], fov: 60 }}
           style={{
-            position: "absolute",
-            width: "20px",
-            height: "20px",
-            background: "rgba(102, 126, 234, 0.1)",
-            borderRadius: "50%",
-            animation: "float 6s ease-in-out infinite",
-            top: "20%",
-            left: "10%",
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: -3,
           }}
-        />
-        <div
-          className="shape"
-          style={{
-            position: "absolute",
-            width: "15px",
-            height: "15px",
-            background: "rgba(102, 126, 234, 0.1)",
-            borderRadius: "50%",
-            animation: "float 8s ease-in-out infinite reverse",
-            top: "60%",
-            right: "15%",
-          }}
-        />
-        <div
-          className="shape"
-          style={{
-            position: "absolute",
-            width: "25px",
-            height: "25px",
-            background: "rgba(102, 126, 234, 0.1)",
-            borderRadius: "50%",
-            animation: "float 10s ease-in-out infinite",
-            bottom: "20%",
-            left: "60%",
-          }}
-        />
+        >
+          <ambientLight intensity={0.5} />
+          <ParticleField />
+        </Canvas>
       </div>
 
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-20px) rotate(180deg);
-          }
-        }
-      `}</style>
+      {/* Gradient Overlays */}
+      <div className="bg-canvas"></div>
+
+      {/* Floating Shapes */}
+      <FloatingShapes />
     </>
   );
 };
