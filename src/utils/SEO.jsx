@@ -1,71 +1,71 @@
-import React from "react";
-import { Helmet } from "react-helmet-async";
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-  title = "Aniket K. - Elite MERN Stack Developer",
-  description = "Elite Full-Stack MERN Developer specializing in enterprise-grade web applications. Computer Science graduate with proven track record delivering lightning-fast, scalable solutions.",
-  keywords = "MERN developer, React developer, Node.js expert, Full stack developer India, MongoDB specialist, Enterprise web development, Freelance developer",
-  image = "/og-image.jpg",
-  url = "https://aniket-portfolio.com",
-  author = "Aniket K.",
+  title = 'Aniket Kushwaha -  MERN Stack Developer',
+  description = ' Full-Stack MERN Developer specializing in enterprise-grade web applications. Computer Science graduate with proven track record delivering lightning-fast, scalable solutions.',
+  keywords = 'MERN developer, React developer, Node.js expert, Full stack developer India, MongoDB specialist, Enterprise web development, Freelance developer',
+  image = '/og-image.jpg',
+  url = 'https://aniket-portfolio.com',
+  author = 'Aniket Kushwaha',
 }) => {
   const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Aniket K.",
-    alternateName: "Aniket",
-    jobTitle: "Elite MERN Stack Developer",
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Aniket Kushwaha',
+    alternateName: 'Aniket',
+    jobTitle: ' MERN Stack Developer',
     description: description,
     url: url,
     image: `${url}${image}`,
     sameAs: [
-      "https://linkedin.com/in/aniket",
-      "https://github.com/aniket",
-      "https://twitter.com/aniket",
-      "https://upwork.com/freelancers/aniket",
+      'https://www.linkedin.com/in/aniket-kushwaha-ak/',
+      'https://github.com/Aniketk8104',
+      'https://x.com/Aniketkush89151',
+      'https://www.upwork.com/freelancers/~017984919599104192?mp_source=share',
     ],
-    email: "aniket@example.com",
-    telephone: "+91-XXXXXXXXXX",
+    email: 'kushwahaaniket141@gmail.com',
+    telephone: '+91-8104661596',
     address: {
-      "@type": "PostalAddress",
-      addressLocality: "Mumbai",
-      addressRegion: "Maharashtra",
-      addressCountry: "IN",
+      '@type': 'PostalAddress',
+      addressLocality: 'Mumbai',
+      addressRegion: 'Maharashtra',
+      addressCountry: 'IN',
     },
     alumniOf: {
-      "@type": "CollegeOrUniversity",
-      name: "Changu Kana Thakur College",
-      url: "https://cktcollege.edu.in",
+      '@type': 'CollegeOrUniversity',
+      name: 'Changu Kana Thakur College',
+      url: 'https://cktcollege.edu.in',
     },
     knowsAbout: [
-      "React.js",
-      "Node.js",
-      "MongoDB",
-      "Express.js",
-      "JavaScript",
-      "TypeScript",
-      "AWS",
-      "Docker",
-      "Next.js",
-      "GraphQL",
-      "REST API",
-      "Git",
+      'React.js',
+      'Node.js',
+      'MongoDB',
+      'Express.js',
+      'JavaScript',
+      'TypeScript',
+      'AWS',
+      'Docker',
+      'Next.js',
+      'GraphQL',
+      'REST API',
+      'Git',
     ],
     hasCredential: {
-      "@type": "EducationalOccupationalCredential",
-      credentialCategory: "degree",
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'degree',
       educationalLevel: "Bachelor's Degree",
-      competencyRequired: "Computer Science",
+      competencyRequired: 'Computer Science',
     },
     hasOccupation: {
-      "@type": "Occupation",
-      name: "Full Stack Developer",
-      occupationalCategory: "15-1254.00",
-      skills: "MERN Stack Development",
+      '@type': 'Occupation',
+      name: 'Full Stack Developer',
+      occupationalCategory: '15-1254.00',
+      skills: 'MERN Stack Development',
     },
     worksFor: {
-      "@type": "Organization",
-      name: "Freelance",
+      '@type': 'Organization',
+      name: 'Freelance',
     },
   };
 
@@ -91,7 +91,7 @@ const SEO = ({
       <meta property="og:image" content={`${url}${image}`} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content="Aniket K. Portfolio" />
+      <meta property="og:site_name" content="Aniket Kushwaha Portfolio" />
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}

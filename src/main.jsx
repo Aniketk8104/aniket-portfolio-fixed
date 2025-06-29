@@ -11,15 +11,15 @@ document.documentElement.lang = 'en';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Aniket K.',
-  jobTitle: 'Elite MERN Stack Developer',
+  name: 'Aniket Kushwaha',
+  jobTitle: ' MERN Stack Developer',
   description:
-    'Elite Full-Stack MERN Developer specializing in enterprise-grade web applications',
+    'Full-Stack MERN Developer specializing in enterprise-grade web applications',
   url: window.location.href,
   sameAs: [
-    'https://linkedin.com/in/aniket',
-    'https://github.com/aniket',
-    'https://twitter.com/aniket',
+    'https://www.linkedin.com/in/aniket-kushwaha-ak/',
+    'https://github.com/Aniketk8104',
+    'https://x.com/Aniketkush89151',
   ],
   knowsAbout: [
     'React',

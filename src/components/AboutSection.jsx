@@ -1,7 +1,7 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import "./AboutSection.css";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import './AboutSection.css';
 
 const AboutSection = () => {
   const [ref, inView] = useInView({
@@ -49,8 +49,8 @@ const AboutSection = () => {
         >
           <h2>About Me</h2>
           <p className="about-text">
-            I'm a Computer Science graduate and{" "}
-            <span className="highlight">elite full-stack developer</span>{" "}
+            I'm a Computer Science graduate and{' '}
+            <span className="highlight"> full-stack developer</span>{' '}
             specializing in the MERN stack. With advanced expertise in MongoDB,
             Express.js, React, and Node.js, I don't just use these
             technologies—I leverage their full potential to create
@@ -58,7 +58,7 @@ const AboutSection = () => {
             traffic and complexity.
           </p>
           <p className="about-text">
-            My approach goes beyond coding. I{" "}
+            My approach goes beyond coding. I{' '}
             <span className="highlight">engineer solutions</span> by thoroughly
             analyzing requirements, designing scalable architecture, and
             delivering thoroughly tested, production-ready applications with
@@ -80,21 +80,21 @@ const AboutSection = () => {
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h4>2023 - Present</h4>
-                <p>Elite MERN Stack Developer</p>
+                <h4>2024 - Present</h4>
+                <p> MERN Stack Developer</p>
               </div>
             </div>
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h4>2022 - 2023</h4>
+                <h4>2023 - 2024</h4>
                 <p>Full Stack Development Journey</p>
               </div>
             </div>
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h4>2021 - Present</h4>
+                <h4>2023 - Present</h4>
                 <p>B.Sc Computer Science - CKT College</p>
               </div>
             </div>
@@ -139,10 +139,10 @@ const AboutSection = () => {
             transition={{ duration: 0.6, delay: 0.8 }}
           >
             {[
-              "Problem Solver",
-              "Team Player",
-              "Quick Learner",
-              "Creative Thinker",
+              'Problem Solver',
+              'Team Player',
+              'Quick Learner',
+              'Creative Thinker',
             ].map((skill, index) => (
               <motion.div
                 key={skill}

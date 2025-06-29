@@ -1,6 +1,7 @@
-# Aniket K. - Elite MERN Stack Developer Portfolio
+# Aniket Kushwaha - MERN Stack Developer Portfolio
 
-A cutting-edge, high-performance portfolio website showcasing advanced web development skills and projects. Built with React, Three.js, and Framer Motion for an immersive user experience.
+A cutting-edge, high-performance portfolio website showcasing advanced web development skills and
+projects. Built with React, Three.js, and Framer Motion for an immersive user experience.
 
 ## 🚀 Features
 

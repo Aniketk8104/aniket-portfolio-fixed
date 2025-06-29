@@ -1,20 +1,16 @@
-const CACHE_NAME = "aniket-portfolio-v1";
-const urlsToCache = [
-  "/",
-  "/index.html",
-  "/manifest.json",
-  "/favicon.ico"
-];
+const CACHE_NAME = 'aniket-portfolio-v1';
+const urlsToCache = ['/', '/index.html', '/manifest.json', '/favicon.ico'];
 
 // Install event
-self.addEventListener("install", (event) => {
+self.addEventListener('install', event => {
   console.log('Service Worker installing...');
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
+    caches
+      .open(CACHE_NAME)
+      .then(cache => {
         console.log('Opened cache');
         return Promise.allSettled(
-          urlsToCache.map(url => 
+          urlsToCache.map(url =>
             cache.add(url).catch(err => {
               console.warn(`Failed to cache ${url}:`, err);
               return null;
@@ -33,7 +29,7 @@ self.addEventListener("install", (event) => {
 });
 
 // Fetch event with better filtering
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', event => {
   // Skip caching for:
   // - Chrome extensions
   // - Non-HTTP(S) requests
@@ -50,9 +46,9 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(
     fetch(event.request)
-      .then((response) => {
+      .then(response => {
         // Check if valid response
-        if (!response || response.status !== 200 || response.type !== "basic") {
+        if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
 
@@ -64,7 +60,7 @@ self.addEventListener("fetch", (event) => {
         // Clone the response
         const responseToCache = response.clone();
 
-        caches.open(CACHE_NAME).then((cache) => {
+        caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, responseToCache).catch(err => {
             // Silently ignore cache errors for non-critical requests
             if (process.env.NODE_ENV === 'development') {
@@ -81,14 +77,15 @@ self.addEventListener("fetch", (event) => {
           if (response) {
             return response;
           }
-          
+
           // Return offline page for navigation requests
           if (event.request.mode === 'navigate') {
-            return new Response(`
+            return new Response(
+              `
               <!DOCTYPE html>
               <html>
                 <head>
-                  <title>Offline - Aniket K.</title>
+                  <title>Offline - Aniket Kushwaha</title>
                   <meta charset="utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1">
                   <style>
@@ -134,11 +131,13 @@ self.addEventListener("fetch", (event) => {
                   </div>
                 </body>
               </html>
-            `, {
-              headers: { 'Content-Type': 'text/html' }
-            });
+            `,
+              {
+                headers: { 'Content-Type': 'text/html' },
+              }
+            );
           }
-          
+
           return new Response('Offline', { status: 503 });
         });
       })
@@ -146,23 +145,26 @@ self.addEventListener("fetch", (event) => {
 });
 
 // Activate event
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', event => {
   console.log('Service Worker activating...');
   const cacheWhitelist = [CACHE_NAME];
 
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => {
-      console.log('Service Worker activated');
-      return self.clients.claim();
-    })
+    caches
+      .keys()
+      .then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (cacheWhitelist.indexOf(cacheName) === -1) {
+              console.log('Deleting old cache:', cacheName);
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+      .then(() => {
+        console.log('Service Worker activated');
+        return self.clients.claim();
+      })
   );
 });

@@ -1,23 +1,31 @@
-import React from "react";
-import { motion } from "framer-motion";
-import "./Footer.css";
+import React from 'react';
+import { motion } from 'framer-motion';
+import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Expertise", href: "#tech" },
-    { label: "Work", href: "#portfolio" },
-    { label: "Contact", href: "#contact" },
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Expertise', href: '#tech' },
+    { label: 'Work', href: '#portfolio' },
+    { label: 'Contact', href: '#contact' },
   ];
 
   const socialLinks = [
-    { icon: "🐦", label: "Twitter", href: "https://twitter.com/aniket" },
-    { icon: "📸", label: "Instagram", href: "https://instagram.com/aniket" },
-    { icon: "👔", label: "LinkedIn", href: "https://linkedin.com/in/aniket" },
-    { icon: "💼", label: "GitHub", href: "https://github.com/aniket" },
+    { icon: '🐦', label: 'Twitter', href: 'https://x.com/Aniketkush89151' },
+    {
+      icon: '📸',
+      label: 'Instagram',
+      href: 'https://www.instagram.com/p/DEXzAlEImcV/',
+    },
+    {
+      icon: '👔',
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/aniket-kushwaha-ak',
+    },
+    { icon: '💼', label: 'GitHub', href: 'https://github.com/Aniketk8104' },
   ];
 
   return (
@@ -51,10 +59,9 @@ const Footer = () => {
           viewport={{ once: true }}
         >
           <motion.div className="footer-brand" whileHover={{ scale: 1.05 }}>
-            <div className="footer-logo">Aniket K.</div>
+            <div className="footer-logo">Aniket Kushwaha</div>
             <p className="footer-tagline">
-              Elite MERN Stack Developer | Transforming Ideas Into Digital
-              Excellence
+              MERN Stack Developer | Transforming Ideas Into Digital Excellence
             </p>
           </motion.div>
 
@@ -109,7 +116,7 @@ const Footer = () => {
           viewport={{ once: true }}
         >
           <p className="copyright">
-            © {currentYear} Aniket K. - Elite MERN Stack Developer. All rights
+            © {currentYear} Aniket Kushwaha - MERN Stack Developer. All rights
             reserved.
           </p>
           <p className="made-with">

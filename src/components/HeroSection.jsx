@@ -211,8 +211,8 @@ const HeroSection = () => {
           {/* Stats Grid */}
           <motion.div className="stats-grid" variants={containerVariants}>
             {[
-              { number: '2+', label: 'Years Experience' },
-              { number: '5+', label: 'Projects Completed' },
+              { number: '1+', label: 'Years Experience' },
+              { number: '3+', label: 'Projects Completed' },
               { number: '100%', label: 'Client Satisfaction' },
               { number: '24/7', label: 'Support Available' },
             ].map((stat, index) => (
