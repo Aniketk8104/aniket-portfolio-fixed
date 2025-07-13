@@ -208,37 +208,108 @@
   font-weight: 500;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .testimonials {
-    padding: 4rem 1.5rem;
-  }
+/* Enhanced Mobile-First Responsive Design */
 
+/* Base mobile styles */
+.testimonials {
+  padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+.testimonial-card {
+  padding: var(--spacing-lg);
+}
+
+.quote-icon {
+  font-size: 2.5rem;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+}
+
+.testimonial-text {
+  font-size: var(--font-sm);
+}
+
+.trust-indicators {
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+.testimonial-nav {
+  gap: var(--spacing-sm);
+}
+
+.nav-btn {
+  width: 35px;
+  height: 35px;
+}
+
+/* Small tablets (480px+) */
+@media (min-width: 480px) {
   .testimonial-card {
-    padding: 2rem;
+    padding: var(--spacing-xl);
   }
-
+  
   .quote-icon {
     font-size: 3rem;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
   }
-
+  
   .testimonial-text {
-    font-size: 1rem;
+    font-size: var(--font-base);
   }
-
-  .trust-indicators {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .testimonial-nav {
-    gap: 1rem;
-  }
-
+  
   .nav-btn {
     width: 40px;
     height: 40px;
+  }
+}
+
+/* Tablets (768px+) */
+@media (min-width: 768px) {
+  .testimonials {
+    padding: var(--spacing-3xl) var(--spacing-lg);
+  }
+  
+  .testimonial-card {
+    padding: var(--spacing-2xl);
+  }
+  
+  .trust-indicators {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+  
+  .testimonial-nav {
+    gap: var(--spacing-md);
+  }
+  
+  .nav-btn {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .testimonials {
+    padding: var(--spacing-3xl) var(--spacing-xl);
+  }
+  
+  .trust-indicators {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+  }
+  
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Large desktop (1280px+) */
+@media (min-width: 1280px) {
+  .testimonials {
+    padding: var(--spacing-3xl) var(--spacing-2xl);
   }
 }

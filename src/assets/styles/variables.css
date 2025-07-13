@@ -1,57 +1,94 @@
 :root {
-  /* Color Palette */
+  /* Color Palette - Enhanced for professionalism */
   --primary-bg: #0a0a0f;
   --secondary-bg: #1a1a2e;
   --accent-bg: #16213e;
   --glass-bg: rgba(26, 26, 46, 0.4);
+  --glass-bg-light: rgba(255, 255, 255, 0.05);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-color-hover: rgba(255, 255, 255, 0.2);
 
-  /* Gradients */
+  /* Enhanced Gradients */
   --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   --dark-gradient: linear-gradient(135deg, #1a1a2e 0%, #0a0a0f 100%);
+  --text-gradient: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
 
-  /* Text Colors */
+  /* Professional Text Colors */
   --text-primary: #ffffff;
   --text-secondary: #b3b3cc;
   --text-muted: #8888aa;
+  --text-contrast: #e2e8f0;
   --accent-color: #667eea;
   --success-color: #00f2fe;
   --warning-color: #fee140;
   --error-color: #f5576c;
 
-  /* Shadows */
+  /* Enhanced Shadows with depth layers */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.3);
   --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  --shadow-2xl: 0 40px 80px -20px rgba(0, 0, 0, 0.9);
   --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
   --shadow-glow-pink: 0 0 40px rgba(245, 87, 108, 0.3);
   --shadow-glow-blue: 0 0 40px rgba(0, 242, 254, 0.3);
+  --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
-  --transition-spring: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Professional Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
+  /* Responsive Spacing System */
+  --spacing-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --spacing-sm: clamp(0.5rem, 1vw, 0.75rem);
+  --spacing-md: clamp(1rem, 2vw, 1.25rem);
+  --spacing-lg: clamp(1.5rem, 3vw, 2rem);
+  --spacing-xl: clamp(2rem, 4vw, 3rem);
+  --spacing-2xl: clamp(3rem, 6vw, 4rem);
+  --spacing-3xl: clamp(4rem, 8vw, 6rem);
 
-  /* Border Radius */
+  /* Responsive Typography Scale */
+  --font-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --font-sm: clamp(0.875rem, 2.5vw, 1rem);
+  --font-base: clamp(1rem, 3vw, 1.125rem);
+  --font-lg: clamp(1.125rem, 3.5vw, 1.25rem);
+  --font-xl: clamp(1.25rem, 4vw, 1.5rem);
+  --font-2xl: clamp(1.5rem, 5vw, 2rem);
+  --font-3xl: clamp(2rem, 6vw, 2.5rem);
+  --font-4xl: clamp(2.5rem, 8vw, 3.5rem);
+  --font-5xl: clamp(3rem, 10vw, 4.5rem);
+
+  /* Enhanced Border Radius */
+  --radius-xs: 0.125rem;
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
   --radius-2xl: 2rem;
+  --radius-3xl: 3rem;
   --radius-full: 9999px;
+
+  /* Container Widths */
+  --container-xs: 480px;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+
+  /* Grid System */
+  --grid-cols-1: repeat(1, minmax(0, 1fr));
+  --grid-cols-2: repeat(2, minmax(0, 1fr));
+  --grid-cols-3: repeat(3, minmax(0, 1fr));
+  --grid-cols-4: repeat(4, minmax(0, 1fr));
+  --grid-cols-6: repeat(6, minmax(0, 1fr));
+  --grid-cols-12: repeat(12, minmax(0, 1fr));
 
   /* Z-Index */
   --z-negative: -1;

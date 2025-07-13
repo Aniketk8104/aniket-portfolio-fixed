@@ -303,50 +303,112 @@
   color: var(--text-primary);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .contact-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
+/* Enhanced Mobile-First Responsive Design */
 
-  .contact-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Base mobile styles */
+.contact {
+  padding: var(--spacing-2xl) var(--spacing-md);
 }
 
-@media (max-width: 768px) {
-  .contact {
-    padding: 4rem 1.5rem;
-  }
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+}
 
-  .contact-form-wrapper {
-    padding: 2rem;
-  }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
 
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    padding: 1rem;
-  }
+.contact-card {
+  padding: var(--spacing-lg);
+}
 
-  .submit-btn {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-  }
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+}
 
+.contact-form-wrapper {
+  padding: var(--spacing-lg);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: var(--spacing-md);
+  font-size: var(--font-base);
+}
+
+.submit-btn {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-base);
+  width: 100%;
+}
+
+/* Small tablets (480px+) */
+@media (min-width: 480px) {
   .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
   }
-
-  .contact-card {
-    padding: 1.5rem;
-  }
-
+  
   .contact-icon {
     width: 60px;
     height: 60px;
+    font-size: 1.75rem;
+  }
+  
+  .submit-btn {
+    width: auto;
+    min-width: 200px;
+  }
+}
+
+/* Tablets (768px+) */
+@media (min-width: 768px) {
+  .contact {
+    padding: var(--spacing-3xl) var(--spacing-lg);
+  }
+  
+  .contact-form-wrapper {
+    padding: var(--spacing-xl);
+  }
+  
+  .contact-card {
+    padding: var(--spacing-xl);
+  }
+  
+  .contact-icon {
+    width: 70px;
+    height: 70px;
     font-size: 2rem;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .contact {
+    padding: var(--spacing-3xl) var(--spacing-xl);
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--spacing-3xl);
+  }
+  
+  .contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+  }
+}
+
+/* Large desktop (1280px+) */
+@media (min-width: 1280px) {
+  .contact {
+    padding: var(--spacing-3xl) var(--spacing-2xl);
   }
 }

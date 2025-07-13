@@ -116,11 +116,13 @@ const HeroSection = () => {
           </motion.div>
 
           <motion.h1 className="hero-title" variants={itemVariants}>
-            Transform Your Vision Into{' '}
+            <span className="hero-title-prefix">
+              Transform Your Vision Into
+            </span>{' '}
             <span className="gradient-text">
               <Typewriter
                 strings={[
-                  'Scalable Digital Reality',
+                  'Scalable  Reality',
                   'Powerful Applications',
                   'Business Success',
                 ]}

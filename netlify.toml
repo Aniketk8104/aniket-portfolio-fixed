@@ -1,0 +1,46 @@
+[build]
+  # Build command
+  command = "npm ci && npm run build"
+  
+  # Publish directory (Vite outputs to 'dist' by default)
+  publish = "dist"
+  
+  # Node version
+  environment = { NODE_VERSION = "18" }
+
+[build.environment]
+  # Ensure proper Node.js version
+  NODE_VERSION = "18"
+  
+  # Use npm ci for faster, reliable builds
+  NPM_FLAGS = "--production=false"
+  
+  # Optional: Set CI environment
+  CI = "true"
+
+# Redirect rules for SPA (Single Page Application)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for better performance and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache fonts
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
