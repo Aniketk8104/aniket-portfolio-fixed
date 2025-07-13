@@ -248,17 +248,17 @@
   .testimonial-card {
     padding: var(--spacing-xl);
   }
-  
+
   .quote-icon {
     font-size: 3rem;
     top: var(--spacing-lg);
     right: var(--spacing-lg);
   }
-  
+
   .testimonial-text {
     font-size: var(--font-base);
   }
-  
+
   .nav-btn {
     width: 40px;
     height: 40px;
@@ -270,20 +270,20 @@
   .testimonials {
     padding: var(--spacing-3xl) var(--spacing-lg);
   }
-  
+
   .testimonial-card {
     padding: var(--spacing-2xl);
   }
-  
+
   .trust-indicators {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-lg);
   }
-  
+
   .testimonial-nav {
     gap: var(--spacing-md);
   }
-  
+
   .nav-btn {
     width: 45px;
     height: 45px;
@@ -295,12 +295,12 @@
   .testimonials {
     padding: var(--spacing-3xl) var(--spacing-xl);
   }
-  
+
   .trust-indicators {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-xl);
   }
-  
+
   .nav-btn {
     width: 50px;
     height: 50px;

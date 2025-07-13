@@ -355,13 +355,13 @@
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-lg);
   }
-  
+
   .contact-icon {
     width: 60px;
     height: 60px;
     font-size: 1.75rem;
   }
-  
+
   .submit-btn {
     width: auto;
     min-width: 200px;
@@ -373,15 +373,15 @@
   .contact {
     padding: var(--spacing-3xl) var(--spacing-lg);
   }
-  
+
   .contact-form-wrapper {
     padding: var(--spacing-xl);
   }
-  
+
   .contact-card {
     padding: var(--spacing-xl);
   }
-  
+
   .contact-icon {
     width: 70px;
     height: 70px;
@@ -394,12 +394,12 @@
   .contact {
     padding: var(--spacing-3xl) var(--spacing-xl);
   }
-  
+
   .contact-content {
     grid-template-columns: 1fr 1.2fr;
     gap: var(--spacing-3xl);
   }
-  
+
   .contact-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-xl);

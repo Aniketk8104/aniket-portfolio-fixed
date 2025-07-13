@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import {
+  motion,
+  useScroll,
+  useMotionValueEvent,
+  AnimatePresence,
+} from 'framer-motion';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -50,7 +55,7 @@ const Navbar = () => {
         top: elementPosition,
         behavior: 'smooth',
       });
-      
+
       setIsMobileMenuOpen(false);
     }
   };
@@ -60,8 +65,12 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isMobileMenuOpen && !event.target.closest('.navbar') && !event.target.closest('.mobile-nav')) {
+    const handleClickOutside = event => {
+      if (
+        isMobileMenuOpen &&
+        !event.target.closest('.navbar') &&
+        !event.target.closest('.mobile-nav')
+      ) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -121,7 +130,7 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <motion.button 
+          <motion.button
             className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
             whileTap={{ scale: 0.9 }}
             onClick={toggleMobileMenu}

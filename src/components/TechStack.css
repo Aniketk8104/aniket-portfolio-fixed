@@ -369,11 +369,11 @@
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: var(--spacing-lg);
   }
-  
+
   .tech-card {
     padding: var(--spacing-xl) var(--spacing-md);
   }
-  
+
   .tech-icon {
     font-size: 2.5rem;
   }
@@ -384,28 +384,28 @@
   .tech-stack {
     padding: var(--spacing-3xl) var(--spacing-lg);
   }
-  
+
   .tech-grid {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: var(--spacing-xl);
   }
-  
+
   .tech-card {
     padding: var(--spacing-xl);
   }
-  
+
   .tech-icon {
     font-size: 3rem;
   }
-  
+
   .view-mode-toggle {
     justify-content: flex-start;
   }
-  
+
   .toggle-btn {
     font-size: var(--font-sm);
   }
-  
+
   .tech-orb-section {
     padding: var(--spacing-2xl) 0;
     min-height: 500px;
@@ -417,7 +417,7 @@
   .tech-stack {
     padding: var(--spacing-3xl) var(--spacing-xl);
   }
-  
+
   .tech-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: var(--spacing-xl);
@@ -429,7 +429,7 @@
   .tech-stack {
     padding: var(--spacing-3xl) var(--spacing-2xl);
   }
-  
+
   .tech-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--spacing-2xl);

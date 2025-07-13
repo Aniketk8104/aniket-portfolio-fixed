@@ -467,21 +467,21 @@
   .hero {
     padding: 0 var(--spacing-xl);
   }
-  
+
   .hero-content {
     text-align: left;
   }
-  
+
   .hero-title-prefix {
     font-size: 0.8em;
     margin-bottom: 0.5rem;
   }
-  
+
   .hero-subtitle {
     margin-left: 0;
     margin-right: 0;
   }
-  
+
   .cta-group {
     flex-direction: row;
     justify-content: flex-start;
@@ -495,16 +495,16 @@
     gap: var(--spacing-3xl);
     text-align: left;
   }
-  
+
   .hero-visual {
     order: 2;
     min-height: 500px;
   }
-  
+
   .hero-content {
     order: 1;
   }
-  
+
   .stats-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -515,7 +515,7 @@
   .hero {
     padding: 0 var(--spacing-2xl);
   }
-  
+
   .hero-container {
     gap: var(--spacing-3xl);
   }

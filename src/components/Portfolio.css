@@ -324,16 +324,16 @@
   .portfolio {
     padding: var(--spacing-3xl) var(--spacing-lg);
   }
-  
+
   .category-filter {
     justify-content: flex-start;
   }
-  
+
   .project-links {
     flex-direction: row;
     justify-content: flex-start;
   }
-  
+
   .project-link {
     width: auto;
   }
@@ -344,16 +344,16 @@
   .portfolio {
     padding: var(--spacing-3xl) var(--spacing-xl);
   }
-  
+
   .portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-2xl);
   }
-  
+
   .project-content {
     padding: var(--spacing-xl);
   }
-  
+
   .project-title {
     font-size: var(--font-2xl);
   }
@@ -364,7 +364,7 @@
   .portfolio {
     padding: var(--spacing-3xl) var(--spacing-2xl);
   }
-  
+
   .portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-3xl);

@@ -54,9 +54,15 @@
 }
 
 @keyframes loading-progress {
-  0% { width: 0%; }
-  50% { width: 70%; }
-  100% { width: 100%; }
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 /* Enhanced Scroll Progress */
@@ -118,7 +124,7 @@ section {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-xs);
   }
-  
+
   .loading-logo {
     font-size: var(--font-3xl);
   }
@@ -141,7 +147,7 @@ section {
   html {
     cursor: auto !important;
   }
-  
+
   * {
     cursor: auto !important;
   }

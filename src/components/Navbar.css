@@ -180,11 +180,11 @@
   .navbar {
     padding: var(--spacing-sm) var(--spacing-lg);
   }
-  
+
   .nav-links {
     gap: var(--spacing-xs);
   }
-  
+
   .nav-links a {
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: var(--font-xs);
@@ -212,7 +212,7 @@
     width: 100%;
     gap: var(--spacing-md);
   }
-  
+
   .logo {
     font-size: var(--font-base);
   }
@@ -223,11 +223,11 @@
     padding: var(--spacing-xs) var(--spacing-sm);
     width: calc(100vw - var(--spacing-md));
   }
-  
+
   .logo {
     font-size: var(--font-sm);
   }
-  
+
   .mobile-nav {
     top: calc(var(--spacing-sm) + 50px);
     width: calc(100vw - var(--spacing-md));
