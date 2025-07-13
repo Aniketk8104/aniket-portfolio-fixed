@@ -1,8 +1,9 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import Tilt from "react-parallax-tilt";
-import "./TechStack.css";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import Tilt from 'react-parallax-tilt';
+// import TechOrb from './TechOrb';
+import './TechStack.css';
 
 const TechStack = () => {
   const [ref, inView] = useInView({
@@ -10,15 +11,90 @@ const TechStack = () => {
     threshold: 0.1,
   });
 
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'orb'
+  const [selectedTech, setSelectedTech] = useState(null);
+
   const technologies = [
-    { name: "React.js", icon: "⚛️", level: "Expert", color: "#61DAFB" },
-    { name: "Node.js", icon: "🟢", level: "Expert", color: "#339933" },
-    { name: "MongoDB", icon: "🍃", level: "Advanced", color: "#47A248" },
-    { name: "Express.js", icon: "⚡", level: "Advanced", color: "#000000" },
-    { name: "AWS", icon: "☁️", level: "Intermediate", color: "#FF9900" },
-    { name: "Docker", icon: "🐳", level: "Intermediate", color: "#2496ED" },
-    { name: "Next.js", icon: "📱", level: "Advanced", color: "#000000" },
-    { name: "Git", icon: "🔧", level: "Expert", color: "#F05032" },
+    {
+      name: 'React.js',
+      icon: '⚛️',
+      level: 'Expert',
+      color: '#61DAFB',
+      proficiency: 95,
+      experience: '3+ years',
+      description:
+        'Building dynamic, responsive web applications with modern React patterns including hooks, context, and performance optimization.',
+    },
+    {
+      name: 'Node.js',
+      icon: '🟢',
+      level: 'Expert',
+      color: '#339933',
+      proficiency: 90,
+      experience: '3+ years',
+      description:
+        'Server-side JavaScript development with Express.js, API design, and microservices architecture.',
+    },
+    {
+      name: 'MongoDB',
+      icon: '🍃',
+      level: 'Advanced',
+      color: '#47A248',
+      proficiency: 85,
+      experience: '2+ years',
+      description:
+        'NoSQL database design, aggregation pipelines, and performance optimization for scalable applications.',
+    },
+    {
+      name: 'Express.js',
+      icon: '⚡',
+      level: 'Advanced',
+      color: '#000000',
+      proficiency: 88,
+      experience: '3+ years',
+      description:
+        'RESTful API development, middleware implementation, and secure backend architecture.',
+    },
+    {
+      name: 'AWS',
+      icon: '☁️',
+      level: 'Intermediate',
+      color: '#FF9900',
+      proficiency: 75,
+      experience: '2+ years',
+      description:
+        'Cloud infrastructure, EC2, S3, Lambda functions, and serverless architecture deployment.',
+    },
+    {
+      name: 'Docker',
+      icon: '🐳',
+      level: 'Intermediate',
+      color: '#2496ED',
+      proficiency: 70,
+      experience: '1+ years',
+      description:
+        'Containerization, orchestration, and deployment pipeline optimization for scalable applications.',
+    },
+    {
+      name: 'Next.js',
+      icon: '📱',
+      level: 'Advanced',
+      color: '#000000',
+      proficiency: 82,
+      experience: '2+ years',
+      description:
+        'Full-stack React framework with SSR, SSG, API routes, and performance optimization.',
+    },
+    {
+      name: 'TypeScript',
+      icon: '�',
+      level: 'Advanced',
+      color: '#3178C6',
+      proficiency: 80,
+      experience: '2+ years',
+      description:
+        'Type-safe JavaScript development with advanced type systems and enterprise-level code quality.',
+    },
   ];
 
   const containerVariants = {
@@ -54,76 +130,108 @@ const TechStack = () => {
             Advanced expertise in modern web technologies that power enterprise
             applications
           </p>
+
+          {/* View Mode Toggle */}
+          <div className="view-mode-toggle">
+            <button
+              className={`toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+            >
+              Grid View
+            </button>
+            <button
+              className={`toggle-btn ${viewMode === 'orb' ? 'active' : ''}`}
+              onClick={() => setViewMode('orb')}
+            >
+              3D Orb
+            </button>
+          </div>
         </motion.div>
 
-        <motion.div
-          className="tech-grid"
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
-          {technologies.map((tech, index) => (
-            <motion.div key={tech.name} variants={itemVariants}>
-              <Tilt
-                className="tech-card-wrapper"
-                tiltMaxAngleX={15}
-                tiltMaxAngleY={15}
-                perspective={1000}
-                scale={1.05}
-                transitionSpeed={1000}
-                gyroscope={true}
-              >
-                <motion.div
-                  className="tech-card"
-                  whileHover={{
-                    borderColor: tech.color,
-                    boxShadow: `0 20px 40px ${tech.color}40`,
-                  }}
-                  style={{ "--tech-color": tech.color }}
+        {/* Tech Stack Display */}
+        {viewMode === 'orb' ? (
+          <motion.div
+            className="tech-orb-section"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            {/* <TechOrb
+              techStack={technologies}
+              isActive={inView}
+              onTechSelect={setSelectedTech}
+            /> */}
+          </motion.div>
+        ) : (
+          <motion.div
+            className="tech-grid"
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+          >
+            {technologies.map((tech, index) => (
+              <motion.div key={tech.name} variants={itemVariants}>
+                <Tilt
+                  className="tech-card-wrapper"
+                  tiltMaxAngleX={15}
+                  tiltMaxAngleY={15}
+                  perspective={1000}
+                  scale={1.05}
+                  transitionSpeed={1000}
+                  gyroscope={true}
                 >
                   <motion.div
-                    className="tech-icon"
-                    animate={{
-                      rotate: [0, 10, -10, 10, 0],
-                      scale: [1, 1.1, 1],
+                    className="tech-card"
+                    whileHover={{
+                      borderColor: tech.color,
+                      boxShadow: `0 20px 40px ${tech.color}40`,
                     }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      delay: index * 0.2,
-                    }}
+                    style={{ '--tech-color': tech.color }}
                   >
-                    {tech.icon}
-                  </motion.div>
-                  <h3 className="tech-name">{tech.name}</h3>
-                  <p className="tech-level">{tech.level}</p>
-
-                  {/* Progress Bar */}
-                  <div className="tech-progress">
                     <motion.div
-                      className="tech-progress-bar"
-                      initial={{ width: 0 }}
-                      animate={
-                        inView
-                          ? {
-                              width:
-                                tech.level === "Expert"
-                                  ? "95%"
-                                  : tech.level === "Advanced"
-                                  ? "80%"
-                                  : "65%",
-                            }
-                          : {}
-                      }
-                      transition={{ duration: 1, delay: index * 0.1 }}
-                      style={{ background: tech.color }}
-                    />
-                  </div>
-                </motion.div>
-              </Tilt>
-            </motion.div>
-          ))}
-        </motion.div>
+                      className="tech-icon"
+                      animate={{
+                        rotate: [0, 10, -10, 10, 0],
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                        delay: index * 0.2,
+                      }}
+                    >
+                      {tech.icon}
+                    </motion.div>
+                    <h3 className="tech-name">{tech.name}</h3>
+                    <p className="tech-level">{tech.level}</p>
+
+                    {/* Progress Bar */}
+                    <div className="tech-progress">
+                      <motion.div
+                        className="tech-progress-bar"
+                        initial={{ width: 0 }}
+                        animate={
+                          inView
+                            ? {
+                                width:
+                                  tech.level === 'Expert'
+                                    ? '95%'
+                                    : tech.level === 'Advanced'
+                                    ? '80%'
+                                    : '65%',
+                              }
+                            : {}
+                        }
+                        transition={{ duration: 1, delay: index * 0.1 }}
+                        style={{ background: tech.color }}
+                      />
+                    </div>
+                  </motion.div>
+                </Tilt>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );

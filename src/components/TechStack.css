@@ -189,6 +189,143 @@
   }
 }
 
+/* 🎛️ VIEW MODE TOGGLE */
+.view-mode-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.toggle-btn {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.toggle-btn:hover::before {
+  left: 100%;
+}
+
+.toggle-btn:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-color: #667eea;
+  color: white;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* 🌐 TECH ORB SECTION */
+.tech-orb-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+  min-height: 500px;
+}
+
+/* Enhanced existing tech cards */
+.tech-card {
+  /* Add proficiency-based adaptations */
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-card[data-proficiency="high"] {
+  --glow-intensity: 0.6;
+}
+
+.tech-card[data-proficiency="medium"] {
+  --glow-intensity: 0.4;
+}
+
+.tech-card[data-proficiency="low"] {
+  --glow-intensity: 0.2;
+}
+
+.tech-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(var(--tech-color), var(--glow-intensity, 0.3)) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.tech-card:hover::after {
+  opacity: 1;
+}
+
+/* Enhanced progress bars */
+.tech-progress {
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-progress::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: progress-shine 2s infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes progress-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 /* Hover effects for different screen sizes */
 @media (hover: hover) {
   .tech-card:hover .tech-icon {
@@ -210,6 +347,20 @@
 
   .tech-icon {
     font-size: 2.5rem;
+  }
+
+  .view-mode-toggle {
+    gap: 0.25rem;
+  }
+
+  .toggle-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .tech-orb-section {
+    padding: 2rem 0;
+    min-height: 400px;
   }
 }
 

@@ -68,7 +68,6 @@ export class PerformanceTracker {
           }
         }
         this.metrics.cls = clsValue;
-        console.log('Current CLS:', clsValue);
       });
 
       observer.observe({ entryTypes: ['layout-shift'] });

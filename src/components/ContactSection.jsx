@@ -89,7 +89,14 @@ const ContactSection = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="contact-form">
+            <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              onSubmit={handleSubmit}
+              className="contact-form"
+            >
+              <input type="hidden" name="form-name" value="contact" />{' '}
               <div className="form-group">
                 <motion.input
                   type="text"
@@ -101,7 +108,6 @@ const ContactSection = () => {
                   whileFocus={{ scale: 1.02 }}
                 />
               </div>
-
               <div className="form-group">
                 <motion.input
                   type="email"
@@ -113,7 +119,6 @@ const ContactSection = () => {
                   whileFocus={{ scale: 1.02 }}
                 />
               </div>
-
               <div className="form-group">
                 <motion.select
                   name="project"
@@ -130,7 +135,6 @@ const ContactSection = () => {
                   <option value="other">Other</option>
                 </motion.select>
               </div>
-
               <div className="form-group">
                 <motion.textarea
                   name="message"
@@ -142,7 +146,6 @@ const ContactSection = () => {
                   whileFocus={{ scale: 1.02 }}
                 />
               </div>
-
               <motion.button
                 type="submit"
                 className="submit-btn"

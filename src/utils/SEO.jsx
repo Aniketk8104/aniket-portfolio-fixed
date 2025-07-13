@@ -1,73 +1,23 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import {
+  seoConfig,
+  generatePersonSchema,
+  generateFAQSchema,
+} from './seoConfig.js';
 
 const SEO = ({
-  title = 'Aniket Kushwaha -  MERN Stack Developer',
-  description = ' Full-Stack MERN Developer specializing in enterprise-grade web applications. Computer Science graduate with proven track record delivering lightning-fast, scalable solutions.',
-  keywords = 'MERN developer, React developer, Node.js expert, Full stack developer India, MongoDB specialist, Enterprise web development, Freelance developer',
-  image = '/og-image.jpg',
-  url = 'https://aniket-portfolio.com',
-  author = 'Aniket Kushwaha',
+  title = seoConfig.defaultTitle,
+  description = seoConfig.defaultDescription,
+  keywords = seoConfig.keywords.home,
+  image = seoConfig.images.og,
+  url = seoConfig.siteUrl,
+  author = seoConfig.author.name,
+  pageType = 'home',
 }) => {
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Aniket Kushwaha',
-    alternateName: 'Aniket',
-    jobTitle: ' MERN Stack Developer',
-    description: description,
-    url: url,
-    image: `${url}${image}`,
-    sameAs: [
-      'https://www.linkedin.com/in/aniket-kushwaha-ak/',
-      'https://github.com/Aniketk8104',
-      'https://x.com/Aniketkush89151',
-      'https://www.upwork.com/freelancers/~017984919599104192?mp_source=share',
-    ],
-    email: 'kushwahaaniket141@gmail.com',
-    telephone: '+91-8104661596',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Mumbai',
-      addressRegion: 'Maharashtra',
-      addressCountry: 'IN',
-    },
-    alumniOf: {
-      '@type': 'CollegeOrUniversity',
-      name: 'Changu Kana Thakur College',
-      url: 'https://cktcollege.edu.in',
-    },
-    knowsAbout: [
-      'React.js',
-      'Node.js',
-      'MongoDB',
-      'Express.js',
-      'JavaScript',
-      'TypeScript',
-      'AWS',
-      'Docker',
-      'Next.js',
-      'GraphQL',
-      'REST API',
-      'Git',
-    ],
-    hasCredential: {
-      '@type': 'EducationalOccupationalCredential',
-      credentialCategory: 'degree',
-      educationalLevel: "Bachelor's Degree",
-      competencyRequired: 'Computer Science',
-    },
-    hasOccupation: {
-      '@type': 'Occupation',
-      name: 'Full Stack Developer',
-      occupationalCategory: '15-1254.00',
-      skills: 'MERN Stack Development',
-    },
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Freelance',
-    },
-  };
+  // Use the centralized structured data
+  const structuredData = generatePersonSchema();
+  const faqSchema = generateFAQSchema();
 
   return (
     <Helmet>
@@ -91,7 +41,7 @@ const SEO = ({
       <meta property="og:image" content={`${url}${image}`} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content="Aniket Kushwaha Portfolio" />
+      <meta property="og:site_name" content={seoConfig.siteName} />
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}
@@ -100,7 +50,7 @@ const SEO = ({
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={`${url}${image}`} />
-      <meta property="twitter:creator" content="@aniket" />
+      <meta property="twitter:creator" content="@aniketdev" />
 
       {/* Additional Meta Tags */}
       <meta name="theme-color" content="#667eea" />
@@ -120,6 +70,11 @@ const SEO = ({
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
       </script>
+
+      {/* FAQ Schema for better search results */}
+      {pageType === 'home' && (
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      )}
     </Helmet>
   );
 };

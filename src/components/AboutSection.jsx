@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+// import ParallaxScene from './ParallaxScene';
 import './AboutSection.css';
 
 const AboutSection = () => {
@@ -40,6 +41,7 @@ const AboutSection = () => {
 
   return (
     <section id="about" className="about" ref={ref}>
+      {/* <ParallaxScene /> */}
       <div className="about-container">
         <motion.div
           className="about-content"

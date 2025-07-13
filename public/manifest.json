@@ -1,7 +1,7 @@
 {
-  "short_name": "Aniket K.",
-  "name": "Aniket Kushwaha -  MERN Stack Developer",
-  "description": "Portfolio of Aniket Kushwaha, specializing in enterprise-grade MERN stack development",
+  "short_name": "AniketDev",
+  "name": "AniketDev - Freelance MERN Stack Developer",
+  "description": "Expert freelance MERN stack developer available for hire. Custom React, Node.js, MongoDB & Express.js solutions for your business needs.",
   "icons": [
     {
       "src": "/favicon.ico",

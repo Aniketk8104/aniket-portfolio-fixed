@@ -1,18 +1,31 @@
-# Robots.txt for Aniket K. Portfolio
+# Robots.txt for AniketDev - MERN Stack Developer
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /private/
 Crawl-delay: 1
 
 # Sitemaps
-Sitemap: https://aniket-portfolio.com/sitemap.xml
-Sitemap: https://aniket-portfolio.com/sitemap-images.xml
+Sitemap: https://aniketdev.tech/sitemap.xml
+Sitemap: https://aniketdev.tech/sitemap-images.xml
 
 # Specific bot rules
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
+
+# LinkedIn Bot (for profile sharing)
+User-agent: LinkedInBot
+Allow: /
+
+# Twitter Bot (for card previews)
+User-agent: Twitterbot
+Allow: /
+
+# Facebook Bot (for Open Graph)
+User-agent: facebookexternalhit
+Allow: /
 
 User-agent: Bingbot
 Allow: /
