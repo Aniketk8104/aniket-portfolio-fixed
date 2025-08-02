@@ -65,36 +65,36 @@ const TechStack = () => {
       description:
         'Cloud infrastructure, EC2, S3, Lambda functions, and serverless architecture deployment.',
     },
-    {
-      name: 'Docker',
-      icon: '🐳',
-      level: 'Intermediate',
-      color: '#2496ED',
-      proficiency: 70,
-      experience: '1+ years',
-      description:
-        'Containerization, orchestration, and deployment pipeline optimization for scalable applications.',
-    },
-    {
-      name: 'Next.js',
-      icon: '📱',
-      level: 'Advanced',
-      color: '#000000',
-      proficiency: 82,
-      experience: '2+ years',
-      description:
-        'Full-stack React framework with SSR, SSG, API routes, and performance optimization.',
-    },
-    {
-      name: 'TypeScript',
-      icon: '�',
-      level: 'Advanced',
-      color: '#3178C6',
-      proficiency: 80,
-      experience: '2+ years',
-      description:
-        'Type-safe JavaScript development with advanced type systems and enterprise-level code quality.',
-    },
+    // {
+    //   name: 'Docker',
+    //   icon: '🐳',
+    //   level: 'Intermediate',
+    //   color: '#2496ED',
+    //   proficiency: 70,
+    //   experience: '1+ years',
+    //   description:
+    //     'Containerization, orchestration, and deployment pipeline optimization for scalable applications.',
+    // },
+    // {
+    //   name: 'Next.js',
+    //   icon: '📱',
+    //   level: 'Advanced',
+    //   color: '#000000',
+    //   proficiency: 82,
+    //   experience: '2+ years',
+    //   description:
+    //     'Full-stack React framework with SSR, SSG, API routes, and performance optimization.',
+    // },
+    // {
+    //   name: 'TypeScript',
+    //   icon: '�',
+    //   level: 'Advanced',
+    //   color: '#3178C6',
+    //   proficiency: 80,
+    //   experience: '2+ years',
+    //   description:
+    //     'Type-safe JavaScript development with advanced type systems and enterprise-level code quality.',
+    // },
   ];
 
   const containerVariants = {
@@ -139,12 +139,7 @@ const TechStack = () => {
             >
               Grid View
             </button>
-            <button
-              className={`toggle-btn ${viewMode === 'orb' ? 'active' : ''}`}
-              onClick={() => setViewMode('orb')}
-            >
-              3D Orb
-            </button>
+
           </div>
         </motion.div>
 

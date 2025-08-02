@@ -1,5 +1,5 @@
 .about {
-  padding: 6rem 2rem;
+  padding: var(--spacing-2xl) var(--spacing-sm);
   background: linear-gradient(
     180deg,
     rgba(26, 26, 46, 0.3) 0%,
@@ -7,6 +7,7 @@
   );
   position: relative;
   overflow: hidden;
+  min-height: auto;
 }
 
 .about::before {
@@ -28,17 +29,18 @@
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 .about-content h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: var(--font-3xl);
   font-weight: 800;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-md);
   background: linear-gradient(
     135deg,
     var(--text-primary) 0%,
@@ -47,13 +49,16 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .about-text {
-  font-size: 1.1rem;
+  font-size: var(--font-sm);
   color: var(--text-secondary);
-  margin-bottom: 2rem;
-  line-height: 1.8;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+  text-align: center;
 }
 
 .highlight {
@@ -126,56 +131,245 @@
 .about-code {
   max-width: 500px;
   margin: 0 auto;
+  width: 100%;
 }
 
 /* Skill Badges */
 .skill-badges {
-  position: absolute;
-  top: -2rem;
-  right: -2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  max-width: 300px;
+  gap: var(--spacing-xs);
+  justify-content: center;
+  align-items: center;
 }
 
 .skill-badge {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(102, 126, 234, 0.3);
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border-radius: var(--radius-full);
-  font-size: 0.85rem;
+  font-size: var(--font-xs);
   color: var(--accent-color);
   font-weight: 600;
   white-space: nowrap;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
+/* Experience Timeline */
+.experience-timeline {
+  position: relative;
+  width: 100%;
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent-color) 0%, transparent 100%);
+}
+
+.timeline-item {
+  position: relative;
+  width: 100%;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 0.5rem;
+  background: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+.timeline-content {
+  padding-left: var(--spacing-lg);
+}
+
+.timeline-content h4 {
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Enhanced Mobile-First Responsive Design */
+@media (min-width: 320px) {
+  .about {
+    padding: var(--spacing-xl) var(--spacing-xs);
+    min-height: auto;
+  }
+
   .about-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: var(--spacing-md);
+    padding: 0 var(--spacing-xs);
+  }
+
+  .about-content {
+    order: 1;
+  }
+
+  .about-content h2 {
+    font-size: var(--font-2xl);
+    margin-bottom: var(--spacing-sm);
+    text-align: left;
+    padding: 0 var(--spacing-sm);
+  }
+
+  .about-text {
+    font-size: var(--font-sm);
+    margin-bottom: var(--spacing-sm);
+    text-align: left;
+    padding: 0 var(--spacing-sm);
+    line-height: 1.6;
+  }
+
+  .experience-timeline {
+    margin-top: var(--spacing-md);
+    padding-left: var(--spacing-md);
+  }
+
+  .timeline-item {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .timeline-dot {
+    left: -1.5rem;
+    width: 8px;
+    height: 8px;
+  }
+
+  .timeline-content h4 {
+    font-size: var(--font-xs);
+  }
+
+  .timeline-content p {
+    font-size: var(--font-sm);
   }
 
   .skill-badges {
     position: static;
-    margin-top: 2rem;
+    margin-top: var(--spacing-md);
     max-width: 100%;
     justify-content: center;
+    gap: var(--spacing-xs);
+  }
+
+  .skill-badge {
+    font-size: var(--font-xs);
+    padding: 0.3rem 0.6rem;
+  }
+
+  .about-code {
+    order: 2;
+    margin-top: var(--spacing-md);
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 480px) {
   .about {
-    padding: 4rem 1.5rem;
+    padding: var(--spacing-xl) var(--spacing-sm);
+  }
+
+  .about-container {
+    gap: var(--spacing-lg);
+    padding: 0 var(--spacing-sm);
+  }
+
+  .about-content h2 {
+    font-size: var(--font-3xl);
+    text-align: left;
   }
 
   .about-text {
-    font-size: 1rem;
+    font-size: var(--font-base);
+    text-align: left;
+    padding: 0;
   }
 
   .experience-timeline {
-    margin-top: 2rem;
+    padding-left: var(--spacing-lg);
+  }
+
+  .timeline-dot {
+    left: -2rem;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (min-width: 640px) {
+  .about {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
+  .about-container {
+    gap: var(--spacing-xl);
+  }
+}
+
+@media (min-width: 768px) {
+  .about {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .about-container {
+    gap: var(--spacing-2xl);
+  }
+
+  .about-content h2 {
+    font-size: var(--font-4xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .about-text {
+    font-size: var(--font-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .experience-timeline {
+    margin-top: var(--spacing-xl);
+    padding-left: var(--spacing-xl);
+  }
+
+  .timeline-dot {
+    left: -2.5rem;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about {
+    padding: var(--spacing-3xl) var(--spacing-xl);
+  }
+
+  .about-container {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: center;
+  }
+
+  .skill-badges {
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .about {
+    padding: var(--spacing-4xl) var(--spacing-2xl);
+  }
+
+  .about-container {
+    gap: var(--spacing-4xl);
   }
 }

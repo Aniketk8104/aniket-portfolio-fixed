@@ -1,5 +1,5 @@
 .testimonials {
-  padding: 6rem 2rem;
+  padding: var(--spacing-3xl) var(--spacing-md);
   background: radial-gradient(
     ellipse at center,
     rgba(245, 87, 108, 0.05) 0%,
@@ -23,7 +23,7 @@
 
 .testimonials-wrapper {
   max-width: 1000px;
-  margin: 3rem auto;
+  margin: var(--spacing-xl) auto;
   position: relative;
 }
 
@@ -31,8 +31,8 @@
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 30px;
-  padding: 3rem;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
   position: relative;
   overflow: hidden;
 }
@@ -48,26 +48,26 @@
 }
 
 .quote-icon {
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 6vw, 4rem);
   color: var(--accent-color);
   opacity: 0.3;
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
 }
 
 .rating-stars {
   display: flex;
   gap: 0.25rem;
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-lg);
 }
 
 .testimonial-text {
-  font-size: 1.2rem;
-  line-height: 1.8;
+  font-size: var(--font-base);
+  line-height: 1.7;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-lg);
   font-style: italic;
   position: relative;
   z-index: 2;

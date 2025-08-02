@@ -1,8 +1,11 @@
+/* Footer.css */
+
 .footer {
   background: var(--secondary-bg);
   position: relative;
   overflow: hidden;
-  margin-top: 4rem;
+  margin-top: var(--spacing-xl);
+  width: 100%;
 }
 
 .footer-content {
@@ -13,10 +16,10 @@
 /* Wave Animation */
 .footer-wave {
   position: absolute;
-  top: -50px;
+  top: -40px;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 40px;
   color: var(--secondary-bg);
   z-index: 1;
 }
@@ -28,52 +31,61 @@
 
 /* Main Footer Content */
 .footer-main {
-  padding: 4rem 2rem 3rem;
+  padding: var(--spacing-md) var(--spacing-sm);
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+  width: 100%;
 }
 
 .footer-brand {
-  margin-bottom: 3rem;
+  margin-bottom: var(--spacing-sm);
 }
 
 .footer-logo {
   font-weight: 800;
-  font-size: 2rem;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
   background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   display: inline-block;
   cursor: pointer;
 }
 
 .footer-tagline {
   color: var(--text-secondary);
-  font-size: 1.1rem;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
   max-width: 500px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.4;
+  padding: 0 var(--spacing-xs);
 }
 
-/* Footer Links */
+/* Footer Links - Always Horizontal */
 .footer-links {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin-bottom: 3rem;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  margin-bottom: var(--spacing-sm);
   flex-wrap: wrap;
+  padding: 0 var(--spacing-xs);
 }
 
 .footer-link {
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
   transition: all var(--transition-normal);
   position: relative;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
 }
 
 .footer-link::after {
@@ -93,25 +105,26 @@
 }
 
 .footer-link:hover::after {
-  width: 100%;
+  width: 80%;
 }
 
 /* Social Links */
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
 }
 
 .social-link {
   color: var(--text-secondary);
-  font-size: 1.5rem;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   transition: all var(--transition-normal);
   text-decoration: none;
   display: inline-flex;
-  width: 50px;
-  height: 50px;
+  width: clamp(32px, 5vw, 40px);
+  height: clamp(32px, 5vw, 40px);
   background: rgba(102, 126, 234, 0.1);
   border-radius: 50%;
   align-items: center;
@@ -141,26 +154,26 @@
 
 .social-link:hover {
   color: var(--text-primary);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
 
 /* Footer Bottom */
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem;
+  padding: var(--spacing-sm) var(--spacing-xs);
   text-align: center;
 }
 
 .copyright {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+  margin-bottom: 0.25rem;
 }
 
 .made-with {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: clamp(0.65rem, 1.5vw, 0.75rem);
 }
 
 .heart {
@@ -170,12 +183,11 @@
 }
 
 @keyframes heartbeat {
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }
 
@@ -197,104 +209,64 @@
   z-index: 0;
 }
 
-/* Enhanced Mobile-First Responsive Design */
-
-/* Base mobile styles */
-.footer-main {
-  padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-xl);
-}
-
-.footer-logo {
-  font-size: var(--font-xl);
-}
-
-.footer-tagline {
-  font-size: var(--font-sm);
-}
-
-.footer-links {
-  gap: var(--spacing-sm);
-  flex-direction: column;
-  text-align: center;
-}
-
-.social-links {
-  gap: var(--spacing-sm);
-  justify-content: center;
-}
-
-.social-link {
-  width: 40px;
-  height: 40px;
-  font-size: 1.25rem;
-}
-
-.footer-wave {
-  top: -30px;
-  height: 60px;
-}
-
-/* Small tablets (480px+) */
-@media (min-width: 480px) {
+/* Responsive Design - More Compact */
+@media (max-width: 480px) {
+  .footer-main {
+    padding: var(--spacing-sm) var(--spacing-xs);
+  }
+  
   .footer-links {
-    flex-direction: row;
-    gap: var(--spacing-md);
-    justify-content: center;
+    gap: 0.5rem;
   }
-
-  .footer-wave {
-    top: -40px;
-    height: 80px;
+  
+  .footer-link {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+  }
+  
+  .social-links {
+    gap: 0.5rem;
+  }
+  
+  .social-link {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
   }
 }
 
-/* Tablets (768px+) */
 @media (min-width: 768px) {
   .footer-main {
-    padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-xl);
+    padding: var(--spacing-lg) var(--spacing-md);
   }
-
-  .footer-logo {
-    font-size: var(--font-2xl);
+  
+  .footer-brand {
+    margin-bottom: var(--spacing-md);
   }
-
-  .footer-tagline {
-    font-size: var(--font-base);
-  }
-
+  
   .footer-links {
-    gap: var(--spacing-lg);
-    justify-content: center;
+    margin-bottom: var(--spacing-md);
   }
-
+  
   .social-links {
-    gap: var(--spacing-md);
-    justify-content: center;
-  }
-
-  .social-link {
-    width: 45px;
-    height: 45px;
-    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
   }
 }
 
-/* Desktop (1024px+) */
 @media (min-width: 1024px) {
-  .footer-main {
-    padding: var(--spacing-3xl) var(--spacing-xl) var(--spacing-xl);
-  }
-
-  .social-link {
-    width: 50px;
+  .footer-wave {
+    top: -50px;
     height: 50px;
-    font-size: 1.75rem;
+  }
+  
+  .footer-bottom {
+    padding: var(--spacing-md);
   }
 }
 
-/* Large desktop (1280px+) */
-@media (min-width: 1280px) {
-  .footer-main {
-    padding: var(--spacing-3xl) var(--spacing-2xl) var(--spacing-xl);
+/* Print styles */
+@media print {
+  .footer {
+    display: none;
   }
 }

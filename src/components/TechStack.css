@@ -1,5 +1,5 @@
 .tech-stack {
-  padding: 6rem 2rem;
+  padding: var(--spacing-3xl) var(--spacing-md);
   background: linear-gradient(
     180deg,
     transparent 0%,
@@ -61,9 +61,9 @@
 
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
 }
 
 .tech-card-wrapper {
@@ -75,14 +75,15 @@
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 25px;
-  padding: 2.5rem 1.5rem;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg) var(--spacing-md);
   text-align: center;
   transition: all var(--transition-spring);
   cursor: pointer;
   position: relative;
   overflow: hidden;
   height: 100%;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -127,8 +128,8 @@
 }
 
 .tech-icon {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: var(--spacing-sm);
   display: block;
   filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.3));
   transition: all var(--transition-normal);
@@ -136,15 +137,15 @@
 
 .tech-name {
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: var(--font-sm);
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .tech-level {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-size: var(--font-xs);
+  margin-bottom: var(--spacing-sm);
 }
 
 .tech-progress {
@@ -245,13 +246,7 @@
 }
 
 /* 🌐 TECH ORB SECTION */
-.tech-orb-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4rem 0;
-  min-height: 500px;
-}
+
 
 /* Enhanced existing tech cards */
 .tech-card {
@@ -347,35 +342,99 @@
   font-size: 2rem;
 }
 
-.view-mode-toggle {
-  gap: var(--spacing-xs);
-  flex-wrap: wrap;
-  justify-content: center;
+/* Enhanced Mobile-First Responsive Design */
+
+/* Small Mobile (320px+) */
+@media (min-width: 320px) {
+  .tech-stack {
+    padding: var(--spacing-2xl) var(--spacing-sm);
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+
+  .tech-card {
+    padding: var(--spacing-md) var(--spacing-sm);
+    min-height: 140px;
+    border-radius: var(--radius-lg);
+  }
+
+  .tech-icon {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .tech-name {
+    font-size: var(--font-xs);
+  }
+
+  .tech-level {
+    font-size: clamp(0.6rem, 2vw, 0.75rem);
+  }
+
+  .view-mode-toggle {
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .toggle-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-xs);
+    min-height: 36px;
+  }
+
+
 }
 
-.toggle-btn {
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-xs);
-}
-
-.tech-orb-section {
-  padding: var(--spacing-xl) 0;
-  min-height: 300px;
-}
-
-/* Small tablets (480px+) */
+/* Mobile (480px+) */
 @media (min-width: 480px) {
+  .tech-stack {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .tech-card {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    min-height: 150px;
+  }
+
+  .tech-icon {
+    font-size: 2rem;
+  }
+
+  .tech-name {
+    font-size: var(--font-sm);
+  }
+
+  .toggle-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-sm);
+    min-height: 40px;
+  }
+}
+
+/* Small tablets (640px+) */
+@media (min-width: 640px) {
   .tech-grid {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: var(--spacing-lg);
   }
 
   .tech-card {
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: var(--spacing-lg);
+    min-height: 160px;
   }
 
   .tech-icon {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
 }
 
@@ -386,16 +445,25 @@
   }
 
   .tech-grid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--spacing-xl);
   }
 
   .tech-card {
     padding: var(--spacing-xl);
+    min-height: 180px;
   }
 
   .tech-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
+  }
+
+  .tech-name {
+    font-size: var(--font-base);
+  }
+
+  .tech-level {
+    font-size: var(--font-sm);
   }
 
   .view-mode-toggle {
@@ -404,12 +472,10 @@
 
   .toggle-btn {
     font-size: var(--font-sm);
+    min-height: 44px;
   }
 
-  .tech-orb-section {
-    padding: var(--spacing-2xl) 0;
-    min-height: 500px;
-  }
+
 }
 
 /* Desktop (1024px+) */
@@ -419,19 +485,44 @@
   }
 
   .tech-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: var(--spacing-xl);
   }
+
+  .tech-card {
+    min-height: 200px;
+  }
+
+  .tech-icon {
+    font-size: 3rem;
+  }
+
+
 }
 
 /* Large desktop (1280px+) */
 @media (min-width: 1280px) {
   .tech-stack {
-    padding: var(--spacing-3xl) var(--spacing-2xl);
+    padding: var(--spacing-4xl) var(--spacing-2xl);
   }
 
   .tech-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: var(--spacing-2xl);
+  }
+
+  .tech-card {
+    min-height: 220px;
+  }
+
+  .tech-icon {
+    font-size: 3.5rem;
+  }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1600px) {
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
