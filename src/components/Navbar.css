@@ -21,7 +21,7 @@
   background: rgba(26, 26, 46, 0.95);
   border-color: var(--border-color-hover);
   box-shadow: var(--shadow-glow);
-  left:220px
+  left:430px
 }
 
 .nav-content {
@@ -276,13 +276,7 @@
     left:220px 
   }
 
-  .nav-content {
-    /* gap: var(--spacing-sm); */
-  }
 
-  .mobile-menu-btn {
-    /* padding: var(--spacing-xs); */
-  }
 
   .mobile-menu-btn span {
     width: 18px;

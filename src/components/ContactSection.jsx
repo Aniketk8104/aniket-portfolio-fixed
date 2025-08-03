@@ -17,6 +17,7 @@ const ContactSection = () => {
   });
 
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = e => {
     setFormData({
@@ -25,10 +26,39 @@ const ContactSection = () => {
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        // Reset form on successful submission
+        setFormData({
+          name: '',
+          email: '',
+          project: '',
+          message: '',
+        });
+        alert('Thank you! Your message has been sent successfully.');
+      } else {
+        alert('Oops! There was a problem submitting your form. Please try again.');
+      }
+    } catch (error) {
+      alert('Oops! There was a problem submitting your form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactMethods = [
@@ -90,13 +120,11 @@ const ContactSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <form
-              name="contact"
+              action="https://formspree.io/f/mqaldddn"
               method="POST"
-              data-netlify="true"
               onSubmit={handleSubmit}
               className="contact-form"
             >
-              <input type="hidden" name="form-name" value="contact" />{' '}
               <div className="form-group">
                 <motion.input
                   type="text"
@@ -149,10 +177,11 @@ const ContactSection = () => {
               <motion.button
                 type="submit"
                 className="submit-btn"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                disabled={isSubmitting}
+                whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
               >
-                <span>Send Message</span>
+                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                 <svg
                   width="20"
                   height="20"

@@ -663,11 +663,11 @@ section {
   }
   
   /* Optimize mobile animations */
-  * {
+  /* * {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
   }
-  
+   */
   /* Better mobile touch targets */
   button, a, input, textarea {
     min-height: 14px;

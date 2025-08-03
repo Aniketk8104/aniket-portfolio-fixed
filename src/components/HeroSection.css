@@ -49,6 +49,7 @@
   cursor: default;
   min-height: 42px;
   white-space: nowrap;
+  display:none
 }
 
 .status-dot {
@@ -78,7 +79,7 @@
 
 /* Hero Title - Enhanced Mobile-First Typography */
 .hero-title {
-  font-size: var(--font-5xl);
+  font-size: var(--font-3xl);
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: var(--spacing-md);
@@ -95,7 +96,7 @@
 
 /* Smaller prefix text */
 .hero-title-prefix {
-  font-size: 0.75em;
+  font-size: 0.6rem;
   font-weight: 600;
   color: var(--text-secondary);
   display: block;
@@ -589,7 +590,7 @@
   }
 
   .hero-title-prefix {
-    font-size: 0.8em;
+    font-size: 2.6rem;
     margin-bottom: 0.5rem;
   }
 
