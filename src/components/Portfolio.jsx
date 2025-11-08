@@ -1,376 +1,202 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useTransform,
-} from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import './Portfolio.css';
 
+const projectShowcase = [
+  {
+    id: 'auratech',
+    name: 'AuraTech Services',
+    focus: 'Laptop Rental & Sales Platform',
+    tagline: 'Unified storefront and ops layer for device rentals and purchases.',
+    blurb:
+      'Commerce stack covering instant quotes, bookings, and secure checkout for rentals and sales.',
+    details: [
+      'Razorpay payments across UPI, cards, and EMI with guarded fallbacks.',
+      'WhatsApp quote automation using Baileys.js.',
+      'Admin console with catalog and pricing controls.',
+    ],
+    impact:
+      '80% of manual booking work removed, keeping ops teams responsive and consistent.',
+    stack: [
+      'React.js',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'Razorpay',
+      'Baileys.js',
+      'JWT',
+      'Google OAuth',
+      'AWS EC2',
+      'Netlify',
+      'GitHub Actions',
+    ],
+    cover:
+      "import newImg from '../assets/aura.png';",
+    liveLink: 'https://auratechservices.in',
+  },
+  {
+    id: 'market-intel',
+    name: 'Market Intelligence & LeadAutomation',
+    focus: 'Project Parallax™',
+    tagline: 'AI-first lead intelligence across LinkedIn, Reddit, Twitter, and Quora.',
+    blurb:
+      'LLM-powered lead radar that scrapes conversations, scores intent, and launches outreach.',
+    details: [
+      'GPT-4o and HuggingFace blend rate intent and sentiment.',
+      'RL experiments tune channel, copy, and cadence automatically.',
+      'React + Supabase console tracks cohorts and engagement.',
+    ],
+    impact:
+      '3× lift in lead-to-demo conversions while staying API-fee free (saving $850+/month).',
+    stack: [
+      'React.js',
+      'Supabase',
+      'Node.js',
+      'Python',
+      'GPT-4o',
+      'HuggingFace',
+      'WhatsApp Automation',
+      'Reinforcement Learning',
+    ],
+    cover:
+      'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=1200&q=80',
+    liveLink: null,
+  },
+  {
+    id: 'analytics-dashboard',
+    name: 'Data Analytics Control Tower',
+    focus: 'Operations Intelligence Hub',
+    tagline: 'Real-time dashboards, drill-down charts, and anomaly alerts.',
+    blurb:
+      'Live dashboards that merge KPIs, cohorts, and health signals for quick decisions.',
+    details: [
+      'JWT-secured gateway for APIs and event streams.',
+      'Adaptive chart packs with export-ready snapshots.',
+      'Streaming updates keep ops teams on live numbers.',
+    ],
+    impact:
+      'Reporting cycles dropped 60% by trading spreadsheets for live insights.',
+    stack: ['React', 'TypeScript', 'JWT Auth', 'REST APIs', 'MongoDB', 'Recharts'],
+    cover:
+      'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1200&q=80',
+    liveLink: null,
+  },
+  {
+    id: 'dessert-safari',
+    name: 'DessertSafari',
+    focus: 'D2C E-Commerce Launch',
+    tagline: 'Mobile-first storefront with conversion-tuned flows for dessert fans.',
+    blurb:
+      'Dessert storefront with mobile-first merchandising and checkout journeys.',
+    details: [
+      'Guest, registered, and subscription checkout paths.',
+      'Headless content layer for bundles and promos.',
+      'Fraud-aware auth with passwordless recovery.',
+    ],
+    impact:
+      'Production launch in four weeks with zero support escalations through month one.',
+    stack: ['React.js', 'REST APIs', 'MongoDB', 'Stripe', 'Cloudinary'],
+    cover:
+      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80',
+    liveLink: null,
+  },
+];
+
 const Portfolio = () => {
+  const [activeId, setActiveId] = useState(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
   });
-
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [hoveredProject, setHoveredProject] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [neuralAdaptation, setNeuralAdaptation] = useState({
-    userPreference: 'visual',
-    interactionIntensity: 'medium',
-    focusArea: 'general',
-  });
-
-  const containerRef = useRef(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Neural tracking for user behavior
-  const [userBehavior, setUserBehavior] = useState({
-    hoverTime: {},
-    clickPatterns: [],
-    scrollSections: [],
-    preferredTech: [],
-  });
-
-  // Advanced mouse tracking with neural analysis
-  const handleMouseMove = useCallback(
-    e => {
-      if (!containerRef.current) return;
-
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      mouseX.set(x);
-      mouseY.set(y);
-      setMousePosition({ x, y });
-
-      // Neural adaptation based on mouse behavior
-      const speed = Math.sqrt(e.movementX ** 2 + e.movementY ** 2);
-      if (speed > 30) {
-        setNeuralAdaptation(prev => ({
-          ...prev,
-          interactionIntensity: 'high',
-        }));
-      } else if (speed < 5) {
-        setNeuralAdaptation(prev => ({
-          ...prev,
-          interactionIntensity: 'low',
-        }));
-      }
-    },
-    [mouseX, mouseY]
-  );
-
-  // Track hover patterns for neural learning
-  const handleProjectHover = useCallback((projectId, action) => {
-    const timestamp = Date.now();
-
-    if (action === 'enter') {
-      setHoveredProject(projectId);
-      setUserBehavior(prev => ({
-        ...prev,
-        hoverTime: {
-          ...prev.hoverTime,
-          [projectId]: timestamp,
-        },
-      }));
-    } else if (action === 'leave') {
-      setHoveredProject(null);
-      setUserBehavior(prev => {
-        const hoverDuration =
-          timestamp - (prev.hoverTime[projectId] || timestamp);
-
-        // Analyze hover patterns
-        if (hoverDuration > 2000) {
-          // User is interested in this type of project
-          const project = projects.find(p => p.id === projectId);
-          if (project) {
-            return {
-              ...prev,
-              preferredTech: [
-                ...new Set([
-                  ...prev.preferredTech,
-                  ...project.techStack.slice(0, 2),
-                ]),
-              ],
-            };
-          }
-        }
-
-        return prev;
-      });
-    }
-  }, []);
-
-  // Neural UI adaptation effects
-  useEffect(() => {
-    // Adapt UI based on user behavior patterns
-    const adaptUI = () => {
-      const { preferredTech, hoverTime } = userBehavior;
-
-      // Determine user preference based on interaction patterns
-      const avgHoverTime =
-        Object.values(hoverTime).reduce((a, b) => a + b, 0) /
-        Object.keys(hoverTime).length;
-
-      if (avgHoverTime > 3000) {
-        setNeuralAdaptation(prev => ({
-          ...prev,
-          userPreference: 'detailed',
-          focusArea: 'technical',
-        }));
-      } else if (
-        preferredTech.includes('React') ||
-        preferredTech.includes('JavaScript')
-      ) {
-        setNeuralAdaptation(prev => ({
-          ...prev,
-          focusArea: 'frontend',
-        }));
-      } else if (
-        preferredTech.includes('Node.js') ||
-        preferredTech.includes('MongoDB')
-      ) {
-        setNeuralAdaptation(prev => ({
-          ...prev,
-          focusArea: 'backend',
-        }));
-      }
-    };
-
-    const timer = setTimeout(adaptUI, 5000);
-    return () => clearTimeout(timer);
-  }, [userBehavior]);
-
-  const projects = [
-    {
-      id: 1,
-      title: 'AuraTechServices.in',
-      category: 'enterprise',
-      description:
-        'A sophisticated enterprise platform showcasing cutting-edge technology solutions. Features dynamic content management, real-time data processing, and seamless user experience across all devices.',
-      image: 'AuraTech',
-      techStack: ['React', 'Node.js', 'MongoDB', 'Express', 'AWS'],
-      liveLink: 'https://auratechservices.in',
-      features: [
-        'Real-time Analytics',
-        'Cloud Infrastructure',
-        'API Integration',
-        'Responsive Design',
-      ],
-    },
-    {
-      id: 2,
-      title: 'E-Commerce Platform',
-      category: 'ecommerce',
-      description:
-        'Full-featured e-commerce solution with advanced product management, secure payment integration, real-time inventory tracking, and responsive design for optimal mobile experience.',
-      image: 'DessertSafari',
-      techStack: ['React.js', 'REST API', 'MongoDB'],
-      features: [
-        'Payment Gateway',
-        'Inventory Management',
-        'User Authentication',
-        'Order Tracking',
-      ],
-    },
-    {
-      id: 3,
-      title: 'Data Analytics Dashboard',
-      category: 'dashboard',
-      description:
-        'Real-time data visualization dashboard with custom charting, user authentication, and API integrations. Processes large datasets efficiently with optimized MongoDB queries.',
-      image: 'Dashboard',
-      techStack: ['React', 'JWT Auth', 'REST API'],
-      features: [
-        'Data Visualization',
-        'Real-time Updates',
-        'Custom Charts',
-        'Export Features',
-      ],
-    },
-  ];
-
-  const categories = [
-    { id: 'all', label: 'All Projects' },
-    { id: 'enterprise', label: 'Enterprise' },
-    { id: 'ecommerce', label: 'E-Commerce' },
-    { id: 'dashboard', label: 'Dashboards' },
-  ];
-
-  const filteredProjects =
-    selectedCategory === 'all'
-      ? projects
-      : projects.filter(project => project.category === selectedCategory);
 
   return (
-    <section
-      id="portfolio"
-      className="portfolio"
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      data-neural-focus={neuralAdaptation.focusArea}
-      data-interaction-intensity={neuralAdaptation.interactionIntensity}
-    >
-      <div className="section-container" ref={containerRef}>
+    <section id="portfolio" className="portfolio" ref={ref}>
+      <div className="section-container">
         <motion.div
-          className="section-header"
-          initial={{ opacity: 0, y: -20 }}
+          className="portfolio-intro"
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="section-title">Featured Projects</h2>
+          <span className="portfolio-eyebrow">Projects · Built For Impact</span>
+          <h2 className="section-title">Product Engineering That Ships Outcomes</h2>
           <p className="section-subtitle">
-            Showcasing enterprise-grade applications and innovative solutions
+            Each build blends research, design, and resilient engineering so teams can
+            launch faster and operate smarter.
           </p>
         </motion.div>
 
-        {/* Category Filter */}
-        <motion.div
-          className="category-filter"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {categories.map(category => (
-            <motion.button
-              key={category.id}
-              className={`category-btn ${
-                selectedCategory === category.id ? 'active' : ''
-              }`}
-              onClick={() => setSelectedCategory(category.id)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category.label}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Projects Grid */}
-        <motion.div className="portfolio-grid" layout>
-          <AnimatePresence>
-            {filteredProjects.map((project, index) => (
-              <motion.div
+        <div className="portfolio-panels">
+          {projectShowcase.map((project, index) => {
+            const isActive = project.id === activeId;
+            return (
+              <motion.article
                 key={project.id}
-                className="project-card"
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.1,
-                  type: 'spring',
-                  stiffness:
-                    neuralAdaptation.interactionIntensity === 'high'
-                      ? 400
-                      : 200,
-                  damping: 20,
+                className={`portfolio-panel ${isActive ? 'is-active' : ''}`}
+                onMouseEnter={() => setActiveId(project.id)}
+                onFocus={() => setActiveId(project.id)}
+                onMouseLeave={() => setActiveId(null)}
+                onBlur={event => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) {
+                    setActiveId(null);
+                  }
                 }}
-                onMouseEnter={() => handleProjectHover(project.id, 'enter')}
-                onMouseLeave={() => handleProjectHover(project.id, 'leave')}
-                whileHover={{
-                  y: -20,
-                  rotateY:
-                    neuralAdaptation.interactionIntensity === 'high' ? 5 : 0,
-                  scale:
-                    neuralAdaptation.userPreference === 'detailed'
-                      ? 1.05
-                      : 1.02,
-                }}
+                tabIndex={0}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: index * 0.04 }}
               >
-                <div className="project-image">
-                  <div className="project-overlay">{project.image}</div>
-                  {hoveredProject === project.id && (
-                    <motion.div
-                      className="project-features"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                    >
-                      {project.features.map((feature, idx) => (
-                        <motion.span
-                          key={idx}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: idx * 0.1 }}
-                        >
-                          {feature}
-                        </motion.span>
+                <figure className="panel-cover">
+                  <img src={project.cover} alt={project.name} loading="lazy" />
+                </figure>
+
+                <header className="panel-header">
+                  <span className="panel-index">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h3>{project.name}</h3>
+                    <p>{project.focus}</p>
+                  </div>
+                </header>
+                <p className="panel-tagline">{project.tagline}</p>
+
+                <div className={`panel-details ${isActive ? 'is-visible' : ''}`}>
+                  <p className="panel-blurb">{project.blurb}</p>
+
+                  <div className="panel-meta">
+                    <ul className="panel-points">
+                      {project.details.map(item => (
+                        <li key={item}>{item}</li>
                       ))}
-                    </motion.div>
-                  )}
-                </div>
-
-                <div className="project-content">
-                  <h3 className="project-title">{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
-
-                  <div className="tech-tags">
-                    {project.techStack.map((tech, idx) => (
-                      <motion.span
-                        key={idx}
-                        className="tech-tag"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
+                    </ul>
+                    <p className="panel-impact">{project.impact}</p>
                   </div>
 
-                  <div className="project-links">
+                  <footer className="panel-footer">
+                    <div className="panel-stack">
+                      {project.stack.slice(0, 6).map(tech => (
+                        <span key={`${project.id}-${tech}`} className="panel-chip">
+                          {tech}
+                        </span>
+                      ))}
+                      {project.stack.length > 6 && <span className="panel-chip">+ more</span>}
+                    </div>
                     {project.liveLink && (
-                      <motion.a
+                      <a
+                        className="panel-link"
                         href={project.liveLink}
-                        className="project-link"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18 13V19C18 20.1046 17.1046 21 16 21H5C3.89543 21 3 20.1046 3 19V8C3 6.89543 3.89543 6 5 6H11"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M15 3H21V9"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M10 14L21 3"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        Live Demo
-                      </motion.a>
+                        View Live
+                      </a>
                     )}
-                  </div>
+                  </footer>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+              </motion.article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

@@ -131,16 +131,6 @@ const TechStack = () => {
             applications
           </p>
 
-          {/* View Mode Toggle */}
-          <div className="view-mode-toggle">
-            <button
-              className={`toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
-              onClick={() => setViewMode('grid')}
-            >
-              Grid View
-            </button>
-
-          </div>
         </motion.div>
 
         {/* Tech Stack Display */}

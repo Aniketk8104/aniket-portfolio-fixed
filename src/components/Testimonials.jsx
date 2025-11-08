@@ -20,22 +20,22 @@ const Testimonials = () => {
       company: "AuraTech Services",
       rating: 5,
     },
-    {
-      id: 2,
-      text: "Working with Aniket was an absolute pleasure. His technical skills are matched only by his professionalism and dedication to delivering high-quality solutions. The e-commerce platform he built for us handles thousands of concurrent users without breaking a sweat. His attention to security, performance optimization, and user experience is exceptional.",
-      author: "Sarah M.",
-      position: "CEO",
-      company: "Digital Commerce Inc.",
-      rating: 5,
-    },
-    {
-      id: 3,
-      text: "Aniket transformed our data visualization needs into an intuitive, powerful dashboard that our entire team loves. His expertise in React and D3.js created smooth, interactive charts that make complex data easy to understand. He went above and beyond, implementing features we didn't even know we needed.",
-      author: "Michael R.",
-      position: "Data Analytics Manager",
-      company: "Analytics Pro",
-      rating: 5,
-    },
+    // {
+    //   id: 2,
+    //   text: "Working with Aniket was an absolute pleasure. His technical skills are matched only by his professionalism and dedication to delivering high-quality solutions. The e-commerce platform he built for us handles thousands of concurrent users without breaking a sweat. His attention to security, performance optimization, and user experience is exceptional.",
+    //   author: "Sarah M.",
+    //   position: "CEO",
+    //   company: "Digital Commerce Inc.",
+    //   rating: 5,
+    // },
+    // {
+    //   id: 3,
+    //   text: "Aniket transformed our data visualization needs into an intuitive, powerful dashboard that our entire team loves. His expertise in React and D3.js created smooth, interactive charts that make complex data easy to understand. He went above and beyond, implementing features we didn't even know we needed.",
+    //   author: "Michael R.",
+    //   position: "Data Analytics Manager",
+    //   company: "Analytics Pro",
+    //   rating: 5,
+    // },
   ];
 
   const nextTestimonial = () => {
@@ -195,7 +195,7 @@ const Testimonials = () => {
             <div className="trust-label">Average Rating</div>
           </div>
           <div className="trust-item">
-            <div className="trust-number">50+</div>
+            <div className="trust-number">5+</div>
             <div className="trust-label">Happy Clients</div>
           </div>
         </motion.div>
