@@ -1,8 +1,9 @@
 .navbar {
   position: fixed;
   top: var(--spacing-md);
-  left: 50%;
-  transform: translateX(-50%);
+  left: auto;
+  right: var(--spacing-2xl);
+  transform: none;
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -21,7 +22,9 @@
   background: rgba(26, 26, 46, 0.95);
   border-color: var(--border-color-hover);
   box-shadow: var(--shadow-glow);
-  left:360px
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
 }
 
 .nav-content {
@@ -181,6 +184,7 @@
   .navbar {
     padding: var(--spacing-sm) var(--spacing-lg);
     max-width: calc(100vw - var(--spacing-lg));
+    right: var(--spacing-xl);
   }
 
   .nav-links {
@@ -197,6 +201,7 @@
   .navbar {
     padding: var(--spacing-sm) var(--spacing-md);
     max-width: calc(100vw - var(--spacing-md));
+    right: var(--spacing-lg);
   }
 
   .nav-links {
@@ -215,6 +220,19 @@
     padding: var(--spacing-sm) var(--spacing-md);
     width: calc(100vw - var(--spacing-lg));
     min-width: auto;
+    right: auto;
+    left: 850px;
+    transform: translateX(-50%);
+  }
+
+  .navbar.scrolled {
+    top: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    width: calc(100vw - var(--spacing-lg));
+    min-width: auto;
+    right: auto;
+    left: 850px;
+    transform: translateX(-50%);
   }
 
   .nav-links {
@@ -248,7 +266,19 @@
     padding: var(--spacing-xs) var(--spacing-sm);
     width: calc(100vw - var(--spacing-md));
     border-radius: var(--radius-lg);
-    /* left:20px */
+    left: 600px;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .navbar.scrolled {
+    top: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    width: calc(100vw - var(--spacing-md));
+    border-radius: var(--radius-lg);
+    left: 600px;
+    right: auto;
+    transform: translateX(-50%);
   }
 
   .logo {
@@ -268,15 +298,25 @@
   }
 }
 
+
 @media (max-width: 480px) {
   .navbar {
     padding: var(--spacing-xs);
     width: calc(100vw - var(--spacing-sm));
     min-width: 280px;
-    left:220px 
+    left: 360px;
+    right: auto;
+    transform: translateX(-50%);
   }
 
-
+  .navbar.scrolled {
+    padding: var(--spacing-xs);
+    width: calc(100vw - var(--spacing-sm));
+    min-width: 280px;
+    left: 360px;
+    right: auto;
+    transform: translateX(-50%);
+  }
 
   .mobile-menu-btn span {
     width: 18px;
