@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import auraCover from '../assets/aura.png';
@@ -101,10 +101,187 @@ const projectShowcase = [
 
 const Portfolio = () => {
   const [activeId, setActiveId] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const panelsRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const lastTimestampRef = useRef(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
   });
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 900px)');
+    const handleChange = event => {
+      setIsMobile(event.matches);
+      setIsAutoPlaying(event.matches);
+    };
+
+    setIsMobile(mediaQuery.matches);
+    setIsAutoPlaying(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setActiveId(null);
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!isMobile || !panelsRef.current) {
+      return undefined;
+    }
+
+    const container = panelsRef.current;
+    const positionAtMiddle = () => {
+      const segment = container.scrollWidth / 3;
+      if (segment) {
+        container.scrollLeft = segment;
+      }
+    };
+
+    const rafId = requestAnimationFrame(positionAtMiddle);
+    const timeoutId = window.setTimeout(positionAtMiddle, 120);
+
+    const handleResize = () => {
+      requestAnimationFrame(positionAtMiddle);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!isMobile || !isAutoPlaying || !panelsRef.current) {
+      return undefined;
+    }
+
+    const container = panelsRef.current;
+    const speedPerMs = 0.075;
+
+    const step = timestamp => {
+      if (lastTimestampRef.current == null) {
+        lastTimestampRef.current = timestamp;
+      }
+
+      const delta = timestamp - lastTimestampRef.current;
+      container.scrollLeft += delta * speedPerMs;
+
+      const segment = container.scrollWidth / 3;
+      if (segment > 0 && container.scrollLeft >= segment * 2) {
+        container.scrollLeft -= segment;
+      }
+
+      lastTimestampRef.current = timestamp;
+      animationFrameRef.current = requestAnimationFrame(step);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(step);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      animationFrameRef.current = null;
+      lastTimestampRef.current = null;
+    };
+  }, [isMobile, isAutoPlaying]);
+
+  useEffect(() => {
+    if (!isMobile || isAutoPlaying || activeId) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      lastTimestampRef.current = null;
+      setIsAutoPlaying(true);
+    }, 4500);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [isMobile, isAutoPlaying, activeId]);
+
+  const pauseAutoPlay = useCallback(() => {
+    setIsAutoPlaying(prev => {
+      if (prev && animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+
+      if (prev && lastTimestampRef.current !== null) {
+        lastTimestampRef.current = null;
+      }
+
+      return prev ? false : prev;
+    });
+  }, []);
+
+  const handleLoopScrollBounds = useCallback(() => {
+    if (!isMobile || !panelsRef.current) {
+      return;
+    }
+
+    const container = panelsRef.current;
+    const segment = container.scrollWidth / 3;
+
+    if (!segment) {
+      return;
+    }
+
+    if (container.scrollLeft >= segment * 2) {
+      container.scrollLeft -= segment;
+    } else if (container.scrollLeft <= segment * 0.05) {
+      container.scrollLeft += segment;
+    }
+  }, [isMobile]);
+
+  const scrollCardIntoView = useCallback(element => {
+    if (!isMobile || !panelsRef.current || !element) {
+      return;
+    }
+
+    const container = panelsRef.current;
+    const containerRect = container.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
+    const offset = elementRect.left - containerRect.left;
+    const targetScroll =
+      container.scrollLeft + offset - (containerRect.width - elementRect.width) / 2;
+
+    container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+  }, [isMobile]);
+
+  const handlePanelToggle = useCallback(
+    (projectId, element) => {
+      if (isMobile) {
+        pauseAutoPlay();
+      }
+
+      setActiveId(prev => {
+        const next = prev === projectId ? null : projectId;
+        if (isMobile && element) {
+          scrollCardIntoView(element);
+        }
+        return next;
+      });
+    },
+    [isMobile, pauseAutoPlay, scrollCardIntoView],
+  );
+
+  const renderedProjects = isMobile
+    ? [...projectShowcase, ...projectShowcase, ...projectShowcase]
+    : projectShowcase;
 
   return (
     <section id="portfolio" className="portfolio" ref={ref}>
@@ -122,65 +299,96 @@ const Portfolio = () => {
             launch faster and operate smarter.
           </p>
         </motion.div>
-
-        <div className="portfolio-panels">
-          {projectShowcase.map((project, index) => {
-            const isActive = project.id === activeId;
+        <div
+          className={`portfolio-panels${isMobile ? ' is-mobile' : ''}${
+            isMobile && !isAutoPlaying ? ' is-paused' : ''
+          }`}
+          ref={panelsRef}
+          onScroll={isMobile ? handleLoopScrollBounds : undefined}
+          onTouchStart={isMobile ? pauseAutoPlay : undefined}
+          onMouseDown={isMobile ? pauseAutoPlay : undefined}
+          onPointerDown={isMobile ? pauseAutoPlay : undefined}
+          onWheel={isMobile ? pauseAutoPlay : undefined}
+        >
+          {renderedProjects.map((_, index) => {
+            const baseIndex = index % projectShowcase.length;
+            const projectData = projectShowcase[baseIndex];
+            const isDuplicate =
+              isMobile && (index < projectShowcase.length || index >= projectShowcase.length * 2);
+            const isActive = projectData.id === activeId;
             return (
               <motion.article
-                key={project.id}
+                key={`${projectData.id}-${index}`}
                 className={`portfolio-panel ${isActive ? 'is-active' : ''}`}
-                onMouseEnter={() => setActiveId(project.id)}
-                onFocus={() => setActiveId(project.id)}
-                onMouseLeave={() => setActiveId(null)}
+                onMouseEnter={!isMobile ? () => setActiveId(projectData.id) : undefined}
+                onFocus={!isMobile ? () => setActiveId(projectData.id) : undefined}
+                onClick={
+                  isDuplicate
+                    ? undefined
+                    : event => handlePanelToggle(projectData.id, event.currentTarget)
+                }
+                onKeyDown={
+                  isDuplicate
+                    ? undefined
+                    : event => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          handlePanelToggle(projectData.id, event.currentTarget);
+                        }
+                      }
+                }
+                onMouseLeave={!isMobile ? () => setActiveId(null) : undefined}
                 onBlur={event => {
                   if (!event.currentTarget.contains(event.relatedTarget)) {
                     setActiveId(null);
                   }
                 }}
-                tabIndex={0}
+                tabIndex={isDuplicate ? -1 : 0}
+                role="button"
+                aria-expanded={isActive}
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: index * 0.04 }}
+                transition={{ duration: 0.35, delay: baseIndex * 0.04 }}
+                aria-hidden={isDuplicate}
               >
                 <figure className="panel-cover">
-                  <img src={project.cover} alt={project.name} loading="lazy" />
+                  <img src={projectData.cover} alt={projectData.name} loading="lazy" />
                 </figure>
 
                 <header className="panel-header">
-                  <span className="panel-index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="panel-index">{String(baseIndex + 1).padStart(2, '0')}</span>
                   <div>
-                    <h3>{project.name}</h3>
-                    <p>{project.focus}</p>
+                    <h3>{projectData.name}</h3>
+                    <p>{projectData.focus}</p>
                   </div>
                 </header>
-                <p className="panel-tagline">{project.tagline}</p>
+                <p className="panel-tagline">{projectData.tagline}</p>
 
                 <div className={`panel-details ${isActive ? 'is-visible' : ''}`}>
-                  <p className="panel-blurb">{project.blurb}</p>
+                  <p className="panel-blurb">{projectData.blurb}</p>
 
                   <div className="panel-meta">
                     <ul className="panel-points">
-                      {project.details.map(item => (
+                      {projectData.details.map(item => (
                         <li key={item}>{item}</li>
                       ))}
                     </ul>
-                    <p className="panel-impact">{project.impact}</p>
+                    <p className="panel-impact">{projectData.impact}</p>
                   </div>
 
                   <footer className="panel-footer">
                     <div className="panel-stack">
-                      {project.stack.slice(0, 6).map(tech => (
-                        <span key={`${project.id}-${tech}`} className="panel-chip">
+                      {projectData.stack.slice(0, 6).map(tech => (
+                        <span key={`${projectData.id}-${tech}`} className="panel-chip">
                           {tech}
                         </span>
                       ))}
-                      {project.stack.length > 6 && <span className="panel-chip">+ more</span>}
+                      {projectData.stack.length > 6 && <span className="panel-chip">+ more</span>}
                     </div>
-                    {project.liveLink && (
+                    {projectData.liveLink && (
                       <a
                         className="panel-link"
-                        href={project.liveLink}
+                        href={projectData.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
