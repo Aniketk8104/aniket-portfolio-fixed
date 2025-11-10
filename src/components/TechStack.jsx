@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import Tilt from 'react-parallax-tilt';
 // import TechOrb from './TechOrb';
 import './TechStack.css';
 
@@ -13,6 +12,67 @@ const TechStack = () => {
 
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'orb'
   const [selectedTech, setSelectedTech] = useState(null);
+  const [enableTilt, setEnableTilt] = useState(false);
+  const [TiltComponent, setTiltComponent] = useState(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return undefined;
+    }
+
+    const pointerQuery = window.matchMedia('(pointer: fine)');
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const evaluateTiltSupport = () => {
+      setEnableTilt(pointerQuery.matches && !motionQuery.matches);
+    };
+
+    evaluateTiltSupport();
+
+    const cleanupHandlers = [];
+
+    if (typeof pointerQuery.addEventListener === 'function') {
+      pointerQuery.addEventListener('change', evaluateTiltSupport);
+      cleanupHandlers.push(() => pointerQuery.removeEventListener('change', evaluateTiltSupport));
+    } else if (typeof pointerQuery.addListener === 'function') {
+      pointerQuery.addListener(evaluateTiltSupport);
+      cleanupHandlers.push(() => pointerQuery.removeListener(evaluateTiltSupport));
+    }
+
+    if (typeof motionQuery.addEventListener === 'function') {
+      motionQuery.addEventListener('change', evaluateTiltSupport);
+      cleanupHandlers.push(() => motionQuery.removeEventListener('change', evaluateTiltSupport));
+    } else if (typeof motionQuery.addListener === 'function') {
+      motionQuery.addListener(evaluateTiltSupport);
+      cleanupHandlers.push(() => motionQuery.removeListener(evaluateTiltSupport));
+    }
+
+    return () => {
+      cleanupHandlers.forEach(cleanup => cleanup());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!enableTilt || TiltComponent) {
+      return undefined;
+    }
+
+    let isCancelled = false;
+
+    import('react-parallax-tilt')
+      .then(module => {
+        if (!isCancelled) {
+          setTiltComponent(() => module.default);
+        }
+      })
+      .catch(() => {
+        setTiltComponent(null);
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [enableTilt, TiltComponent]);
 
   const technologies = [
     {
@@ -154,67 +214,74 @@ const TechStack = () => {
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
           >
-            {technologies.map((tech, index) => (
-              <motion.div key={tech.name} variants={itemVariants}>
-                <Tilt
-                  className="tech-card-wrapper"
-                  tiltMaxAngleX={15}
-                  tiltMaxAngleY={15}
-                  perspective={1000}
-                  scale={1.05}
-                  transitionSpeed={1000}
-                  gyroscope={true}
-                >
-                  <motion.div
-                    className="tech-card"
-                    whileHover={{
-                      borderColor: tech.color,
-                      boxShadow: `0 20px 40px ${tech.color}40`,
-                    }}
-                    style={{ '--tech-color': tech.color }}
-                  >
-                    <motion.div
-                      className="tech-icon"
-                      animate={{
-                        rotate: [0, 10, -10, 10, 0],
-                        scale: [1, 1.1, 1],
-                      }}
-                      transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        delay: index * 0.2,
-                      }}
-                    >
-                      {tech.icon}
-                    </motion.div>
-                    <h3 className="tech-name">{tech.name}</h3>
-                    <p className="tech-level">{tech.level}</p>
+            {technologies.map((tech, index) => {
+              const CardWrapper = enableTilt && TiltComponent ? TiltComponent : 'div';
+              const tiltWrapperProps =
+                enableTilt && TiltComponent
+                  ? {
+                      tiltMaxAngleX: 15,
+                      tiltMaxAngleY: 15,
+                      perspective: 1000,
+                      scale: 1.05,
+                      transitionSpeed: 1000,
+                      gyroscope: true,
+                    }
+                  : {};
 
-                    {/* Progress Bar */}
-                    <div className="tech-progress">
+              return (
+                <motion.div key={tech.name} variants={itemVariants}>
+                  <CardWrapper className="tech-card-wrapper" {...tiltWrapperProps}>
+                    <motion.div
+                      className="tech-card"
+                      whileHover={{
+                        borderColor: tech.color,
+                        boxShadow: `0 20px 40px ${tech.color}40`,
+                      }}
+                      style={{ '--tech-color': tech.color }}
+                    >
                       <motion.div
-                        className="tech-progress-bar"
-                        initial={{ width: 0 }}
-                        animate={
-                          inView
-                            ? {
-                                width:
-                                  tech.level === 'Expert'
-                                    ? '95%'
-                                    : tech.level === 'Advanced'
-                                    ? '80%'
-                                    : '65%',
-                              }
-                            : {}
-                        }
-                        transition={{ duration: 1, delay: index * 0.1 }}
-                        style={{ background: tech.color }}
-                      />
-                    </div>
-                  </motion.div>
-                </Tilt>
-              </motion.div>
-            ))}
+                        className="tech-icon"
+                        animate={{
+                          rotate: [0, 10, -10, 10, 0],
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                          duration: 5,
+                          repeat: Infinity,
+                          delay: index * 0.2,
+                        }}
+                      >
+                        {tech.icon}
+                      </motion.div>
+                      <h3 className="tech-name">{tech.name}</h3>
+                      <p className="tech-level">{tech.level}</p>
+
+                      {/* Progress Bar */}
+                      <div className="tech-progress">
+                        <motion.div
+                          className="tech-progress-bar"
+                          initial={{ width: 0 }}
+                          animate={
+                            inView
+                              ? {
+                                  width:
+                                    tech.level === 'Expert'
+                                      ? '95%'
+                                      : tech.level === 'Advanced'
+                                      ? '80%'
+                                      : '65%',
+                                }
+                              : {}
+                          }
+                          transition={{ duration: 1, delay: index * 0.1 }}
+                          style={{ background: tech.color }}
+                        />
+                      </div>
+                    </motion.div>
+                  </CardWrapper>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </div>

@@ -79,7 +79,7 @@
 
 /* Hero Title - Enhanced Mobile-First Typography */
 .hero-title {
-  font-size: var(--font-3xl);
+  font-size: var(--font-2xl);
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: var(--spacing-md);
@@ -138,7 +138,7 @@
 
 /* Hero Subtitle - Responsive Typography */
 .hero-subtitle {
-  font-size: var(--font-lg);
+  font-size: var(--font-base);
   color: var(--text-secondary);
   margin-bottom: var(--spacing-xl);
   line-height: 1.8;
@@ -419,7 +419,7 @@
   font-weight: 500;
 }
 .comment {
-  color: #546e7a;
+  color: #89a6ba;
   font-style: italic;
 }
 .property {
@@ -475,7 +475,7 @@
 
   .hero-container {
     gap: var(--spacing-lg);
-    padding-top: var(--spacing-xl);
+    padding-top: var(--spacing-3xl);
   }
 
   .hero-badge {

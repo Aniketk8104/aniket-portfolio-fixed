@@ -112,19 +112,19 @@ const HeroSection = () => {
           </motion.div>
 
           <motion.div className="hero-badge" variants={itemVariants}>
-            MERN Stack Developer
+            Freelance MERN & Full-Stack Developer
           </motion.div>
 
           <motion.h1 className="hero-title" variants={itemVariants}>
             <span className="hero-title-prefix">
-              Transform Your Vision Into
+              Hire a revenue-focused MERN stack engineer for
             </span>{' '}
             <span className="gradient-text">
               <Typewriter
                 strings={[
-                  'Scalable  Reality',
-                  'Powerful Applications',
-                  'Business Success',
+                  'SaaS & startup launches',
+                  'enterprise-grade web apps',
+                  'full-stack product rebuilds',
                 ]}
                 typeSpeed={50}
                 backSpeed={30}
@@ -134,10 +134,10 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.p className="hero-subtitle" variants={itemVariants}>
-            I architect and build sophisticated web solutions that drive real
-            business results. With advanced MERN stack expertise, I transform
-            complex requirements into elegant, high-performance applications
-            that scale.
+            I help founders and product teams ship conversion-driven React,
+            Node.js, Express, and MongoDB builds. From greenfield MVPs to
+            complex migrations, I own the full-stack roadmap—architecture,
+            delivery, and measurable outcomes.
           </motion.p>
 
           <motion.div className="cta-group" variants={itemVariants}>
@@ -214,7 +214,7 @@ const HeroSection = () => {
           <motion.div className="stats-grid" variants={containerVariants}>
             {[
               { number: '1+', label: 'Years Experience' },
-              { number: '3+', label: 'Projects Completed' },
+              { number: '5+', label: 'Projects Completed' },
               { number: '100%', label: 'Client Satisfaction' },
               { number: '24/7', label: 'Support Available' },
             ].map((stat, index) => (
@@ -302,6 +302,7 @@ const HeroSection = () => {
         className="scroll-indicator"
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 1.5 }}
+        aria-label="Scroll to the about section"
       >
         <svg
           width="30"

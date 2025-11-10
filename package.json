@@ -7,9 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:lighthouse": "npm run build && start-server-and-test preview http://127.0.0.1:4173 \"lighthouse http://127.0.0.1:4173 --only-categories=performance,accessibility,best-practices,seo --screen emulated-desktop --output html --output-path ./lighthouse-report.html --chrome-flags=\\\"--headless --no-sandbox\\\"\""
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@react-three/drei": "^9.96.5",
     "@react-three/fiber": "^8.15.16",
     "framer-motion": "^11.0.3",
@@ -32,6 +35,8 @@
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.9",
+    "lighthouse": "^12.8.2",
+    "start-server-and-test": "^2.0.3",
     "vite": "^5.3.4"
   }
 }

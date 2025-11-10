@@ -318,6 +318,7 @@ const AIPersonalization = () => {
           onClick={() => setIsLearning(true)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
+          aria-label="Close personalization insights"
         >
           ×
         </motion.button>

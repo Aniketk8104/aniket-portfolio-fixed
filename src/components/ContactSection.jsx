@@ -126,29 +126,43 @@ const ContactSection = () => {
               className="contact-form"
             >
               <div className="form-group">
+                <label className="sr-only" htmlFor="contact-name">
+                  Full name
+                </label>
                 <motion.input
+                  id="contact-name"
                   type="text"
                   name="name"
                   placeholder="Your Name"
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  autoComplete="name"
                   whileFocus={{ scale: 1.02 }}
                 />
               </div>
               <div className="form-group">
+                <label className="sr-only" htmlFor="contact-email">
+                  Email address
+                </label>
                 <motion.input
+                  id="contact-email"
                   type="email"
                   name="email"
                   placeholder="Your Email"
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  autoComplete="email"
                   whileFocus={{ scale: 1.02 }}
                 />
               </div>
               <div className="form-group">
+                <label className="sr-only" htmlFor="contact-project">
+                  Project type
+                </label>
                 <motion.select
+                  id="contact-project"
                   name="project"
                   value={formData.project}
                   onChange={handleChange}
@@ -164,7 +178,11 @@ const ContactSection = () => {
                 </motion.select>
               </div>
               <div className="form-group">
+                <label className="sr-only" htmlFor="contact-message">
+                  Project details
+                </label>
                 <motion.textarea
+                  id="contact-message"
                   name="message"
                   placeholder="Tell me about your project..."
                   rows="5"

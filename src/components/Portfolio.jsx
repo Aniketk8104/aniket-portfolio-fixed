@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import auraCover from '../assets/aura.png';
-import parallaxIMG from '../assets/1.png';
-import Analytics from '../assets/analytics.jpg';
-import Dessert from '../assets/Dessert.jpg';
+import auraCoverWebp from '../assets/aura.webp';
+import parallaxIMGWebp from '../assets/1.webp';
+import AnalyticsWebp from '../assets/analytics.webp';
+import DessertWebp from '../assets/Dessert.webp';
 import './Portfolio.css';
 
 const projectShowcase = [
@@ -34,7 +34,8 @@ const projectShowcase = [
       'Netlify',
       'GitHub Actions',
     ],
-    cover: auraCover,
+  cover: auraCoverWebp,
+  coverWebp: auraCoverWebp,
     liveLink: 'https://auratechservices.in',
   },
   {
@@ -60,7 +61,8 @@ const projectShowcase = [
       'WhatsApp Automation',
       'Reinforcement Learning',
     ],
-    cover: parallaxIMG,
+  cover: parallaxIMGWebp,
+  coverWebp: parallaxIMGWebp,
     liveLink: null,
   },
   {
@@ -77,7 +79,8 @@ const projectShowcase = [
     ],
     impact: 'Reporting cycles shrank 60% versus spreadsheet workflows.',
     stack: ['React', 'TypeScript', 'JWT Auth', 'REST APIs', 'MongoDB', 'Recharts'],
-    cover: Analytics,
+  cover: AnalyticsWebp,
+  coverWebp: AnalyticsWebp,
     liveLink: null,
   },
   {
@@ -94,7 +97,8 @@ const projectShowcase = [
     ],
     impact: 'Launched in four weeks with zero support escalations.',
     stack: ['React.js', 'REST APIs', 'MongoDB', 'Stripe', 'Cloudinary'],
-    cover: Dessert,
+  cover: DessertWebp,
+  coverWebp: DessertWebp,
     liveLink: null,
   },
 ];
@@ -104,6 +108,7 @@ const Portfolio = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const panelsRef = useRef(null);
+  const segmentRef = useRef(0);
   const animationFrameRef = useRef(null);
   const lastTimestampRef = useRef(null);
   const [ref, inView] = useInView({
@@ -139,10 +144,18 @@ const Portfolio = () => {
     }
 
     const container = panelsRef.current;
-    const positionAtMiddle = () => {
+    const calculateSegment = () => {
       const segment = container.scrollWidth / 3;
-      if (segment) {
-        container.scrollLeft = segment;
+      segmentRef.current = Number.isFinite(segment) ? segment : 0;
+    };
+
+    const positionAtMiddle = () => {
+      if (!segmentRef.current) {
+        calculateSegment();
+      }
+
+      if (segmentRef.current) {
+        container.scrollLeft = segmentRef.current;
       }
     };
 
@@ -150,9 +163,11 @@ const Portfolio = () => {
     const timeoutId = window.setTimeout(positionAtMiddle, 120);
 
     const handleResize = () => {
+      calculateSegment();
       requestAnimationFrame(positionAtMiddle);
     };
 
+    calculateSegment();
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -178,7 +193,7 @@ const Portfolio = () => {
       const delta = timestamp - lastTimestampRef.current;
       container.scrollLeft += delta * speedPerMs;
 
-      const segment = container.scrollWidth / 3;
+      const segment = segmentRef.current;
       if (segment > 0 && container.scrollLeft >= segment * 2) {
         container.scrollLeft -= segment;
       }
@@ -234,7 +249,7 @@ const Portfolio = () => {
     }
 
     const container = panelsRef.current;
-    const segment = container.scrollWidth / 3;
+    const segment = segmentRef.current;
 
     if (!segment) {
       return;
@@ -280,8 +295,23 @@ const Portfolio = () => {
   );
 
   const renderedProjects = isMobile
-    ? [...projectShowcase, ...projectShowcase, ...projectShowcase]
-    : projectShowcase;
+    ? Array.from({ length: projectShowcase.length * 3 }, (_, index) => {
+        const project = projectShowcase[index % projectShowcase.length];
+        const isDuplicate =
+          index < projectShowcase.length || index >= projectShowcase.length * 2;
+        return {
+          project,
+          baseIndex: index % projectShowcase.length,
+          renderIndex: index,
+          isDuplicate,
+        };
+      })
+    : projectShowcase.map((project, index) => ({
+        project,
+        baseIndex: index,
+        renderIndex: index,
+        isDuplicate: false,
+      }));
 
   return (
     <section id="portfolio" className="portfolio" ref={ref}>
@@ -310,16 +340,30 @@ const Portfolio = () => {
           onPointerDown={isMobile ? pauseAutoPlay : undefined}
           onWheel={isMobile ? pauseAutoPlay : undefined}
         >
-          {renderedProjects.map((_, index) => {
-            const baseIndex = index % projectShowcase.length;
-            const projectData = projectShowcase[baseIndex];
-            const isDuplicate =
-              isMobile && (index < projectShowcase.length || index >= projectShowcase.length * 2);
+          {renderedProjects.map(({ project, baseIndex, renderIndex, isDuplicate }) => {
+            const projectData = project;
             const isActive = projectData.id === activeId;
+            const isPanelActive = !isDuplicate && isActive;
+            const PanelComponent = motion.div;
+            const baseProps = isDuplicate
+              ? {
+                  role: 'presentation',
+                  tabIndex: -1,
+                  'aria-hidden': true,
+                  inert: '',
+                }
+              : {
+                  role: 'button',
+                  tabIndex: 0,
+                  'aria-label': `Toggle project details for ${projectData.name}`,
+                  'aria-expanded': isPanelActive,
+                };
             return (
-              <motion.article
-                key={`${projectData.id}-${index}`}
-                className={`portfolio-panel ${isActive ? 'is-active' : ''}`}
+              <PanelComponent
+                key={`${projectData.id}-${renderIndex}`}
+                className={`portfolio-panel ${isDuplicate ? 'is-duplicate' : ''} ${
+                  isPanelActive ? 'is-active' : ''
+                }`}
                 onMouseEnter={!isMobile ? () => setActiveId(projectData.id) : undefined}
                 onFocus={!isMobile ? () => setActiveId(projectData.id) : undefined}
                 onClick={
@@ -343,16 +387,23 @@ const Portfolio = () => {
                     setActiveId(null);
                   }
                 }}
-                tabIndex={isDuplicate ? -1 : 0}
-                role="button"
-                aria-expanded={isActive}
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: baseIndex * 0.04 }}
-                aria-hidden={isDuplicate}
+                {...baseProps}
               >
                 <figure className="panel-cover">
-                  <img src={projectData.cover} alt={projectData.name} loading="lazy" />
+                  <picture>
+                    {projectData.coverWebp && (
+                      <source type="image/webp" srcSet={projectData.coverWebp} />
+                    )}
+                    <img
+                      src={projectData.cover}
+                      alt={projectData.name}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                 </figure>
 
                 <header className="panel-header">
@@ -364,7 +415,7 @@ const Portfolio = () => {
                 </header>
                 <p className="panel-tagline">{projectData.tagline}</p>
 
-                <div className={`panel-details ${isActive ? 'is-visible' : ''}`}>
+                <div className={`panel-details ${isPanelActive ? 'is-visible' : ''}`}>
                   <p className="panel-blurb">{projectData.blurb}</p>
 
                   <div className="panel-meta">
@@ -397,7 +448,7 @@ const Portfolio = () => {
                     )}
                   </footer>
                 </div>
-              </motion.article>
+              </PanelComponent>
             );
           })}
         </div>

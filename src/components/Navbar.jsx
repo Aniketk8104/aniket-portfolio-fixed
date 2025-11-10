@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   motion,
   useScroll,
@@ -7,19 +7,26 @@ import {
 } from 'framer-motion';
 import './Navbar.css';
 
+const NAV_ITEMS = [
+  { id: 'home', label: 'Home' },
+  { id: 'tech', label: 'Expertise' },
+  { id: 'about', label: 'About' },
+  { id: 'services', label: 'Services' },
+  { id: 'portfolio', label: 'Work' },
+  { id: 'insights', label: 'Insights' },
+  { id: 'contact', label: 'Contact' },
+];
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
-
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'tech', label: 'Expertise' },
-    { id: 'about', label: 'About' },
-    { id: 'portfolio', label: 'Work' },
-    { id: 'contact', label: 'Contact' },
-  ];
+  const navItems = NAV_ITEMS;
+  const getNavHeight = useCallback(
+    () => document.querySelector('.navbar')?.offsetHeight || 0,
+    []
+  );
 
   useMotionValueEvent(scrollY, 'change', latest => {
     setIsScrolled(latest > 50);
@@ -28,7 +35,8 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 200;
+      const navOffset = getNavHeight();
+      const scrollPosition = window.scrollY + navOffset + 140;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -42,19 +50,42 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [getNavHeight, navItems]);
+
+  const smoothScrollTo = (targetY, duration = 700) => {
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+    let startTime = null;
+
+    const easeInOutCubic = t =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const step = currentTime => {
+      if (startTime === null) {
+        startTime = currentTime;
+      }
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeProgress = easeInOutCubic(progress);
+      window.scrollTo(0, startY + distance * easeProgress);
+
+      if (elapsed < duration) {
+        window.requestAnimationFrame(step);
+      }
+    };
+
+    window.requestAnimationFrame(step);
+  };
 
   const handleNavClick = (e, sectionId) => {
     e.preventDefault();
     const section = document.getElementById(sectionId);
     if (section) {
-      const offset = 100;
-      const elementPosition = section.offsetTop - offset;
+      const navOffset = getNavHeight() + 24;
+      const targetPosition = section.getBoundingClientRect().top + window.scrollY - navOffset;
 
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth',
-      });
+      smoothScrollTo(Math.max(targetPosition, 0));
+      setActiveSection(sectionId);
 
       setIsMobileMenuOpen(false);
     }

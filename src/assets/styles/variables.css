@@ -23,10 +23,10 @@
 
   /* Professional Text Colors */
   --text-primary: #ffffff;
-  --text-secondary: #b3b3cc;
-  --text-muted: #8888aa;
-  --text-contrast: #e2e8f0;
-  --accent-color: #667eea;
+  --text-secondary: #d8dcff;
+  --text-muted: #a9b3ff;
+  --text-contrast: #f1f5ff;
+  --accent-color: #7387ff;
   --success-color: #00f2fe;
   --warning-color: #fee140;
   --error-color: #f5576c;

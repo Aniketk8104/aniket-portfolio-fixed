@@ -39,12 +39,12 @@ const Testimonials = () => {
   ];
 
   const nextTestimonial = () => {
-    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    setActiveTestimonial(prev => (prev + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
     setActiveTestimonial(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      prev => (prev - 1 + testimonials.length) % testimonials.length
     );
   };
 
@@ -107,7 +107,9 @@ const Testimonials = () => {
                     .join("")}
                 </motion.div>
                 <div className="author-info">
-                  <h4>{testimonials[activeTestimonial].author}</h4>
+                  <h3 className="testimonial-author-name">
+                    {testimonials[activeTestimonial].author}
+                  </h3>
                   <p>{testimonials[activeTestimonial].position}</p>
                   <span>{testimonials[activeTestimonial].company}</span>
                 </div>
@@ -120,6 +122,8 @@ const Testimonials = () => {
             <motion.button
               className="nav-btn prev"
               onClick={prevTestimonial}
+              type="button"
+              aria-label="Show previous testimonial"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -148,6 +152,9 @@ const Testimonials = () => {
                     index === activeTestimonial ? "active" : ""
                   }`}
                   onClick={() => setActiveTestimonial(index)}
+                  type="button"
+                  aria-label={`Show testimonial ${index + 1}`}
+                  aria-pressed={index === activeTestimonial}
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.8 }}
                 />
@@ -157,6 +164,8 @@ const Testimonials = () => {
             <motion.button
               className="nav-btn next"
               onClick={nextTestimonial}
+              type="button"
+              aria-label="Show next testimonial"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >

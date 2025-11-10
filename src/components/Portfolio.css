@@ -349,6 +349,10 @@
     transform: none;
   }
 
+  .portfolio-panel.is-duplicate {
+    pointer-events: none;
+  }
+
   .portfolio-panel:not(.is-active) .panel-cover img {
     filter: saturate(0.75);
     transform: none;

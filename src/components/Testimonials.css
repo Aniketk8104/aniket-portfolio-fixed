@@ -94,7 +94,7 @@
   transition: all var(--transition-normal);
 }
 
-.author-info h4 {
+.author-info .testimonial-author-name {
   color: var(--text-primary);
   font-weight: 700;
   font-size: 1.1rem;

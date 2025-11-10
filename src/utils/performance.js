@@ -135,8 +135,6 @@ export class PerformanceTracker {
 // Resource hints
 export const addResourceHints = () => {
   const hints = [
-    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true },
     { rel: 'dns-prefetch', href: 'https://www.google-analytics.com' },
     { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' },
   ];

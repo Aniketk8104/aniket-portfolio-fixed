@@ -8,7 +8,7 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" sizes="512x512" href="/favicon-512.png" />
-    <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
@@ -22,14 +22,9 @@
       name="keywords"
       content="freelance MERN developer, hire MERN stack developer, React developer for hire, Node.js freelancer, MongoDB expert, Express.js developer, custom web development, MERN stack services, freelance full stack developer India, web application development"
     />
-    <meta name="author" content="Aniket Kushwaha" />
-    <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
     <meta name="revisit-after" content="7 days" />
     <meta name="rating" content="General" />
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://aniketdev.tech" />
 
     <!-- Open Graph -->
     <meta
@@ -71,10 +66,6 @@
     <!-- Structured Data - JSON-LD -->
     <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": ["Person", "ProfessionalService"],
-        "name": "Aniket Kushwaha",
-        "alternateName": "AniketDev",
         "jobTitle": "Freelance MERN Stack Developer",
         "description": "Expert freelance MERN stack developer offering custom web development services using React, Node.js, MongoDB, and Express.js",
         "url": "https://aniketdev.tech",
@@ -92,7 +83,7 @@
           "JavaScript Programming",
           "Full-Stack Web Development",
           "MERN Stack Architecture",
-          "REST API Development",
+          "REST API Development"
         ],
         "offers": {
           "@type": "Service",
@@ -157,16 +148,8 @@
       }
     </script>
 
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-
-    <!-- DNS Prefetch for performance -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
     <!-- Critical CSS inline -->
     <style>
@@ -205,41 +188,12 @@
         z-index: 10000;
       }
 
-      /* Skip link for accessibility */
-      .skip-link:focus {
-        position: static;
-        width: auto;
-        height: auto;
-        overflow: visible;
-        background: #667eea;
-        color: white;
-        padding: 8px 16px;
-        text-decoration: none;
-        z-index: 10001;
-      }
     </style>
 
-    <!-- Fonts with display swap -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body itemscope itemtype="https://schema.org/WebPage">
     <!-- Skip to main content for accessibility -->
-    <a
-      href="#main-content"
-      class="skip-link"
-      style="
-        position: absolute;
-        left: -10000px;
-        top: auto;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-      "
-      >Skip to main content</a
-    >
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <div id="root">
       <!-- Initial loading state to prevent CLS -->

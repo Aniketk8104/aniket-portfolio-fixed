@@ -3,28 +3,16 @@ const urlsToCache = ['/', '/index.html', '/manifest.json', '/favicon.ico'];
 
 // Install event
 self.addEventListener('install', event => {
-  console.log('Service Worker installing...');
   event.waitUntil(
     caches
       .open(CACHE_NAME)
       .then(cache => {
-        console.log('Opened cache');
         return Promise.allSettled(
-          urlsToCache.map(url =>
-            cache.add(url).catch(err => {
-              console.warn(`Failed to cache ${url}:`, err);
-              return null;
-            })
-          )
+          urlsToCache.map(url => cache.add(url).catch(() => null))
         );
       })
-      .then(() => {
-        console.log('Cache populated successfully');
-        self.skipWaiting();
-      })
-      .catch(error => {
-        console.error('Cache population failed:', error);
-      })
+      .then(() => self.skipWaiting())
+      .catch(() => null)
   );
 });
 
@@ -61,12 +49,7 @@ self.addEventListener('fetch', event => {
         const responseToCache = response.clone();
 
         caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseToCache).catch(err => {
-            // Silently ignore cache errors for non-critical requests
-            if (process.env.NODE_ENV === 'development') {
-              console.warn('Failed to cache response:', err);
-            }
-          });
+          cache.put(event.request, responseToCache).catch(() => null);
         });
 
         return response;
@@ -146,25 +129,22 @@ self.addEventListener('fetch', event => {
 
 // Activate event
 self.addEventListener('activate', event => {
-  console.log('Service Worker activating...');
   const cacheWhitelist = [CACHE_NAME];
 
   event.waitUntil(
     caches
       .keys()
-      .then(cacheNames => {
-        return Promise.all(
+      .then(cacheNames =>
+        Promise.all(
           cacheNames.map(cacheName => {
             if (cacheWhitelist.indexOf(cacheName) === -1) {
-              console.log('Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
+            return null;
           })
-        );
-      })
-      .then(() => {
-        console.log('Service Worker activated');
-        return self.clients.claim();
-      })
+        )
+      )
+      .then(() => self.clients.claim())
+      .catch(() => null)
   );
 });

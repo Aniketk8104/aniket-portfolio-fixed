@@ -82,21 +82,21 @@ const AboutSection = () => {
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h4>2024 - Present</h4>
+                <h3 className="timeline-item-title">2024 - Present</h3>
                 <p> MERN Stack Developer</p>
               </div>
             </div>
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h4>2023 - 2024</h4>
+                <h3 className="timeline-item-title">2023 - 2024</h3>
                 <p>Full Stack Development Journey</p>
               </div>
             </div>
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h4>2023 - Present</h4>
+                <h3 className="timeline-item-title">2023 - Present</h3>
                 <p>B.Sc Computer Science - CKT College</p>
               </div>
             </div>
