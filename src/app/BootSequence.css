@@ -1,0 +1,192 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   BootSequence — cold boot of ENGINEERING OS.
+   A full-screen overlay that draws a grid, brings a status LED online, and
+   initializes runtime modules, then transforms into the interface on exit.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.boot {
+  --boot-ok: 52 224 161;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #06070b;
+  overflow: hidden;
+  will-change: opacity;
+}
+
+/* Engineering grid — CAD-like, faint. Draws in via scale/opacity, zooms out on exit. */
+.boot__grid {
+  position: absolute;
+  inset: -10%;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  /* fade the grid out toward the edges so it never looks like a flat sheet */
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 72%);
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 72%);
+  will-change: transform, opacity;
+}
+
+.boot__stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 0 1.5rem;
+  text-align: center;
+  will-change: transform;
+}
+
+/* Identity badge ─────────────────────────────────────────────────────────── */
+
+.boot__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.boot__led {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: rgb(var(--boot-ok));
+  box-shadow: 0 0 8px 0 rgb(var(--boot-ok) / 0.6);
+}
+
+.boot__led::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(var(--boot-ok) / 0.55), transparent 70%);
+  animation: boot-heartbeat 2.4s ease-in-out infinite;
+}
+
+.boot__led.is-operational::after {
+  animation-duration: 3.5s;
+}
+
+.boot__id {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  line-height: 1;
+}
+
+.boot__title {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  margin-right: -0.34em;
+  color: var(--text-primary, #fafafa);
+}
+
+.boot__status {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+}
+
+/* Module checklist ───────────────────────────────────────────────────────── */
+
+.boot__modules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 240px;
+}
+
+.boot__module {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 12px;
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+  opacity: 0.45;
+  transform: translateY(2px);
+  transition: opacity 0.28s ease, transform 0.28s ease, color 0.28s ease;
+}
+
+.boot__module.is-up {
+  opacity: 1;
+  transform: translateY(0);
+  color: var(--text-secondary, rgba(255, 255, 255, 0.75));
+}
+
+.boot__module-check {
+  text-align: center;
+  color: var(--text-muted, rgba(255, 255, 255, 0.35));
+  transition: color 0.28s ease;
+}
+
+.boot__module.is-up .boot__module-check {
+  color: rgb(var(--boot-ok));
+}
+
+.boot__module-name {
+  text-align: left;
+  letter-spacing: 0.02em;
+}
+
+.boot__module-state {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted, rgba(255, 255, 255, 0.3));
+}
+
+.boot__module.is-up .boot__module-state {
+  color: rgb(var(--boot-ok) / 0.85);
+}
+
+.boot__message {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+}
+
+@keyframes boot-heartbeat {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+@media (max-width: 767px) {
+  .boot__title {
+    font-size: 13px;
+    letter-spacing: 0.28em;
+  }
+  .boot__modules {
+    min-width: 210px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot__grid,
+  .boot__led::after {
+    animation: none;
+  }
+}

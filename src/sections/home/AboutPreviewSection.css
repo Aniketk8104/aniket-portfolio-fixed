@@ -1,0 +1,524 @@
+/**
+ * AboutPreviewSection — engineering identity system.
+ * Prefix `.ab-` / `.ab__`. Dark graphite, near-invisible grid, soft radial
+ * lighting, one restrained accent. Whitespace does most of the work.
+ */
+
+.ab {
+  --ab-accent: #8b5cf6;
+  --ab-radius: 20px;
+  --ab-border: rgba(255, 255, 255, 0.06);
+  --ab-card: rgba(255, 255, 255, 0.03);
+
+  position: relative;
+  isolation: isolate;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-block: clamp(4rem, 9vh, 8rem);
+  padding-inline: var(--page-pad-x);
+  overflow: hidden;
+}
+
+/* Ambient background: engineering grid + soft radial lights + film grain. */
+.ab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask: radial-gradient(80% 70% at 50% 40%, #000 30%, transparent 80%);
+  mask: radial-gradient(80% 70% at 50% 40%, #000 30%, transparent 80%);
+  pointer-events: none;
+}
+
+.ab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(50% 40% at 18% 12%, color-mix(in srgb, var(--ab-accent) 12%, transparent), transparent 70%),
+    radial-gradient(45% 45% at 82% 80%, rgba(99, 102, 241, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Grid ────────────────────────────────────────────────────────────────── */
+/* Four reorderable regions: heading / body / constellation / snapshot. */
+
+.ab__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 25fr) minmax(0, 30fr);
+  grid-template-areas:
+    'head const snap'
+    'body const snap';
+  column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  row-gap: var(--space-6);
+  align-items: center;
+}
+
+/* ── LEFT: editorial (heading + body) ────────────────────────────────────── */
+
+.ab__heading {
+  grid-area: head;
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.ab__body {
+  grid-area: body;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.ab__label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.ab__statement {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(2.25rem, 1.4rem + 2.6vw, 4rem);
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.ab__statement-accent {
+  background: linear-gradient(
+    100deg,
+    var(--ab-accent),
+    color-mix(in srgb, var(--ab-accent) 55%, #c4b5fd)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.ab__paragraph {
+  margin: 0;
+  max-width: 520px;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* Philosophy chips */
+.ab__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ab-chip {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  background: var(--ab-card);
+  border: 1px solid var(--ab-border);
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.ab-chip:hover {
+  transform: translateY(-2px);
+  color: var(--color-text-primary);
+  border-color: color-mix(in srgb, var(--ab-accent) 40%, transparent);
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.8);
+}
+
+/* CTA */
+.ab-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  padding-bottom: 3px;
+}
+
+.ab-cta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--ab-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.ab-cta:hover {
+  color: color-mix(in srgb, var(--ab-accent) 70%, #fff);
+}
+
+.ab-cta:hover::after,
+.ab-cta:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.ab-cta__arrow {
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.ab-cta:hover .ab-cta__arrow,
+.ab-cta:focus-visible .ab-cta__arrow {
+  transform: translateX(4px);
+}
+
+/* ── CENTER: constellation ───────────────────────────────────────────────── */
+
+.ab__constellation {
+  grid-area: const;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* ── RIGHT: snapshot glass panel ─────────────────────────────────────────── */
+
+.ab__snapshot {
+  grid-area: snap;
+  width: 100%;
+}
+
+.ab-snap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  border-radius: var(--ab-radius);
+  background: var(--ab-card);
+  border: 1px solid var(--ab-border);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 24px 60px -40px rgba(0, 0, 0, 0.8);
+  transition: border-color var(--duration-base) var(--ease-standard);
+}
+
+.ab-snap:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.ab-snap__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Accordion (mobile): tappable header + collapsing body. */
+.ab-snap__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 52px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ab-snap__chevron {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.ab-snap__chevron::before,
+.ab-snap__chevron::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 1.5px;
+  background: var(--color-text-muted);
+  border-radius: 2px;
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.ab-snap__chevron::before {
+  left: 0;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.ab-snap__chevron::after {
+  right: 0;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.ab-snap__item--acc.is-open .ab-snap__chevron::before {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.ab-snap__item--acc.is-open .ab-snap__chevron::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.ab-snap__body {
+  animation: ab-acc-in var(--duration-base) var(--ease-standard);
+}
+
+@keyframes ab-acc-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ab-snap__title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.ab-snap__text {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.ab-snap__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ab-snap__list-item {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.ab-snap__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--space-1);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--ab-border);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.ab-snap__status-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  box-shadow: 0 0 10px -1px var(--color-success);
+}
+
+.ab-snap__status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-success);
+  animation: ab-ping 2.4s var(--ease-standard) infinite;
+}
+
+@keyframes ab-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* ── Responsive (one component, several personalities) ───────────────────── */
+
+/* Laptop (≤1380): tighter spacing, slimmer constellation, narrower snapshot. */
+@media (max-width: 1380px) {
+  .ab__grid {
+    grid-template-columns: minmax(0, 48fr) minmax(0, 22fr) minmax(0, 30fr);
+    column-gap: clamp(1.25rem, 2.4vw, 2.5rem);
+  }
+
+  .ab__constellation .ac__stage {
+    max-width: 290px;
+  }
+}
+
+/* Tablet landscape (≤1024): stack — heading → body → constellation → snapshot. */
+@media (max-width: 1024px) {
+  .ab__grid {
+    grid-template-columns: minmax(0, 640px);
+    grid-template-areas:
+      'head'
+      'body'
+      'const'
+      'snap';
+    justify-content: center;
+    row-gap: var(--space-12);
+    text-align: center;
+  }
+
+  .ab__heading,
+  .ab__body {
+    align-self: auto;
+    align-items: center;
+  }
+
+  .ab__chips {
+    justify-content: center;
+  }
+
+  .ab__paragraph {
+    margin-inline: auto;
+  }
+}
+
+/* Tablet portrait (≤768): the constellation becomes the hero, sitting between
+   the headline and the paragraph. */
+@media (max-width: 768px) {
+  .ab__grid {
+    grid-template-areas:
+      'head'
+      'const'
+      'body'
+      'snap';
+  }
+
+  .ab__statement {
+    font-size: clamp(2.75rem, 6.5vw, 3.25rem); /* ~52px */
+  }
+}
+
+/* Mobile (≤600): iOS-app feel — bold heading, icons-only orbit, 2×2 chips,
+   accordion snapshot. Compact so the whole section fits one screen. */
+@media (max-width: 600px) {
+  .ab {
+    padding-block: clamp(1.25rem, 3vh, 1.75rem);
+  }
+
+  .ab__grid {
+    grid-template-columns: 1fr;
+    text-align: left;
+    row-gap: var(--space-3);
+  }
+
+  .ab__heading,
+  .ab__body {
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .ab__statement {
+    font-size: clamp(2.35rem, 10vw, 2.6rem); /* ~42px, real presence */
+    line-height: 1.04;
+  }
+
+  .ab__paragraph {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  /* Identity chips → 2×2 grid (Apple-shortcuts style). */
+  .ab__chips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    width: 100%;
+  }
+
+  .ab-chip {
+    min-height: 44px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Compact constellation: icons only (titles hidden via AboutConstellation). */
+  .ab__constellation .ac__stage {
+    max-width: 140px;
+  }
+
+  /* Snapshot tightens up into a slim accordion. */
+  .ab-snap {
+    gap: 0;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .ab-snap__item--acc + .ab-snap__item--acc {
+    border-top: 1px solid var(--ab-border);
+  }
+
+  .ab-snap__trigger {
+    min-height: 46px;
+  }
+
+  .ab-snap__status {
+    padding-top: var(--space-3);
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-snap__status-dot::after,
+  .ab-snap__body {
+    animation: none;
+  }
+  .ab-chip,
+  .ab-cta__arrow,
+  .ab-cta::after,
+  .ab-snap__chevron::before,
+  .ab-snap__chevron::after {
+    transition: none;
+  }
+}

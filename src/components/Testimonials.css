@@ -2,11 +2,42 @@
   padding: var(--spacing-3xl) var(--spacing-md);
   background: radial-gradient(
     ellipse at center,
-    rgba(245, 87, 108, 0.05) 0%,
+    rgba(124, 58, 237, 0.06) 0%,
     transparent 70%
   );
   position: relative;
   overflow: hidden;
+}
+
+/* Shared section header styles (previously in ContactSection.css) */
+.section-container {
+  max-width: var(--page-max, 1200px);
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: var(--font-3xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--spacing-sm);
+  line-height: 1.15;
+  background: var(--text-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-base);
+  line-height: 1.7;
+  margin: 0;
 }
 
 .testimonials::before {
@@ -16,7 +47,7 @@
   left: 50%;
   width: 120%;
   height: 120%;
-  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 30c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20zm0 5c-8.284 0-15 6.716-15 15s6.716 15 15 15 15-6.716 15-15-6.716-15-15-15z' fill='%23f5576c' fill-opacity='0.02'/%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 30c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20zm0 5c-8.284 0-15 6.716-15 15s6.716 15 15 15 15-6.716 15-15-6.716-15-15-15z' fill='%23818cf8' fill-opacity='0.02'/%3E%3C/svg%3E");
   transform: translate(-50%, -50%) rotate(45deg);
   pointer-events: none;
 }
@@ -28,13 +59,16 @@
 }
 
 .testimonial-card {
-  background: var(--glass-bg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0) 40%),
+    var(--secondary-bg);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
   padding: var(--spacing-xl);
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
 .testimonial-card::before {
@@ -44,23 +78,23 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--accent-gradient);
+  background: var(--brand-gradient);
 }
 
 .quote-icon {
-  font-size: clamp(2.5rem, 6vw, 4rem);
   color: var(--accent-color);
-  opacity: 0.3;
+  opacity: 0.25;
   position: absolute;
   top: var(--spacing-lg);
   right: var(--spacing-lg);
+  display: inline-flex;
 }
 
 .rating-stars {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.3rem;
   margin-bottom: var(--spacing-md);
-  font-size: var(--font-lg);
+  color: var(--warning-color);
 }
 
 .testimonial-text {
@@ -82,7 +116,7 @@
 .author-avatar {
   width: 60px;
   height: 60px;
-  background: var(--primary-gradient);
+  background: var(--brand-gradient);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -91,6 +125,8 @@
   font-weight: 700;
   color: white;
   cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px -8px rgba(124, 58, 237, 0.6);
   transition: all var(--transition-normal);
 }
 
@@ -136,8 +172,8 @@
 }
 
 .nav-btn:hover {
-  background: rgba(102, 126, 234, 0.1);
-  border-color: var(--accent-color);
+  background: rgba(129, 140, 248, 0.12);
+  border-color: var(--border-color-hover);
   transform: translateY(-2px);
 }
 
@@ -163,7 +199,7 @@
 .nav-dot.active {
   width: 30px;
   border-radius: 5px;
-  background: var(--accent-color);
+  background: var(--brand-gradient);
 }
 
 /* Trust Indicators */
@@ -180,22 +216,25 @@
 .trust-item {
   text-align: center;
   padding: 1.5rem;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0) 45%),
+    var(--color-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
   transition: all var(--transition-normal);
 }
 
 .trust-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+  border-color: var(--border-color-hover);
+  box-shadow: 0 20px 44px -24px rgba(124, 58, 237, 0.5);
 }
 
 .trust-number {
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 800;
-  background: var(--primary-gradient);
+  letter-spacing: -0.02em;
+  background: var(--text-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

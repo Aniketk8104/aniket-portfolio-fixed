@@ -1,0 +1,366 @@
+/* ===========================================================================
+   Engineering Philosophy — "Principles as Git Commits"
+   Flat graphite background, generous spacing, a Git history spine with commit
+   dots in a left gutter, and one glowing active commit. One accent (#8B5CF6),
+   used only for the active node, commit hash, hover and focus.
+   =========================================================================== */
+
+.phil {
+  --ph-accent: #8b5cf6;
+  --ph-surface: rgba(255, 255, 255, 0.02);
+  --ph-border: rgba(255, 255, 255, 0.06);
+  --ph-border-strong: rgba(255, 255, 255, 0.12);
+  --ph-text: #fafafa;
+  --ph-muted: #a1a1aa;
+
+  position: relative;
+  /* No background of its own — blends with the ambient site backdrop. */
+  background: transparent;
+}
+
+.phil__inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: clamp(4.5rem, 10vh, 7.5rem) var(--page-pad-x);
+}
+
+/* ── Two-column layout: ~30% intro / ~70% timeline ───────────────────────── */
+.phil__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+@media (min-width: 900px) {
+  .phil__grid {
+    grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .phil__intro {
+    position: sticky;
+    top: 130px;
+  }
+}
+
+/* ── Left intro ───────────────────────────────────────────────────────────── */
+.phil__eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ph-accent);
+}
+.phil__heading {
+  margin: 1.2rem 0 0;
+  font-family: var(--font-sans);
+  font-size: clamp(2.4rem, 4.4vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--ph-text);
+}
+.phil__sub {
+  margin: 1.5rem 0 0;
+  max-width: 420px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ph-muted);
+}
+
+/* ===========================================================================
+   Timeline — git history spine + commit dots in a left gutter
+   =========================================================================== */
+.phil__timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 44px; /* left gutter holds the spine + dots */
+  position: relative;
+}
+.phil__timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 22px;
+  bottom: 22px;
+  width: 1px;
+  background: var(--ph-border);
+}
+
+/* ── Commit row ───────────────────────────────────────────────────────────── */
+.phil-commit {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Hairline separators between consecutive collapsed commits. */
+.phil-commit:not(.is-open) + .phil-commit:not(.is-open)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.4rem;
+  right: 1rem;
+  height: 1px;
+  background: var(--ph-border);
+}
+/* The active commit becomes a soft card with breathing room. */
+.phil-commit.is-open {
+  margin: 10px 0 16px;
+  background: var(--ph-surface);
+  border-color: var(--ph-border);
+  box-shadow: 0 30px 70px -48px rgba(139, 92, 246, 0.55);
+}
+
+/* ── Head (collapsed row) ─────────────────────────────────────────────────── */
+.phil-commit__head {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+  min-height: 64px;
+  padding: 0.95rem 1.4rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) {
+  .phil-commit:not(.is-open) .phil-commit__head:hover {
+    transform: translateY(-2px);
+  }
+}
+.phil-commit__head:focus-visible {
+  outline: 2px solid var(--ph-accent);
+  outline-offset: 2px;
+  border-radius: 14px;
+}
+
+/* Commit node dot — sits in the left gutter on the spine. */
+.phil-commit__dot {
+  position: absolute;
+  left: -36px;
+  top: 32px;
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #3f3f46;
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+  z-index: 1;
+}
+.phil-commit.is-past .phil-commit__dot {
+  background: rgba(139, 92, 246, 0.4);
+}
+.phil-commit.is-active .phil-commit__dot {
+  background: var(--ph-accent);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12), 0 0 12px 2px rgba(139, 92, 246, 0.55);
+}
+
+.phil-commit__index {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ph-muted);
+  letter-spacing: -0.02em;
+  opacity: 0.55;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+.phil-commit.is-active .phil-commit__index {
+  opacity: 0.9;
+  color: var(--ph-text);
+}
+
+/* hash + inline title share one cell so the panel can align under the hash */
+.phil-commit__content {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  min-width: 0;
+}
+.phil-commit__hash {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: rgba(139, 92, 246, 0.62);
+  transition: color 0.3s ease;
+}
+.phil-commit.is-active .phil-commit__hash {
+  color: var(--ph-accent);
+}
+.phil-commit__title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ph-text);
+  transition: color 0.3s ease;
+}
+/* When open, the title moves to its own line inside the panel. */
+.phil-commit.is-open .phil-commit__title {
+  visibility: hidden;
+}
+
+.phil-commit__time {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--ph-muted);
+  white-space: nowrap;
+}
+
+.phil-commit__chevron {
+  color: var(--ph-muted);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+.phil-commit.is-open .phil-commit__chevron {
+  transform: rotate(180deg);
+  color: var(--ph-text);
+}
+
+/* Hover micro-interactions (non-open rows). */
+@media (hover: hover) {
+  .phil-commit:not(.is-open) .phil-commit__head:hover .phil-commit__hash {
+    color: var(--ph-accent);
+  }
+  .phil-commit:not(.is-open) .phil-commit__head:hover .phil-commit__dot {
+    background: rgba(139, 92, 246, 0.6);
+    box-shadow: 0 0 10px 1px rgba(139, 92, 246, 0.4);
+  }
+  .phil-commit:not(.is-open) .phil-commit__head:hover .phil-commit__chevron {
+    color: var(--ph-text);
+  }
+}
+
+/* ── Expanded panel ───────────────────────────────────────────────────────── */
+.phil-commit__panel {
+  overflow: hidden;
+}
+/* Align the panel content under the hash column (index col + gap + padding). */
+.phil-commit__panel-inner {
+  padding: 0 1.6rem 1.5rem calc(1.4rem + 2.4rem + clamp(0.9rem, 2vw, 1.4rem));
+}
+.phil-commit__open-title {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-sans);
+  font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ph-text);
+}
+.phil-commit__philosophy {
+  margin: 0;
+  max-width: 62ch;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ph-muted);
+}
+.phil-commit__divider {
+  height: 1px;
+  background: var(--ph-border);
+  margin: 1.25rem 0;
+}
+.phil-commit__applied {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.1rem;
+}
+.phil-commit__applied-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ph-muted);
+}
+.phil-commit__applied-label svg {
+  color: rgba(161, 161, 170, 0.7);
+}
+.phil-commit__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.phil-chip {
+  padding: 0.34rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--ph-border);
+  background: rgba(255, 255, 255, 0.015);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #d4d4d8;
+}
+
+/* ===========================================================================
+   Footer quote
+   =========================================================================== */
+.phil__quote {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: clamp(2.5rem, 5vh, 4rem);
+  padding: clamp(1.4rem, 3vw, 2rem) clamp(1.5rem, 3vw, 2.4rem);
+  border-radius: 16px;
+  border: 1px solid var(--ph-border);
+  background: var(--ph-surface);
+}
+.phil__quote-mark {
+  flex: none;
+  color: rgba(139, 92, 246, 0.55);
+}
+.phil__quote-text {
+  margin: 0;
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.5;
+  color: var(--ph-muted);
+}
+.phil__quote-accent {
+  color: var(--ph-accent);
+}
+.phil__quote-prompt {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: rgba(139, 92, 246, 0.6);
+}
+
+/* ── Mobile ───────────────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .phil-commit__head {
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 0.7rem;
+  }
+  .phil-commit__content {
+    gap: 0.55rem;
+  }
+  /* Hide the hash + timestamp on narrow screens to keep the row calm. */
+  .phil-commit__hash,
+  .phil-commit__time {
+    display: none;
+  }
+  .phil-commit__panel-inner {
+    padding-left: 1.4rem;
+  }
+  .phil__quote {
+    flex-wrap: wrap;
+  }
+}

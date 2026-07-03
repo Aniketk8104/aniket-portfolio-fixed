@@ -1,0 +1,609 @@
+/* ===========================================================================
+   Engineering Constellation — sticky constellation + scrolling domain panels.
+   Deep graphite · near-invisible grid · one accent (#8B5CF6) on interaction.
+   =========================================================================== */
+
+.xc {
+  --xc-accent: #8b5cf6;
+  --xc-accent-soft: rgba(139, 92, 246, 0.5);
+  --xc-graphite: #0a0b10;
+  --xc-line: rgba(255, 255, 255, 0.07);
+  --xc-hair: rgba(255, 255, 255, 0.1);
+
+  position: relative;
+  background: transparent;
+  isolation: isolate;
+}
+
+/* This section intentionally has NO background of its own — it sits on the
+   same ambient site backdrop (gradient + aurora) as every other section. */
+
+/* ── Container ────────────────────────────────────────────────────────────── */
+.xc__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: clamp(4rem, 9vh, 7rem) var(--page-pad-x) clamp(3rem, 7vh, 5rem);
+}
+
+/* ── Header (now lives inside the sticky left column) ─────────────────────── */
+.xc__head {
+  margin: 0;
+}
+.xc__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.xc__eyebrow-line {
+  width: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--xc-accent), transparent);
+}
+.xc__heading {
+  margin: 0.8rem 0 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+/* ── Layout: sticky left, scrolling right ─────────────────────────────────── */
+.xc__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+@media (min-width: 1024px) {
+  .xc__layout {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: clamp(3rem, 5vw, 5.5rem);
+    align-items: start;
+  }
+  .xc__left {
+    position: sticky;
+    top: 88px;
+    height: calc(100vh - 88px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: clamp(1.75rem, 5vh, 3.25rem);
+    padding-top: clamp(1.5rem, 5vh, 3.5rem);
+  }
+}
+
+/* ===========================================================================
+   Constellation (sticky left)
+   =========================================================================== */
+.xc-constellation {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+
+.xc-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.xc-line {
+  stroke: var(--xc-line);
+  stroke-width: 0.4;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.6;
+  transition:
+    stroke 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    stroke-width 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.6s ease;
+}
+.xc-line.is-near {
+  stroke: rgba(139, 92, 246, 0.28);
+  opacity: 0.8;
+}
+.xc-line.is-lit {
+  stroke: var(--xc-accent);
+  stroke-width: 0.8;
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.6));
+}
+
+.xc-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 12px;
+  height: 12px;
+  display: grid;
+  place-items: center;
+}
+.xc-core__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(199, 210, 254, 0.9);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 16px 2px rgba(139, 92, 246, 0.45);
+  animation: xc-core-breathe 6s ease-in-out infinite;
+}
+@keyframes xc-core-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+.xc-node {
+  position: absolute;
+  translate: -50% -50%;
+  scale: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  color: var(--color-text-secondary);
+  animation: xc-breathe 7s ease-in-out infinite;
+  animation-delay: var(--xc-delay, 0s);
+  transition: scale 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+  z-index: 2;
+}
+@keyframes xc-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.xc-node__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.022);
+  border: 1px solid var(--xc-hair);
+  color: var(--color-text-muted);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.45s ease, color 0.45s ease, background 0.45s ease, box-shadow 0.45s ease;
+}
+.xc-node__icon::before {
+  content: '';
+  position: absolute;
+  inset: -38px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.22), transparent 68%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.xc-node__title {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: inherit;
+  transition: color 0.4s ease;
+}
+.xc-node:hover .xc-node__icon {
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--color-text-secondary);
+}
+.xc-node:focus-visible {
+  outline: none;
+}
+.xc-node:focus-visible .xc-node__icon {
+  outline: 2px solid var(--xc-accent);
+  outline-offset: 4px;
+}
+.xc-node.is-active {
+  scale: 1.05;
+  color: var(--color-text-primary);
+}
+.xc-node.is-active .xc-node__icon {
+  border-color: var(--xc-accent-soft);
+  color: #ddd6fe;
+  background: rgba(139, 92, 246, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 30px -12px rgba(139, 92, 246, 0.5);
+}
+.xc-node.is-active .xc-node__icon::before {
+  opacity: 1;
+}
+
+/* Progress rail under the constellation */
+.xc__rail {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.xc__rail-tick {
+  height: 2px;
+  width: 20px;
+  border-radius: 2px;
+  background: var(--xc-line);
+  transition: background 0.5s ease, width 0.5s ease;
+}
+.xc__rail-tick.is-active {
+  width: 34px;
+  background: var(--xc-accent);
+}
+
+/* ===========================================================================
+   Scrolling right column — one tall panel per domain
+   =========================================================================== */
+.xc-panel {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.xc-panel:first-child {
+  min-height: 70vh;
+}
+.xc-panel__inner {
+  position: relative;
+  opacity: 0.34;
+  transform: translateY(8px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* The centred (active) panel resolves to full presence; others recede. */
+.xc-panel.is-active .xc-panel__inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.xc-panel__index {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--xc-accent);
+  opacity: 0.7;
+}
+.xc-panel__eyebrow {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.xc-panel__title {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--color-text-primary);
+}
+.xc-panel__sentence {
+  margin: 0.9rem 0 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  max-width: 34ch;
+}
+.xc-panel__block {
+  margin-top: clamp(1.3rem, 2.4vh, 1.9rem);
+}
+.xc-panel__kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.7rem;
+}
+
+/* Architecture mini-diagram */
+.xc-arch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+.xc-arch__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--xc-hair);
+  background: rgba(255, 255, 255, 0.015);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+.xc-arch__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--xc-accent);
+  box-shadow: 0 0 7px rgba(139, 92, 246, 0.7);
+}
+.xc-arch__line {
+  width: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--xc-accent-soft), rgba(139, 92, 246, 0.15));
+}
+
+/* Technology chips */
+.xc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.xc-chip {
+  padding: 0.34rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--xc-hair);
+  background: rgba(255, 255, 255, 0.02);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+/* Capabilities */
+.xc-caps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.4rem;
+}
+.xc-cap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+.xc-cap__tick {
+  width: 5px;
+  height: 5px;
+  border-radius: 1px;
+  rotate: 45deg;
+  background: var(--xc-accent);
+  flex: none;
+}
+
+/* Featured + metrics */
+.xc-panel__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: clamp(1.5rem, 3vh, 2.1rem);
+  padding-top: clamp(1.3rem, 2.4vh, 1.8rem);
+  border-top: 1px solid var(--xc-line);
+}
+.xc-featured__name {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: 0.1rem;
+}
+.xc-featured__sub {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.15rem;
+}
+.xc-metrics {
+  display: flex;
+  gap: clamp(1.1rem, 2.4vw, 2rem);
+}
+.xc-metric {
+  display: flex;
+  flex-direction: column;
+}
+.xc-metric__value {
+  font-family: var(--font-sans);
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary);
+}
+.xc-metric__label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* CTA */
+.xc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: clamp(1.4rem, 3vh, 2rem);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  width: fit-content;
+  transition: gap 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+.xc-cta svg {
+  color: var(--xc-accent);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.xc-cta:hover {
+  color: #ddd6fe;
+  gap: 0.75rem;
+}
+.xc-cta:hover svg {
+  transform: translateX(2px);
+}
+.xc-cta:focus-visible {
+  outline: 2px solid var(--xc-accent);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* ===========================================================================
+   Mobile-first: constellation becomes a selector; one compact panel shows at
+   a time and swaps on tap. The whole section is sized to fit one screen.
+   =========================================================================== */
+@media (max-width: 1023px) {
+  .xc__inner {
+    padding: clamp(2rem, 4.5vh, 3rem) var(--page-pad-x) clamp(1.5rem, 3.5vh, 2.5rem);
+  }
+  .xc__layout {
+    gap: clamp(1rem, 2.5vh, 1.5rem);
+  }
+  .xc__left {
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.85rem, 2vh, 1.25rem);
+  }
+  .xc__head {
+    text-align: center;
+  }
+  .xc__eyebrow {
+    justify-content: center;
+  }
+  .xc__heading {
+    margin-top: 0.4rem;
+    font-size: clamp(1.45rem, 5.5vw, 1.9rem);
+  }
+
+  .xc-constellation {
+    max-width: 264px;
+    margin: 0 auto;
+  }
+  .xc__rail {
+    margin-top: 0;
+  }
+
+  /* One compact panel at a time. */
+  .xc-panel,
+  .xc-panel:first-child {
+    min-height: auto;
+    padding: 0;
+  }
+  .xc-panel__inner {
+    opacity: 1;
+    transform: none;
+    animation: xc-panel-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .xc-panel__eyebrow {
+    margin-top: 0.35rem;
+  }
+  .xc-panel__title {
+    font-size: clamp(1.55rem, 6.5vw, 2rem);
+  }
+  .xc-panel__sentence {
+    margin-top: 0.5rem;
+    max-width: none;
+    font-size: 0.98rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Progressive disclosure — architecture diagram and capabilities grid are
+     desktop detail; on mobile the tech stack, featured project and metrics
+     carry the signal and keep the section to one screen. */
+  .xc-panel__block--arch,
+  .xc-panel__block--caps {
+    display: none;
+  }
+  .xc-panel__block {
+    margin-top: 0.9rem;
+  }
+  .xc-panel__foot {
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+  }
+  .xc-cta {
+    margin-top: 1rem;
+  }
+}
+
+@keyframes xc-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 560px) {
+  .xc__eyebrow {
+    display: none; /* heading alone is enough; saves vertical space */
+  }
+  .xc-constellation {
+    max-width: 190px;
+  }
+  /* Icons only on small screens — the active domain's title shows in the panel
+     below, so orbital labels would only crowd the selector. */
+  .xc-node__title {
+    display: none;
+  }
+  .xc-node__icon {
+    width: 42px;
+    height: 42px;
+  }
+  /* Featured project name folds away on the smallest screens; metrics stay. */
+  .xc-featured {
+    display: none;
+  }
+  .xc-panel__foot {
+    gap: 1rem 1.6rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .xc-metrics {
+    gap: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xc-panel__inner {
+    animation: none;
+  }
+}

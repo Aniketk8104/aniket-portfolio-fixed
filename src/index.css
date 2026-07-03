@@ -1,3 +1,21 @@
+/* Design System Tokens - imported first for cascade */
+@import "./assets/styles/tokens.css";
+
+/* Legacy variables - required by existing JSX components
+   (also pulled in by global.css → variables.css, but we import explicitly
+   here so the cascade order is guaranteed before any other rule) */
+@import "./assets/styles/variables.css";
+
+/* Global styles (layout, focus rings — imports variables.css internally too) */
+@import "./assets/styles/global.css";
+
+/* Premium effects layer — aurora, gradient surfaces, sheen, reveal */
+@import "./assets/styles/premium.css";
+
+/* App-level styles: cursor, scroll-progress, floating-cta, and all other
+   premium UI chrome that was previously only loaded via App.jsx */
+@import "./App.css";
+
 @import "@fontsource/inter/latin-400.css";
 @import "@fontsource/inter/latin-600.css";
 @import "@fontsource/inter/latin-700.css";
@@ -15,6 +33,33 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Lenis smooth-scroll engine (src/utils/smoothScroll.ts) ───────────────────
+   Lenis tags <html> with .lenis / .lenis-smooth while active. We hand scroll
+   easing entirely to Lenis then (disabling native smooth so anchor jumps are
+   not double-animated). When Lenis is inactive (touch / reduced-motion), the
+   native `scroll-behavior: smooth` above remains the graceful fallback.
+   ──────────────────────────────────────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 @media (pointer: fine) {
   html.custom-cursor-active {
     cursor: none;
@@ -29,7 +74,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  background: var(--primary-bg);
+  background-color: var(--primary-bg);
+  background-image:
+    radial-gradient(120% 70% at 50% -10%, rgba(99, 102, 241, 0.1) 0%, transparent 55%),
+    radial-gradient(80% 60% at 100% 100%, rgba(217, 70, 239, 0.06) 0%, transparent 60%);
+  background-attachment: fixed;
   color: var(--text-primary);
   line-height: 1.6;
   position: relative;
@@ -42,21 +91,22 @@ code {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--secondary-bg);
+  background: var(--primary-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-gradient);
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
   border-radius: 10px;
+  border: 2px solid var(--primary-bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-gradient);
+  background: linear-gradient(180deg, #818cf8, #a78bfa);
 }
 
 /* Noise texture overlay */
@@ -71,4 +121,258 @@ body::before {
   z-index: 1;
   pointer-events: none;
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ── Route page layout ────────────────────────────────────────────────────
+   Route pages render their content inside SiteShell's <main id="main-content">.
+   Non-home pages wrap their content in <div className="route-page-main"> to
+   get top clearance for the fixed navbar. The home page renders sections
+   directly with no wrapper div, so the hero fills the viewport.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* Route page wrapper - all non-home pages use this */
+.route-page-main {
+  padding-top: 90px;
+  min-height: 60vh;
+}
+
+/* Page hero sections on route pages */
+.page-hero {
+  padding: var(--spacing-4xl) 0 var(--spacing-3xl);
+  text-align: center;
+  position: relative;
+}
+
+.page-hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: var(--spacing-md);
+  padding: 0.3em 1em;
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  border-radius: var(--radius-full);
+  background: rgba(129, 140, 248, 0.1);
+}
+
+.page-hero h1 {
+  font-size: var(--font-4xl);
+  font-weight: 800;
+  background: var(--text-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 var(--spacing-lg);
+  line-height: 1.15;
+}
+
+.page-hero-subtitle {
+  font-size: var(--font-lg);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Premium content card */
+.content-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.content-card:hover {
+  border-color: var(--border-color-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0 0 var(--spacing-xl);
+  padding: 0;
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: '/';
+  margin-left: 0.5rem;
+  opacity: 0.4;
+}
+
+.breadcrumb a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Section headings inside pages */
+.section-heading {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-lg);
+}
+
+/* Empty/coming-soon state */
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono, monospace);
+}
+
+/* Responsive grid for content lists */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+}
+
+@media (min-width: 640px) {
+  .content-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Tag chips */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2em 0.75em;
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 500;
+  background: rgba(129, 135, 248, 0.12);
+  color: var(--accent-color);
+  border: 1px solid rgba(129, 135, 248, 0.25);
+}
+
+/* Mobile responsive tweaks */
+@media (max-width: 768px) {
+  .route-page-main {
+    padding-top: 75px;
+  }
+  .page-hero h1 {
+    font-size: var(--font-3xl);
+  }
+  .container {
+    padding-inline: var(--spacing-md);
+  }
+}
+
+/* Container utility for TSX route pages that don't use the Section component */
+.container {
+  width: 100%;
+  max-width: var(--container-xl, 1280px);
+  margin-inline: auto;
+  padding-inline: var(--spacing-xl, 2rem);
+}
+
+/* Architecture index list */
+.architecture-index-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl, 2rem);
+  margin-top: var(--spacing-2xl, 3rem);
+}
+
+.architecture-index-item article {
+  background: var(--glass-bg, rgba(26,26,46,0.4));
+  border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+  border-radius: var(--radius-lg, 1rem);
+  padding: var(--spacing-xl, 2rem);
+  transition: border-color var(--transition-fast, 0.15s ease);
+}
+
+.architecture-index-item article:hover {
+  border-color: var(--border-color-hover, rgba(255,255,255,0.2));
+}
+
+.architecture-index-item h2 {
+  font-size: var(--font-2xl, 1.5rem);
+  margin: 0 0 var(--spacing-md, 1rem);
+  color: var(--text-primary, #fff);
+}
+
+.architecture-index-item h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.architecture-index-item h2 a:hover {
+  color: var(--accent-color, #7387ff);
+}
+
+.architecture-index-summary {
+  color: var(--text-secondary, #d8dcff);
+  line-height: 1.7;
+  margin: 0 0 var(--spacing-md, 1rem);
+}
+
+.architecture-index-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--accent-color, #7387ff);
+  text-decoration: none;
+  font-size: var(--font-sm, 0.9rem);
+  font-weight: 500;
+  margin-top: var(--spacing-sm, 0.5rem);
+  transition: gap var(--transition-fast, 0.15s ease);
+}
+
+.architecture-index-link:hover {
+  gap: 0.5rem;
+}
+
+/* Tag list used in architecture index */
+.tag-list {
+  list-style: none;
+  margin: 0 0 var(--spacing-md, 1rem);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs, 0.5rem);
+}
+
+.tag {
+  background: var(--glass-bg-light, rgba(255,255,255,0.05));
+  border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+  border-radius: var(--radius-full, 9999px);
+  padding: 0.2rem 0.75rem;
+  font-size: var(--font-xs, 0.8rem);
+  color: var(--text-secondary, #d8dcff);
+}
+
+/* Page heading area */
+.lead {
+  color: var(--text-secondary, #d8dcff);
+  font-size: var(--font-lg, 1.125rem);
+  line-height: 1.7;
+  max-width: 60ch;
+  margin: var(--spacing-md, 1rem) 0 0;
 }

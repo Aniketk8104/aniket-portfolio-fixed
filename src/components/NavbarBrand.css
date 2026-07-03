@@ -1,0 +1,268 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   NavbarBrand — ENGINEERING OS identity module
+
+   Reads as a native macOS toolbar item: a soft rounded surface, a breathing
+   status light, a context title, and a subtitle that morphs on hover.
+   All sizing/color flows through CSS variables — no magic numbers.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.navbar-brand-wrap {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.navbar-brand {
+  /* Component tokens */
+  --brand-ok: 52 224 161;              /* soft cyan-green, space-separated for rgb()/alpha */
+  --brand-h: 50px;
+  --brand-min-w: 200px;
+  --brand-radius: 14px;
+  --brand-bg: rgba(255, 255, 255, 0.02);
+  --brand-bg-hover: rgba(255, 255, 255, 0.045);
+  --brand-border: rgba(255, 255, 255, 0.05);
+  --brand-border-hover: rgba(255, 255, 255, 0.10);
+  --brand-ease: cubic-bezier(0.2, 0, 0, 1);
+  --brand-dur: 240ms;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: var(--brand-h);
+  min-width: var(--brand-min-w);
+  padding: 0 0.8rem;
+  border-radius: var(--brand-radius);
+  background: var(--brand-bg);
+  border: 1px solid var(--brand-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  text-decoration: none;
+  color: inherit;
+  user-select: none;
+  white-space: nowrap;
+  will-change: transform;
+  transform: translateZ(0);
+  transition:
+    transform var(--brand-dur) var(--brand-ease),
+    background var(--brand-dur) var(--brand-ease),
+    border-color var(--brand-dur) var(--brand-ease),
+    box-shadow var(--brand-dur) var(--brand-ease);
+}
+
+.navbar-brand:hover {
+  transform: translateY(-1px);
+  background: var(--brand-bg-hover);
+  border-color: var(--brand-border-hover);
+}
+
+.navbar-brand:focus-visible {
+  outline: 2px solid rgb(var(--brand-ok) / 0.8);
+  outline-offset: 3px;
+}
+
+/* Layout groups ─────────────────────────────────────────────────────────── */
+
+.navbar-brand__full {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.navbar-brand__compact {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.brand-motion-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  line-height: 1;
+}
+
+/* Status light ──────────────────────────────────────────────────────────── */
+
+.brand-status {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  display: inline-flex;
+}
+
+.brand-status__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgb(var(--brand-ok));
+  box-shadow: 0 0 6px 0 rgb(var(--brand-ok) / 0.5);
+  transition: box-shadow var(--brand-dur) var(--brand-ease);
+}
+
+/* Breathing halo — the "system operational" heartbeat. */
+.brand-status__dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(var(--brand-ok) / 0.55), transparent 70%);
+  animation: brand-heartbeat 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Hover: glow slightly increases on the dot itself (never the animated halo,
+   so there is no conflict with the keyframe). */
+.navbar-brand:hover .brand-status__dot {
+  box-shadow: 0 0 12px 1px rgb(var(--brand-ok) / 0.7);
+}
+
+@keyframes brand-heartbeat {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
+/* Title ─────────────────────────────────────────────────────────────────── */
+
+.brand-title {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 12px;
+  line-height: 1.1;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  /* trailing letter-spacing balance so the block reads optically centred */
+  margin-right: -0.28em;
+  color: var(--text-primary);
+}
+
+/* Subtitle ──────────────────────────────────────────────────────────────── */
+
+.brand-subtitle-slot {
+  display: block;
+}
+
+.brand-subtitle {
+  position: relative;
+  display: block;
+  height: 16px;
+  min-width: 150px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.brand-subtitle__text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+}
+
+.brand-subtitle--static {
+  height: auto;
+  min-width: 0;
+}
+
+/* Compact "AK" — mobile bar */
+
+.brand-ak {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+/* Drawer identity — full stacked block inside the mobile menu */
+
+.navbar-brand--drawer {
+  height: auto;
+  min-width: 0;
+  width: 100%;
+  align-items: flex-start;
+  padding: 0.9rem 1rem;
+  gap: 0.7rem;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: default;
+}
+
+.navbar-brand--drawer .brand-status {
+  margin-top: 4px;
+}
+
+.navbar-brand--drawer .brand-text {
+  gap: 5px;
+}
+
+.brand-tagline {
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--text-muted, var(--text-secondary));
+  letter-spacing: 0.01em;
+}
+
+/* Drawer sits at the top of the mobile menu with a subtle separator. */
+.mobile-nav .navbar-brand--drawer {
+  margin-bottom: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: var(--brand-radius) var(--brand-radius) 0 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+/* Tablet: single line — hide the subtitle, tighten the module. */
+@media (max-width: 1023px) {
+  .navbar-brand {
+    --brand-min-w: auto;
+  }
+  .navbar-brand .brand-subtitle-slot {
+    display: none;
+  }
+  .brand-title {
+    letter-spacing: 0.3em;
+  }
+}
+
+/* Mobile: replace full identity with the compact "● AK" mark. */
+@media (max-width: 767px) {
+  .navbar-brand {
+    --brand-h: 44px;
+    min-width: auto;
+    padding: 0 0.55rem;
+    gap: 0;
+  }
+  .navbar-brand__full {
+    display: none;
+  }
+  .navbar-brand__compact {
+    display: inline-flex;
+  }
+}
+
+/* Reduced motion: freeze the heartbeat at its calm resting state. */
+@media (prefers-reduced-motion: reduce) {
+  .brand-status__dot::after {
+    animation: none;
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  .navbar-brand {
+    transition: none;
+  }
+}

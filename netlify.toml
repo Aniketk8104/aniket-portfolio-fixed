@@ -1,3 +1,17 @@
+# =============================================================================
+# LEGACY ASSET DISPOSITION
+# =============================================================================
+# public/blog/hire-mern-stack-developer-checklist.html
+#   Decision: DELETE + 301 redirect to /writing
+#   Rationale: The page was entirely positioned around "Freelance MERN Stack
+#   Developer" services and cannot be rebranded to engineering content. It
+#   contained the prohibited strings "Freelance MERN", "MERN Stack Developer",
+#   and "Hire MERN" throughout its copy, JSON-LD, and meta tags. Redirecting to
+#   /writing preserves any inbound link equity by routing visitors to the new
+#   Writing index, which is the closest relevant destination.
+#   Validates: Requirements 14.5, 20.2
+# =============================================================================
+
 [build]
   # Build command
   command = "npm ci && npm run build"
@@ -15,7 +29,57 @@
   # Optional: Set CI environment
   CI = "true"
 
-# Redirect rules for SPA (Single Page Application)
+# 301 redirect: legacy freelance MERN blog post → new Writing index
+# (file deleted as part of engineering rebrand; see top-of-file comment)
+[[redirects]]
+  from = "/blog/hire-mern-stack-developer-checklist"
+  to = "/writing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/hire-mern-stack-developer-checklist.html"
+  to = "/writing"
+  status = 301
+  force = true
+
+# =============================================================================
+# SPA FALLBACK — static-asset pass-throughs come first so they are never
+# rewritten to /index.html; catch-all is last.
+# Validates: Requirements 17.1, 17.2, 17.3
+# =============================================================================
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/manifest.json"
+  to = "/manifest.json"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/favicon.ico"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+  force = true
+
+# Catch-all SPA fallback — must be last
 [[redirects]]
   from = "/*"
   to = "/index.html"

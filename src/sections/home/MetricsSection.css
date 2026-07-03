@@ -1,0 +1,134 @@
+/**
+ * MetricsSection — "stat band" styles.
+ *
+ * One horizontal band of stats under the hero, separated by thin vertical gradient
+ * hairlines, wrapping to 2 columns on mobile. Class names are prefixed `.metrics-band`
+ * to avoid collisions with shared styles.
+ */
+
+.metrics-band {
+  padding: var(--space-12) 0;
+}
+
+.metrics-band__inner {
+  position: relative;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-16) var(--page-pad-x) 0;
+}
+
+/* Faint top hairline gradient spanning the band. */
+.metrics-band__hairline {
+  position: absolute;
+  top: 0;
+  left: var(--page-pad-x);
+  right: var(--page-pad-x);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-border) 18%,
+    var(--color-accent-primary) 50%,
+    var(--color-border) 82%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+.metrics-band__row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--metrics-count, 4), 1fr);
+  align-items: center;
+}
+
+.metrics-band__stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  text-align: center;
+}
+
+/* Vertical gradient hairline dividers between stats (skip the first). */
+.metrics-band__stat::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 56%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--color-border) 30%,
+    var(--color-border) 70%,
+    transparent 100%
+  );
+  opacity: 0.7;
+}
+
+.metrics-band__stat:first-child::before {
+  display: none;
+}
+
+.metrics-band__value {
+  font-family: var(--font-sans);
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  background: var(--text-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.metrics-band__label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  max-width: 18ch;
+}
+
+/* Mobile: wrap to 2 columns, reset dividers for a clean grid. */
+@media (max-width: 640px) {
+  .metrics-band__row {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: var(--space-8);
+  }
+
+  .metrics-band__stat {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* Only draw dividers before the right-column items (odd indices). */
+  .metrics-band__stat::before {
+    display: none;
+  }
+
+  .metrics-band__stat:nth-child(even)::before {
+    display: block;
+  }
+
+  .metrics-band__value {
+    font-size: clamp(2rem, 9vw, 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metrics-band__stat {
+    transition: none !important;
+    animation: none !important;
+  }
+}

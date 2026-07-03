@@ -5,34 +5,34 @@ import './InsightsSection.css';
 
 const insights = [
   {
-    slug: 'hire-mern-stack-developer-checklist',
-    title: 'Checklist: Hire a Freelance MERN Stack Developer Who Ships Revenue',
+    slug: 'multi-tenant-saas-architecture',
+    title: 'Multi-Tenant SaaS: Isolation, Billing, and Data Architecture',
     description:
-      '10 questions founders should ask before signing a contract—covering architecture, delivery, security, and post-launch support.',
+      'How to design tenant isolation, billing integrations, and data boundaries for production SaaS platforms — from schema design to runtime enforcement.',
+    readingTime: '8 min read',
+    url: '/writing/multi-tenant-saas-architecture',
+    tags: ['SaaS', 'Architecture', 'Backend'],
+    published: 'Coming Soon',
+  },
+  {
+    slug: 'distributed-messaging-pipelines',
+    title: 'Distributed Messaging Pipelines at Scale',
+    description:
+      'Queue design, consumer concurrency, dead-letter handling, and observability patterns for distributed messaging systems under real production load.',
+    readingTime: '7 min read',
+    url: '/writing/distributed-messaging-pipelines',
+    tags: ['Messaging', 'Distributed Systems', 'BullMQ'],
+    published: 'Coming Soon',
+  },
+  {
+    slug: 'queue-based-system-design',
+    title: 'Queue-Based System Design for Lean Engineering Teams',
+    description:
+      'CI/CD, observability, and rollback patterns tailored to lean teams shipping reliable backend systems in production every week.',
     readingTime: '6 min read',
-    url: '/blog/hire-mern-stack-developer-checklist.html',
-    tags: ['MERN', 'Freelance', 'Playbook'],
-    published: 'Nov 2025',
-  },
-  {
-    slug: 'mern-performance-playbook',
-    title: 'Coming Soon: MERN Performance Playbook for Core Web Vitals 100s',
-    description:
-      'Step-by-step guide to squeeze the last millisecond from your React + Node stack while keeping DX joyful.',
-    readingTime: 'Guide in progress',
-    url: '#contact',
-    tags: ['Performance', 'Core Web Vitals'],
-    published: 'Join the waitlist',
-  },
-  {
-    slug: 'scaleup-devops-automation',
-    title: 'Coming Soon: DevOps Automation Blueprint for Scaleups',
-    description:
-      'CI/CD, observability, and rollback patterns tailored to lean teams shipping weekly in production.',
-    readingTime: 'Guide in progress',
-    url: '#contact',
-    tags: ['DevOps', 'Automation'],
-    published: 'Join the waitlist',
+    url: '/writing/queue-based-system-design',
+    tags: ['System Design', 'Queues', 'Reliability'],
+    published: 'Coming Soon',
   },
 ];
 
@@ -51,13 +51,12 @@ const InsightsSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <span className="section-eyebrow">Insights & Playbooks</span>
+          <span className="section-eyebrow">Writing & Insights</span>
           <h2 className="section-title">
-            Actionable guides for founders hiring MERN and full-stack talent
+            Engineering essays on systems, architecture, and backend design
           </h2>
           <p className="section-subtitle">
-            Subscribe to stay ahead of architecture, performance, and delivery best practices.
-            Each guide is written after shipping production work with real clients.
+            Deep dives on distributed systems, platform engineering, and AI automation — written after shipping production work.
           </p>
         </motion.div>
 
@@ -88,12 +87,12 @@ const InsightsSection = () => {
                 ))}
               </div>
               <motion.a
-                href={insight.url}
+                href="/writing"
                 className="insight-cta"
                 whileHover={{ x: 4 }}
                 whileTap={{ x: 0 }}
               >
-                {index === 0 ? 'Read the guide' : 'Join the early access list'}
+                View all writing
                 <svg
                   width="18"
                   height="18"

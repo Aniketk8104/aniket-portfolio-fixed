@@ -1,45 +1,57 @@
 :root {
-  /* Color Palette - Enhanced for professionalism */
-  --primary-bg: #0a0a0f;
-  --secondary-bg: #1a1a2e;
-  --accent-bg: #16213e;
-  --glass-bg: rgba(26, 26, 46, 0.4);
-  --glass-bg-light: rgba(255, 255, 255, 0.05);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-color-hover: rgba(255, 255, 255, 0.2);
+  /* Color Palette — premium, minimal, deep cool ink (Linear / Vercel / Stripe) */
+  --primary-bg: #06070d;
+  --secondary-bg: #0e1018;
+  --accent-bg: #161a25;
+  --glass-bg: rgba(18, 21, 31, 0.62);
+  --glass-bg-light: rgba(255, 255, 255, 0.035);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-hover: rgba(129, 140, 248, 0.5);
 
-  /* Enhanced Gradients */
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  --dark-gradient: linear-gradient(135deg, #1a1a2e 0%, #0a0a0f 100%);
+  /* Brand accent ramp — single cohesive indigo → violet → fuchsia family */
+  --brand-300: #a5b4fc;
+  --brand-400: #818cf8;
+  --brand-500: #6366f1;
+  --brand-600: #7c3aed;
+  --brand-violet: #a78bfa;
+  --brand-fuchsia: #d946ef;
+
+  /* Refined Gradients — restrained, signature indigo→violet with a fuchsia tail */
+  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --accent-gradient: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+  --brand-gradient: linear-gradient(120deg, #6366f1 0%, #8b5cf6 48%, #d946ef 100%);
+  --success-gradient: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  --warning-gradient: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  --dark-gradient: linear-gradient(135deg, #12141b 0%, #06070d 100%);
   --text-gradient: linear-gradient(
-    135deg,
+    115deg,
     #ffffff 0%,
-    #667eea 50%,
-    #f5576c 100%
+    #dfe3ff 42%,
+    #b3a4fb 100%
   );
 
-  /* Professional Text Colors */
-  --text-primary: #ffffff;
-  --text-secondary: #d8dcff;
-  --text-muted: #a9b3ff;
-  --text-contrast: #f1f5ff;
-  --accent-color: #7387ff;
-  --success-color: #00f2fe;
-  --warning-color: #fee140;
-  --error-color: #f5576c;
+  /* Hairline gradient-border sheen used on premium cards */
+  --border-gradient: linear-gradient(140deg, rgba(129,140,248,0.45), rgba(217,70,239,0.18) 45%, rgba(255,255,255,0.04) 100%);
+
+  /* Text Colors — crisp neutral grays, no blue tint, all AA-compliant */
+  --text-primary: #f6f7fa;
+  --text-secondary: #b8bdca;
+  --text-muted: #868c9b;
+  --text-contrast: #ffffff;
+  --accent-color: #8b95ff;
+  --success-color: #34d399;
+  --warning-color: #fbbf24;
+  --error-color: #f87171;
 
   /* Enhanced Shadows with depth layers */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-  --shadow-2xl: 0 40px 80px -20px rgba(0, 0, 0, 0.9);
-  --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
-  --shadow-glow-pink: 0 0 40px rgba(245, 87, 108, 0.3);
-  --shadow-glow-blue: 0 0 40px rgba(0, 242, 254, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 12px 28px -14px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 22px 48px -22px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 32px 64px -24px rgba(0, 0, 0, 0.82);
+  --shadow-2xl: 0 48px 96px -28px rgba(0, 0, 0, 0.9);
+  --shadow-glow: 0 0 48px rgba(99, 102, 241, 0.32);
+  --shadow-glow-pink: 0 0 48px rgba(217, 70, 239, 0.26);
+  --shadow-glow-blue: 0 0 40px rgba(52, 211, 153, 0.22);
   --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 
   /* Professional Transitions */
@@ -89,6 +101,11 @@
   --container-xl: 1280px;
   --container-2xl: 1536px;
 
+  /* Canonical page grid — every section aligns to these so left/right
+     edges line up perfectly across the whole site. */
+  --page-max: 1200px;
+  --page-pad-x: clamp(1.25rem, 5vw, 2.75rem);
+
   /* Grid System */
   --grid-cols-1: repeat(1, minmax(0, 1fr));
   --grid-cols-2: repeat(2, minmax(0, 1fr));
@@ -107,4 +124,7 @@
   --z-modal: 10001;
   --z-popover: 10002;
   --z-notification: 10003;
+  /* Custom cursor must always render above every overlay (modal, popover,
+     notification) so it stays visible inside popups like the contact modal. */
+  --z-cursor: 10100;
 }

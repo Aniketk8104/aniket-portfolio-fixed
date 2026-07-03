@@ -23,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Temp files from build scripts
+.validate-content-runner.ts
+
+# Dev verification artifacts (local screenshots)
+shots/

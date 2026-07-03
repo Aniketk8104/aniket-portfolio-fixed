@@ -1,0 +1,313 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Premium effects layer
+   Cohesive, high-end visual language shared across every section:
+   ambient aurora, gradient-hairline surfaces, sheen sweeps, refined text,
+   and scroll-reveal microanimations. Token-driven, reduced-motion aware.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Selection + base polish ─────────────────────────────────────────────── */
+::selection {
+  background: rgba(129, 140, 248, 0.28);
+  color: #fff;
+}
+
+html {
+  scroll-padding-top: 96px;
+}
+
+/* ── Ambient page backdrop ───────────────────────────────────────────────────
+   A layered, slowly-drifting mesh that gives the whole page depth without
+   competing with content. Sits behind everything (z-index handled by canvas).
+   ──────────────────────────────────────────────────────────────────────── */
+.premium-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 18% 8%, rgba(99, 102, 241, 0.16), transparent 60%),
+    radial-gradient(50% 45% at 85% 18%, rgba(217, 70, 239, 0.1), transparent 60%),
+    radial-gradient(55% 50% at 70% 92%, rgba(124, 58, 237, 0.13), transparent 62%),
+    radial-gradient(45% 40% at 12% 85%, rgba(56, 189, 248, 0.07), transparent 60%);
+}
+
+.premium-aurora::before,
+.premium-aurora::after {
+  content: "";
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.premium-aurora::before {
+  top: -22vmax;
+  left: -12vmax;
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.45), transparent 62%);
+  animation: aurora-drift-a 26s ease-in-out infinite alternate;
+}
+
+.premium-aurora::after {
+  bottom: -26vmax;
+  right: -14vmax;
+  background: radial-gradient(circle at 50% 50%, rgba(217, 70, 239, 0.32), transparent 62%);
+  animation: aurora-drift-b 32s ease-in-out infinite alternate;
+}
+
+/* Fine grid that fades toward the edges — adds an engineering texture */
+.premium-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 0%, transparent 78%);
+}
+
+@keyframes aurora-drift-a {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(8vmax, 6vmax, 0) scale(1.15); }
+}
+@keyframes aurora-drift-b {
+  0% { transform: translate3d(0, 0, 0) scale(1.05); }
+  100% { transform: translate3d(-7vmax, -5vmax, 0) scale(1); }
+}
+
+/* ── Gradient-hairline premium surface ───────────────────────────────────────
+   Use on any card/panel for a subtle lit-edge look. The gradient border is a
+   masked pseudo-element so it never clips the content.
+   ──────────────────────────────────────────────────────────────────────── */
+.surface-premium {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0) 36%),
+    var(--secondary-bg);
+  box-shadow: var(--shadow-md);
+  isolation: isolate;
+}
+
+.surface-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--border-gradient);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.55;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
+.surface-premium:hover::before {
+  opacity: 1;
+}
+
+/* ── Sheen sweep — a light glint that crosses an element on hover ─────────── */
+.fx-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.fx-sheen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.13) 50%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  transition: left 0.7s var(--transition-smooth);
+  pointer-events: none;
+}
+.fx-sheen:hover::after {
+  left: 130%;
+}
+
+/* ── Animated brand gradient text ────────────────────────────────────────── */
+.text-brand-animated {
+  background: linear-gradient(120deg, #c7d2fe, #818cf8 30%, #d946ef 55%, #a78bfa 80%, #c7d2fe);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: brand-pan 8s linear infinite;
+}
+@keyframes brand-pan {
+  to { background-position: 220% center; }
+}
+
+/* ── Scroll-reveal microanimation ────────────────────────────────────────────
+   Add .reveal to any element; a global IntersectionObserver toggles
+   .is-revealed when it enters the viewport.
+   ──────────────────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s var(--transition-smooth),
+    transform 0.7s var(--transition-smooth);
+  will-change: opacity, transform;
+}
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+.reveal[data-reveal-delay="1"] { transition-delay: 0.08s; }
+.reveal[data-reveal-delay="2"] { transition-delay: 0.16s; }
+.reveal[data-reveal-delay="3"] { transition-delay: 0.24s; }
+.reveal[data-reveal-delay="4"] { transition-delay: 0.32s; }
+
+/* ── Soft glow divider between major sections ────────────────────────────── */
+.section-glow-divider {
+  position: relative;
+  height: 1px;
+  max-width: 1280px;
+  margin: 0 auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(129, 140, 248, 0.35),
+    rgba(217, 70, 239, 0.18),
+    transparent
+  );
+}
+
+/* ── Reduced motion guard ─────────────────────────────────────────────────
+   Removed by product decision — motion is enabled for all visitors via
+   src/utils/forceMotion.ts. Re-add this guard if reverting that policy. */
+
+/* ── Expertise card icon badge ───────────────────────────────────────────── */
+.expertise-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  color: #c7d2fe;
+  background:
+    linear-gradient(140deg, rgba(129, 140, 248, 0.22), rgba(217, 70, 239, 0.12));
+  border: 1px solid rgba(129, 140, 248, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform var(--transition-normal), color var(--transition-normal);
+}
+
+.expertise-card:hover .expertise-card__icon {
+  transform: translateY(-2px) scale(1.04);
+  color: #fff;
+}
+
+/* ── Featured projects — minimal premium cards ───────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+@media (max-width: 760px) {
+  .projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.project-card {
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+/* Cover image gently zooms while the card is hovered */
+.project-card img {
+  transition: transform 0.6s var(--transition-smooth);
+}
+.project-card:hover img {
+  transform: scale(1.05);
+}
+
+.project-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-caption);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-accent-primary);
+  text-decoration: none;
+  transition: gap var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+.project-card__cta:hover {
+  gap: var(--space-3);
+  color: #c7d2fe;
+}
+.project-card__cta:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card img,
+  .project-card:hover img {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ── Case study image gallery ────────────────────────────────────────────── */
+.case-gallery__item {
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+.case-gallery__item:hover {
+  border-color: var(--border-color-hover);
+  box-shadow: 0 20px 44px -24px rgba(124, 58, 237, 0.5);
+}
+.case-gallery__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.6s var(--transition-smooth);
+}
+.case-gallery__item:hover .case-gallery__img {
+  transform: scale(1.04);
+}
+.case-gallery__caption {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-caption);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-gallery__img,
+  .case-gallery__item:hover .case-gallery__img {
+    transition: none;
+    transform: none;
+  }
+}

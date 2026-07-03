@@ -1,22 +1,23 @@
 // SEO Configuration for AniketDev.tech
+// Rebranded per Requirements 2.2, 3.2, 14.4 — no freelance/MERN positioning.
 export const seoConfig = {
   // Basic Site Information
-  siteName: 'AniketDev - MERN Stack Services',
+  siteName: 'Aniket Kushwaha — Software Engineer',
   siteUrl: 'https://aniketdev.tech',
   defaultTitle:
-    'Aniket Kushwaha - Freelance MERN Stack Developer | Custom Web Solutions',
+    'Aniket Kushwaha — Software Engineer · Backend · Platform · AI Automation',
   defaultDescription:
-    'Hire Aniket Kushwaha, expert freelance MERN stack developer for custom web applications. Specializing in React, Node.js, MongoDB & Express.js. Fast delivery, scalable solutions for your business.',
+    'Aniket Kushwaha is a Software Engineer specialising in backend systems, platform infrastructure, and AI automation pipelines. Building production-grade distributed systems.',
 
   // Keywords for different pages
   keywords: {
-    home: 'freelance MERN developer, hire MERN stack developer, React developer for hire, Node.js freelancer, MongoDB expert, Express.js developer, custom web development, MERN stack services, freelance full stack developer India, web application development',
+    home: 'software engineer, backend engineer, platform engineer, AI automation, distributed systems, Node.js, React, cloud infrastructure, system design, engineering portfolio',
     about:
-      'Aniket Kushwaha developer, MERN stack expert background, freelance developer experience, full stack developer Mumbai, Computer Science graduate developer',
+      'Aniket Kushwaha engineer, backend engineer background, platform engineering experience, software engineer Mumbai, Computer Science graduate developer',
     portfolio:
-      'MERN stack projects, React applications, Node.js projects, MongoDB database projects, Express.js APIs, freelance developer portfolio, web development work',
+      'engineering projects, React applications, Node.js backends, distributed systems, AI automation projects, engineering portfolio, web application development',
     contact:
-      'hire MERN developer, freelance developer contact, web development services, custom web application quote, React developer hire',
+      'hire software engineer, backend engineer contact, engineering services, distributed systems consulting, platform engineering',
   },
 
   // Author Information
@@ -43,14 +44,14 @@ export const seoConfig = {
 
   // Technical Skills for Schema
   skills: [
+    'Backend Engineering',
+    'Platform Engineering',
+    'Distributed Systems',
+    'AI Automation Pipelines',
+    'Node.js Development',
     'React.js Development',
-    'Node.js Backend Development',
-    'MongoDB Database Design',
-    'Express.js API Development',
-    'JavaScript Programming',
     'TypeScript Development',
-    'Full-Stack Web Development',
-    'MERN Stack Architecture',
+    'System Design',
     'REST API Development',
     'GraphQL',
     'AWS Cloud Services',
@@ -68,37 +69,37 @@ export const seoConfig = {
   // Service Offerings
   services: [
     {
-      name: 'Custom React Application Development',
+      name: 'Backend & Platform Engineering',
       description:
-        'Build responsive, scalable React.js applications with modern UI/UX',
-      category: 'Frontend Development',
+        'Production-grade backend services, APIs, and platform infrastructure',
+      category: 'Backend Engineering',
     },
     {
-      name: 'Node.js Backend Development',
+      name: 'Distributed Systems Design',
       description:
-        'Robust server-side applications with Node.js and Express.js',
-      category: 'Backend Development',
+        'Multi-tenant SaaS platforms, distributed messaging, and event-driven architectures',
+      category: 'Systems Engineering',
     },
     {
-      name: 'MongoDB Database Solutions',
+      name: 'AI Automation Pipelines',
       description:
-        'Efficient database design and optimization for scalable applications',
-      category: 'Database Development',
+        'Reliable LLM integrations, agentic workflows, and inference pipelines',
+      category: 'AI Engineering',
     },
     {
-      name: 'Full-Stack MERN Applications',
-      description: 'Complete end-to-end web applications using the MERN stack',
-      category: 'Full-Stack Development',
+      name: 'Cloud Infrastructure & DevOps',
+      description: 'CI/CD pipelines, IaC, and cloud deployments on AWS, Railway, Fly.io',
+      category: 'Platform Engineering',
     },
     {
       name: 'API Development & Integration',
-      description: 'RESTful APIs and third-party service integrations',
+      description: 'RESTful and GraphQL APIs with rate-limiting, auth, and observability',
       category: 'API Development',
     },
     {
-      name: 'Performance Optimization',
-      description: 'Web application speed and performance improvements',
-      category: 'Optimization',
+      name: 'Performance & Reliability Engineering',
+      description: 'Core Web Vitals optimization, security hardening, and observability',
+      category: 'Reliability Engineering',
     },
   ],
 
@@ -126,27 +127,27 @@ export const seoConfig = {
   pages: {
     home: {
       title:
-        'Aniket Kushwaha - Freelance MERN Stack Developer | Custom Web Solutions',
+        'Aniket Kushwaha — Software Engineer · Backend · Platform · AI Automation',
       description:
-        'Hire Aniket Kushwaha, expert freelance MERN stack developer for custom web applications. Specializing in React, Node.js, MongoDB & Express.js. Fast delivery, scalable solutions for your business.',
+        'Aniket Kushwaha is a Software Engineer specialising in backend systems, platform infrastructure, and AI automation pipelines. Building production-grade distributed systems.',
       canonical: 'https://aniketdev.tech',
     },
     about: {
-      title: 'About Aniket Kushwaha - Expert MERN Stack Developer',
+      title: 'About Aniket Kushwaha — Software & Platform Engineer',
       description:
-        'Learn about Aniket Kushwaha, experienced freelance MERN stack developer from Mumbai. Computer Science graduate with proven track record in React, Node.js, MongoDB development.',
+        'Learn about Aniket Kushwaha, Software Engineer and Platform Engineer from Mumbai. Specialising in backend systems, distributed architectures, and AI automation.',
       canonical: 'https://aniketdev.tech/#about',
     },
     portfolio: {
-      title: 'MERN Stack Projects Portfolio - Aniket Kushwaha',
+      title: 'Engineering Projects — Aniket Kushwaha',
       description:
-        'Explore MERN stack projects by Aniket Kushwaha. See React applications, Node.js backends, MongoDB databases, and Express.js APIs built for various clients.',
+        'Explore engineering projects by Aniket Kushwaha — distributed systems, backend APIs, AI automation pipelines, and platform infrastructure.',
       canonical: 'https://aniketdev.tech/#portfolio',
     },
     contact: {
-      title: 'Hire MERN Stack Developer - Contact Aniket Kushwaha',
+      title: 'Contact Aniket Kushwaha — Software & Platform Engineer',
       description:
-        'Ready to hire a freelance MERN stack developer? Contact Aniket Kushwaha for custom web development projects using React, Node.js, MongoDB, and Express.js.',
+        'Get in touch with Aniket Kushwaha for engineering engagements — backend systems, platform infrastructure, and AI automation projects.',
       canonical: 'https://aniketdev.tech/#contact',
     },
   },
@@ -158,7 +159,7 @@ export const generatePersonSchema = () => ({
   '@type': ['Person', 'ProfessionalService'],
   name: seoConfig.author.name,
   alternateName: seoConfig.author.alternateName,
-  jobTitle: 'Freelance MERN Stack Developer',
+  jobTitle: 'Software Engineer · Backend · Platform · AI Automation',
   description: seoConfig.defaultDescription,
   url: seoConfig.siteUrl,
   image: `${seoConfig.siteUrl}${seoConfig.images.og}`,
@@ -174,8 +175,8 @@ export const generatePersonSchema = () => ({
   },
   offers: {
     '@type': 'Service',
-    serviceType: 'Web Development',
-    description: 'Custom MERN stack web application development services',
+    serviceType: 'Software Engineering',
+    description: 'Backend engineering, platform infrastructure, and AI automation pipeline services',
     provider: {
       '@type': 'Person',
       name: seoConfig.author.name,
@@ -183,7 +184,7 @@ export const generatePersonSchema = () => ({
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'MERN Stack Development Services',
+    name: 'Engineering Services',
     itemListElement: seoConfig.services.map(service => ({
       '@type': 'Offer',
       itemOffered: {
@@ -234,18 +235,18 @@ export const generateFAQSchema = () => ({
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'What is MERN stack development?',
+      name: 'What areas do you specialise in as a Software Engineer?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'MERN stack development uses MongoDB, Express.js, React, and Node.js to build full-stack web applications. It provides a complete JavaScript-based solution for both frontend and backend development.',
+        text: 'I specialise in backend engineering, platform infrastructure, distributed systems, and AI automation pipelines. I build production-grade systems using Node.js, React, cloud platforms, and modern DevOps tooling.',
       },
     },
     {
       '@type': 'Question',
-      name: 'How much does it cost to hire a MERN stack developer?',
+      name: 'What kinds of engineering projects do you take on?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The cost varies based on project complexity, timeline, and requirements. I offer competitive rates for freelance MERN stack development services. Contact me for a custom quote based on your specific needs.',
+        text: 'I work on backend API services, multi-tenant SaaS platforms, distributed messaging architectures, event-driven systems, AI automation pipelines, and cloud infrastructure projects. Contact me to discuss your specific engineering needs.',
       },
     },
     {
@@ -253,15 +254,15 @@ export const generateFAQSchema = () => ({
       name: 'Do you work with clients worldwide?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, I provide remote MERN stack development services to clients worldwide. I work across different time zones and communicate effectively in English and Hindi.',
+        text: 'Yes, I provide remote engineering services to clients worldwide. I work across different time zones and communicate effectively in English and Hindi.',
       },
     },
     {
       '@type': 'Question',
-      name: 'What types of projects do you work on?',
+      name: 'What technologies and platforms do you work with?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'I work on various projects including e-commerce websites, business applications, portfolio sites, social media platforms, and custom web applications using the MERN stack.',
+        text: 'I work with Node.js, React, TypeScript, Python, PostgreSQL, MongoDB, Redis, AWS, Railway, Fly.io, Docker, and various AI/LLM APIs. I prioritise production reliability, observability, and long-term maintainability.',
       },
     },
   ],

@@ -1,0 +1,16 @@
+/**
+ * Placeholder styles — renders a visible sentinel for unset content fields.
+ */
+.placeholder {
+  display: inline-block;
+  color: var(--color-text-muted, #888);
+  background: var(--color-surface-elevated, rgba(255, 255, 255, 0.05));
+  border: 1px dashed var(--color-border, rgba(255, 255, 255, 0.15));
+  border-radius: var(--radius-sm, 4px);
+  padding: 2px 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85em;
+  font-style: italic;
+  opacity: 0.75;
+  vertical-align: middle;
+}

@@ -25,19 +25,15 @@ import Navbar from './components/Navbar';
 import LoadingScreen from './components/LoadingScreen';
 
 // Lazy load components with preload capability
-const AnimatedBackground = lazyWithPreload(() =>
-  import('./components/AnimatedBackground')
-);
-const AnimatedBackgroundLite = lazyWithPreload(() =>
-  import('./components/AnimatedBackgroundLite')
-);
 const HeroSection = lazyWithPreload(() => import('./components/HeroSection'));
 const TechStack = lazyWithPreload(() => import('./components/TechStack'));
 const AboutSection = lazyWithPreload(() => import('./components/AboutSection'));
 const ServicesSection = lazyWithPreload(() =>
   import('./components/ServicesSection')
 );
-const Portfolio = lazyWithPreload(() => import('./components/Portfolio'));
+const Portfolio = lazyWithPreload(() =>
+  import('./sections/home/FeaturedProjectsSection').then(m => ({ default: m.FeaturedProjectsSection }))
+);
 const InsightsSection = lazyWithPreload(() =>
   import('./components/InsightsSection')
 );
@@ -48,6 +44,19 @@ const ContactSection = lazyWithPreload(() =>
 const Footer = lazyWithPreload(() => import('./components/Footer'));
 
 // Custom Cursor Component with enhanced animation system
+// ---------------------------------------------------------------------------
+// LEGACY DUPLICATE — Task 8.5 (deprecation note)
+//
+// The authoritative mounts for CustomCursor, ScrollProgress, and FloatingCTA
+// now live in src/app/SiteShell.tsx, which mounts each component exactly once
+// as a global layout route wrapper via App.tsx + react-router-dom.
+//
+// These inline definitions below exist ONLY because main.jsx still imports
+// this legacy App.jsx. Once task 3.5 updates main.jsx/main.tsx to use
+// src/app/App.tsx, these definitions and their JSX usages below should be
+// removed from this file. Do NOT add route-aware state or useLocation() calls
+// to these components — they must remain stateless / animation-only.
+// ---------------------------------------------------------------------------
 const CustomCursor = React.memo(() => {
   const containerRef = useRef(null);
   const cursorRef = useRef(null);
@@ -376,7 +385,7 @@ const FloatingCTA = React.memo(() => {
               strokeLinejoin="round"
             />
           </motion.svg>
-          <span>Hire Me</span>
+          <span>Let&apos;s Talk Engineering</span>
         </motion.a>
       )}
     </AnimatePresence>
@@ -386,274 +395,14 @@ const FloatingCTA = React.memo(() => {
 function App() {
   const [loading, setLoading] = useState(true);
   const [appReady, setAppReady] = useState(false);
-  const [backgroundVariant, setBackgroundVariant] = useState('lite');
-  const [shouldRenderBackground, setShouldRenderBackground] = useState(false);
-  const [targetBackground, setTargetBackground] = useState('lite');
   const performanceTracker = useRef(null);
   const preloadObserver = useRef(null);
-  const backgroundVariantRef = useRef('lite');
-  const targetBackgroundRef = useRef('lite');
-  const backgroundUpgradeIdleRef = useRef(null);
-  const backgroundUpgradeTimeoutRef = useRef(null);
-  const backgroundUpgradeWaitRef = useRef(null);
-  const backgroundIdleRef = useRef(null);
   const deferredInitIdleRef = useRef(null);
-  const upgradeInteractionCleanupRef = useRef(null);
-  const hasUserInteractionRef = useRef(false);
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      backgroundVariantRef.current = 'lite';
-      targetBackgroundRef.current = 'lite';
-      setBackgroundVariant('lite');
-      setTargetBackground('lite');
-      return;
-    }
 
-    if (typeof window.matchMedia !== 'function') {
-      backgroundVariantRef.current = 'lite';
-      targetBackgroundRef.current = 'lite';
-      setBackgroundVariant('lite');
-      setTargetBackground('lite');
-      return;
-    }
-
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const connection =
-      navigator.connection ||
-      navigator.mozConnection ||
-      navigator.webkitConnection;
-
-    const cancelBackgroundUpgrade = () => {
-      if (
-        backgroundUpgradeIdleRef.current &&
-        'cancelIdleCallback' in window &&
-        typeof window.cancelIdleCallback === 'function'
-      ) {
-        window.cancelIdleCallback(backgroundUpgradeIdleRef.current);
-      }
-      if (backgroundUpgradeTimeoutRef.current) {
-        window.clearTimeout(backgroundUpgradeTimeoutRef.current);
-        backgroundUpgradeTimeoutRef.current = null;
-      }
-      if (backgroundUpgradeWaitRef.current) {
-        window.clearTimeout(backgroundUpgradeWaitRef.current);
-        backgroundUpgradeWaitRef.current = null;
-      }
-      if (upgradeInteractionCleanupRef.current) {
-        upgradeInteractionCleanupRef.current();
-        upgradeInteractionCleanupRef.current = null;
-      }
-      backgroundUpgradeIdleRef.current = null;
-      backgroundUpgradeTimeoutRef.current = null;
-    };
-
-    const commitBackgroundUpgrade = () => {
-      if (targetBackgroundRef.current !== 'full') {
-        cancelBackgroundUpgrade();
-        return;
-      }
-      backgroundUpgradeIdleRef.current = null;
-      backgroundUpgradeTimeoutRef.current = null;
-      if (backgroundUpgradeWaitRef.current) {
-        window.clearTimeout(backgroundUpgradeWaitRef.current);
-        backgroundUpgradeWaitRef.current = null;
-      }
-      if (upgradeInteractionCleanupRef.current) {
-        upgradeInteractionCleanupRef.current();
-        upgradeInteractionCleanupRef.current = null;
-      }
-      hasUserInteractionRef.current = true;
-      AnimatedBackground.preload?.();
-      backgroundVariantRef.current = 'full';
-      setBackgroundVariant('full');
-    };
-
-    const scheduleBackgroundUpgrade = () => {
-      if (targetBackgroundRef.current !== 'full') {
-        return;
-      }
-
-      if (
-        backgroundUpgradeIdleRef.current ||
-        backgroundUpgradeTimeoutRef.current ||
-        backgroundUpgradeWaitRef.current
-      ) {
-        return;
-      }
-
-      if (!hasUserInteractionRef.current) {
-        const handleUserInteraction = () => {
-          hasUserInteractionRef.current = true;
-          if (upgradeInteractionCleanupRef.current) {
-            upgradeInteractionCleanupRef.current();
-            upgradeInteractionCleanupRef.current = null;
-          }
-          if (backgroundUpgradeWaitRef.current) {
-            window.clearTimeout(backgroundUpgradeWaitRef.current);
-            backgroundUpgradeWaitRef.current = null;
-          }
-          scheduleBackgroundUpgrade();
-        };
-
-        const interactionEvents = [
-          'pointerdown',
-          'pointermove',
-          'touchstart',
-          'keydown',
-          'scroll',
-        ];
-
-        interactionEvents.forEach(event => {
-          window.addEventListener(event, handleUserInteraction, {
-            passive: true,
-            once: true,
-          });
-        });
-
-        upgradeInteractionCleanupRef.current = () => {
-          interactionEvents.forEach(event => {
-            window.removeEventListener(event, handleUserInteraction);
-          });
-        };
-
-        backgroundUpgradeWaitRef.current = window.setTimeout(() => {
-          backgroundUpgradeWaitRef.current = null;
-          hasUserInteractionRef.current = true;
-          if (upgradeInteractionCleanupRef.current) {
-            upgradeInteractionCleanupRef.current();
-            upgradeInteractionCleanupRef.current = null;
-          }
-          scheduleBackgroundUpgrade();
-        }, 45000);
-
-        return;
-      }
-
-      if (loading) {
-        backgroundUpgradeTimeoutRef.current = window.setTimeout(() => {
-          backgroundUpgradeTimeoutRef.current = null;
-          scheduleBackgroundUpgrade();
-        }, 1200);
-        return;
-      }
-
-      if ('requestIdleCallback' in window) {
-        backgroundUpgradeIdleRef.current = window.requestIdleCallback(
-          () => {
-            commitBackgroundUpgrade();
-          },
-          { timeout: 4000 }
-        );
-      } else {
-        backgroundUpgradeTimeoutRef.current = window.setTimeout(
-          commitBackgroundUpgrade,
-          1800
-        );
-      }
-    };
-
-    const evaluateVariant = () => {
-      const prefersReducedMotion = motionQuery.matches;
-      const saveDataEnabled = Boolean(connection?.saveData);
-      const slowConnection =
-        typeof connection?.effectiveType === 'string' &&
-        (connection.effectiveType.includes('2g') ||
-          connection.effectiveType === 'slow-2g');
-      const isMobileViewport = window.innerWidth <= 1024;
-
-      const nextVariant =
-        prefersReducedMotion || saveDataEnabled || slowConnection || isMobileViewport
-          ? 'lite'
-          : 'full';
-
-  setTargetBackground(nextVariant);
-  targetBackgroundRef.current = nextVariant;
-
-      if (nextVariant === 'lite') {
-        AnimatedBackgroundLite.preload?.();
-        cancelBackgroundUpgrade();
-        if (backgroundVariantRef.current !== 'lite') {
-          backgroundVariantRef.current = 'lite';
-          setBackgroundVariant('lite');
-        }
-        return;
-      }
-
-      // Default to lite background first, upgrade once idle
-      AnimatedBackgroundLite.preload?.();
-      if (backgroundVariantRef.current !== 'lite') {
-        backgroundVariantRef.current = 'lite';
-        setBackgroundVariant('lite');
-      }
-
-      scheduleBackgroundUpgrade();
-    };
-
-    evaluateVariant();
-
-    const cleanupFns = [];
-
-    if (typeof motionQuery.addEventListener === 'function') {
-      motionQuery.addEventListener('change', evaluateVariant);
-      cleanupFns.push(() =>
-        motionQuery.removeEventListener('change', evaluateVariant)
-      );
-    } else if (typeof motionQuery.addListener === 'function') {
-      motionQuery.addListener(evaluateVariant);
-      cleanupFns.push(() => motionQuery.removeListener(evaluateVariant));
-    }
-
-    const handleResize = () => evaluateVariant();
-    window.addEventListener('resize', handleResize);
-    cleanupFns.push(() => window.removeEventListener('resize', handleResize));
-
-    if (connection?.addEventListener) {
-      connection.addEventListener('change', evaluateVariant);
-      cleanupFns.push(() =>
-        connection.removeEventListener('change', evaluateVariant)
-      );
-    }
-
-    return () => {
-      cancelBackgroundUpgrade();
-      cleanupFns.forEach(cleanup => cleanup());
-    };
-  }, [loading]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const scheduleBackground = () => setShouldRenderBackground(true);
-
-    if ('requestIdleCallback' in window) {
-      backgroundIdleRef.current = window.requestIdleCallback(
-        scheduleBackground,
-        {
-          timeout: 1500,
-        }
-      );
-    } else {
-      backgroundIdleRef.current = window.setTimeout(scheduleBackground, 300);
-    }
-
-    return () => {
-      if (!backgroundIdleRef.current) {
-        return;
-      }
-
-      if (
-        'cancelIdleCallback' in window &&
-        typeof window.cancelIdleCallback === 'function'
-      ) {
-        window.cancelIdleCallback(backgroundIdleRef.current);
-      } else {
-        window.clearTimeout(backgroundIdleRef.current);
-      }
-    };
-  }, []);
-
+  // NOTE: AnimatedBackground full/lite variant switching has been lifted into
+  // SiteShell.tsx (useBackgroundVariant hook) per task 8.4 / Requirement 19.1.
+  // The duplicate state, refs, and effects that previously managed the
+  // background variant from App.jsx have been removed.
 
   // Memoize component list for preloading
   const componentMap = useMemo(
@@ -818,14 +567,6 @@ function App() {
 
             {/* Navigation - Critical path */}
             <Navbar />
-
-            {/* Animated Background - Non-blocking */}
-            {shouldRenderBackground && (
-              <Suspense fallback={null}>
-                {backgroundVariant === 'full' && <AnimatedBackground />}
-                {backgroundVariant === 'lite' && <AnimatedBackgroundLite />}
-              </Suspense>
-            )}
 
             {/* Main Content with error boundaries */}
             <main id="main-content" tabIndex={-1}>

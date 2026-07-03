@@ -74,10 +74,10 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--primary-gradient);
+  background: var(--brand-gradient);
   z-index: var(--z-fixed);
   transform-origin: left;
-  box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.6);
 }
 
 /* Professional Floating CTA */
@@ -85,7 +85,8 @@
   position: fixed;
   bottom: var(--spacing-lg);
   right: var(--spacing-lg);
-  background: var(--accent-gradient);
+  background: var(--brand-gradient);
+  background-size: 160% auto;
   color: white;
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-full);
@@ -95,19 +96,20 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  box-shadow: var(--shadow-xl);
+  box-shadow: 0 14px 36px -10px rgba(124, 58, 237, 0.6);
   z-index: var(--z-sticky);
   transition: all var(--transition-smooth);
   cursor: pointer;
   backdrop-filter: blur(10px);
   min-height: 48px; /* Touch target */
   white-space: nowrap;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .floating-cta:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: var(--shadow-2xl);
+  transform: translateY(-3px) scale(1.04);
+  filter: brightness(1.06);
+  box-shadow: 0 20px 48px -12px rgba(124, 58, 237, 0.7);
 }
 
 .floating-cta:active {
@@ -120,14 +122,21 @@ section {
   z-index: var(--z-normal);
 }
 
+/* Elastic content layer for rubber-band overscroll (src/utils/smoothScroll.ts).
+   Plain block in normal flow; the engine applies a transient translateY only
+   during the bounce and clears it at rest, so sticky/fixed descendants are
+   never affected outside the brief elastic moment at the page extremes. */
+.scroll-content {
+  transform-origin: top center;
+  backface-visibility: hidden;
+}
+
 /* Enhanced Mobile-First Responsive Design */
 @media (max-width: 640px) {
+  /* The floating CTA is removed on mobile — the section's own dock + the nav
+     menu cover the contact path, and the FAB collided with the bottom dock. */
   .floating-cta {
-    bottom: var(--spacing-md);
-    right: var(--spacing-md);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: var(--font-xs);
-    min-height: 44px;
+    display: none;
   }
 
   .loading-content {
@@ -148,14 +157,7 @@ section {
 
 @media (max-width: 480px) {
   .floating-cta {
-    bottom: var(--spacing-sm);
-    right: var(--spacing-sm);
-    left: var(--spacing-sm);
-    width: auto;
-    justify-content: center;
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: var(--font-xs);
+    display: none;
   }
 
   .loading-content {
@@ -189,16 +191,8 @@ section {
 }
 
 /* Performance optimizations */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* (Global reduced-motion guard intentionally removed — see utils/forceMotion.ts:
+   motion is enabled for all visitors by product decision.) */
 
 /* Add these performance optimizations to App.css */
 
@@ -255,115 +249,199 @@ iframe {
   will-change: transform;
 }
 
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+/* Reduce motion guard removed — motion is enabled for all visitors
+   (see src/utils/forceMotion.ts). */
 
-/* 🚀 ULTRA-ADVANCED QUANTUM CURSOR SYSTEM */
-.ultra-cursor-container {
+/* ───────────────────────────── "Lumen" luxury cursor ─────────────────────── */
+.lumen-cursor {
   position: fixed;
   top: 0;
   left: 0;
+  width: 0;
+  height: 0;
   pointer-events: none;
-  z-index: 10000;
-  mix-blend-mode: difference;
+  z-index: var(--z-cursor, 10100);
+  opacity: 1;
+  transition: opacity 0.4s ease;
 }
 
-.ultra-cursor {
+.lumen-cursor.is-hidden {
+  opacity: 0;
+}
+
+/* Focal dot — the "lumen", tracks the pointer 1:1. Crisp and luminous so it
+   never sits on top of (or smears) whatever the pointer is aimed at. */
+.lumen-cursor__dot {
   position: fixed;
-  width: 16px;
-  height: 16px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10001;
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.6),
-    0 0 40px rgba(118, 75, 162, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(4px);
-  transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    background 0.3s ease, box-shadow 0.3s ease, opacity 0.2s ease,
-    width 0.2s ease, height 0.2s ease, border-radius 0.2s ease;
-}
-
-.ultra-cursor-pointer {
-  background: linear-gradient(45deg, #f093fb, #f5576c);
-  transform: scale(1.5) !important;
-  box-shadow: 0 0 30px rgba(240, 147, 251, 0.8),
-    0 0 60px rgba(245, 87, 108, 0.5);
-}
-
-.ultra-cursor-text {
-  background: linear-gradient(45deg, #4facfe, #00f2fe);
-  transform: scale(0.8) !important;
-  border-radius: 2px;
-  height: 20px;
-  width: 2px;
-}
-
-.ultra-cursor-view {
-  background: linear-gradient(45deg, #fee140, #fa709a);
-  transform: scale(2) !important;
-  border-radius: 4px;
-  box-shadow: 0 0 40px rgba(254, 225, 64, 0.8),
-    0 0 80px rgba(250, 112, 154, 0.5);
-}
-
-.ultra-cursor-outline {
-  position: fixed;
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(102, 126, 234, 0.3);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  backdrop-filter: blur(2px);
-  transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    border-color 0.3s ease, opacity 0.25s ease, border-radius 0.25s ease;
-  animation: pulse-outline 2s infinite;
-}
-
-@keyframes pulse-outline {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.3;
-  }
-}
-
-.cursor-trail {
-  position: fixed;
+  top: 0;
+  left: 0;
   width: 6px;
   height: 6px;
-  background: radial-gradient(circle, rgba(102, 126, 234, 0.8), transparent);
   border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.35;
-  transition: transform 0.35s ease, opacity 0.35s ease;
+  background: var(--accent-color, #818cf8);
+  box-shadow: 0 0 10px rgba(129, 140, 248, 0.9), 0 0 2px rgba(255, 255, 255, 0.95);
+  will-change: transform;
+  transition: width 0.3s var(--ease-standard, ease),
+    height 0.3s var(--ease-standard, ease), opacity 0.3s ease;
 }
 
-.cursor-particle {
+/* Magnetic halo — size, radius and position are driven per-frame from JS so
+   it can conform to interactive elements. It reads as a thin glass lens rim:
+   the centre stays fully transparent (you always see the target underneath),
+   while a specular top-edge + soft floating shadow give a premium spatial
+   sense of the rim hovering ABOVE the surface. No backdrop blur — pointing at
+   something must never make it harder to see. */
+.lumen-cursor__halo {
   position: fixed;
-  width: 4px;
-  height: 4px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9997;
-  box-shadow: 0 0 10px rgba(102, 126, 234, 0.6);
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  border: 1px solid rgba(129, 140, 248, 0.5);
+  background: transparent;
+  box-shadow:
+    0 6px 22px -8px rgba(129, 140, 248, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.28);
+  will-change: transform, width, height;
+  transition: border-color 0.35s ease, background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Rotating conic sheen removed per design — the halo stays a clean glass rim. */
+.lumen-cursor__halo::before {
+  display: none;
+}
+
+.lumen-cursor__label {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Interactive (links / buttons): the rim brightens and lifts. Centre stays
+   clear, so the element it conforms to is never blurred or dimmed — it reads
+   as "lifted into focus" rather than hidden behind glass. */
+.lumen-cursor__halo.is-pointer {
+  border-color: rgba(167, 139, 250, 0.8);
+  background: transparent;
+  box-shadow:
+    0 0 0 1px rgba(129, 140, 248, 0.16),
+    0 12px 36px -10px rgba(129, 140, 248, 0.6),
+    inset 0 0 14px rgba(129, 140, 248, 0.14),
+    inset 0 1px 1px rgba(255, 255, 255, 0.24);
+}
+.lumen-cursor__dot.is-pointer {
   opacity: 0.4;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Text fields: solid I-beam, sheen suppressed */
+.lumen-cursor__halo.is-text {
+  border-color: transparent;
+  background: var(--accent-color, #818cf8);
+  box-shadow: 0 0 10px rgba(129, 140, 248, 0.6);
+}
+.lumen-cursor__halo.is-text::before {
+  opacity: 0;
+}
+.lumen-cursor__dot.is-text {
+  opacity: 0;
+}
+
+/* Media (data-cursor="view"): a clear glass lens — bright refractive rim with
+   a transparent centre so the artwork beneath reads sharply (the opposite of
+   blurring it). A small floating "View" pill labels the affordance. */
+.lumen-cursor__halo.is-view {
+  border-color: rgba(199, 210, 254, 0.85);
+  background: radial-gradient(
+    circle at 50% 38%,
+    rgba(199, 210, 254, 0.1),
+    rgba(129, 140, 248, 0.03) 55%,
+    transparent 72%
+  );
+  box-shadow:
+    0 0 0 1px rgba(129, 140, 248, 0.22),
+    0 18px 46px -14px rgba(0, 0, 0, 0.7),
+    inset 0 2px 3px rgba(255, 255, 255, 0.3),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.22);
+}
+.lumen-cursor__halo.is-view .lumen-cursor__label {
+  opacity: 1;
+  transform: scale(1);
+  padding: 3px 9px;
+  border-radius: var(--radius-full, 999px);
+  background: rgba(10, 12, 20, 0.72);
+  box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.6);
+}
+.lumen-cursor__dot.is-view {
+  opacity: 0;
+}
+
+/* Click ripple — radiates from the press point */
+.lumen-cursor__ripple {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(129, 140, 248, 0.7);
+  pointer-events: none;
+  animation: lumenRipple 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes lumenSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lumenRipple {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(4.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lumen-cursor__halo::before {
+    animation: none;
+  }
+}
+
+/* Legacy trail/particle nodes are no longer rendered */
+.cursor-trail,
+.cursor-particle {
+  display: none !important;
+}
+
+/* ───────────────────────── Magnetic CTA primitive ────────────────────────
+   Transform is driven per-frame from JS (src/components/ui/Magnetic.jsx); we
+   only hint the compositor here. The component manages its own transition
+   while active and clears it at rest, so resting hover/box-shadow transitions
+   defined on .btn / .nav-cta continue to work. */
+.magnetic {
+  will-change: transform;
+}
+@media (hover: none), (pointer: coarse) {
+  .magnetic {
+    will-change: auto;
+  }
 }
 
 /* 🌊 ULTRA-ADVANCED SCROLL PROGRESS */
@@ -613,10 +691,9 @@ iframe {
 /* Responsive optimizations for mobile */
 @media (max-width: 768px) {
   .ultra-cursor-container,
-  .ultra-cursor,
-  .ultra-cursor-outline,
-  .cursor-trail,
-  .cursor-particle {
+  .lumen-cursor,
+  .lumen-cursor__dot,
+  .lumen-cursor__halo {
     display: none !important;
   }
 
@@ -650,10 +727,8 @@ iframe {
 }
 
 /* High performance GPU acceleration */
-.ultra-cursor,
-.ultra-cursor-outline,
-.cursor-trail,
-.cursor-particle,
+.lumen-cursor__dot,
+.lumen-cursor__halo,
 .progress-bar,
 .progress-glow,
 .cta-link,
@@ -662,74 +737,11 @@ iframe {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-.ultra-cursor-container {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.ultra-cursor-container.is-hidden .ultra-cursor,
-.ultra-cursor-container.is-hidden .ultra-cursor-outline,
-.ultra-cursor-container.is-hidden .cursor-trail,
-.ultra-cursor-container.is-hidden .cursor-particle {
-  opacity: 0;
-  transform: translate3d(-9999px, -9999px, 0) scale(0.4);
-}
-
-.ultra-cursor-outline.ultra-cursor-pointer {
-  border-color: rgba(240, 147, 251, 0.45);
-  transform: scale(1.25);
-}
-
-.ultra-cursor-outline.ultra-cursor-text {
-  border-color: rgba(79, 172, 254, 0.5);
-  border-radius: 10px;
-  transform: scaleX(0.6) scaleY(1.7);
-}
-
-.ultra-cursor-outline.ultra-cursor-view {
-  border-color: rgba(254, 225, 64, 0.45);
-  transform: scale(1.6);
-}
-
-.ultra-cursor.ultra-cursor-pointer {
-  box-shadow: 0 0 30px rgba(240, 147, 251, 0.8),
-    0 0 60px rgba(245, 87, 108, 0.5);
-}
-
-.ultra-cursor.ultra-cursor-text {
-  width: 12px;
-  height: 28px;
-  border-radius: 4px;
-  background: linear-gradient(45deg, #4facfe, #00f2fe);
-}
-
-.ultra-cursor.ultra-cursor-view {
-  background: linear-gradient(45deg, #fee140, #fa709a);
-  box-shadow: 0 0 40px rgba(254, 225, 64, 0.8),
-    0 0 80px rgba(250, 112, 154, 0.5);
 }
 
 /* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  .ultra-cursor,
-  .ultra-cursor-outline,
-  .cursor-trail,
-  .cursor-particle {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .cta-pulse {
-    animation: none !important;
-  }
-
-  .urgent-pulse {
-    animation: none !important;
-  }
-}
+/* (Cursor reduced-motion guard removed — motion enabled for all; see
+   src/utils/forceMotion.ts.) */
 
 /* Error boundary styling */
 .error-boundary {

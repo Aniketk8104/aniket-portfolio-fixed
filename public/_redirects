@@ -1,0 +1,12 @@
+# Static-asset pass-throughs — these must come before the SPA catch-all so
+# real files are never rewritten to /index.html.
+# Validates: Requirements 17.1, 17.2, 17.3
+
+/sitemap.xml      /sitemap.xml      200
+/robots.txt       /robots.txt       200
+/manifest.json    /manifest.json    200
+/favicon.ico      /favicon.ico      200
+/assets/*         /assets/:splat    200
+
+# SPA catch-all — serves index.html for all unmatched client-side routes
+/*                /index.html       200

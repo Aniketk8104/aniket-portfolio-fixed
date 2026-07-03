@@ -1,46 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://aniketdev.tech/</loc>
-    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://aniketdev.tech/logo512.png</image:loc>
-      <image:title>Aniket Kushwaha - Freelance MERN Stack Developer</image:title>
-      <image:caption>Expert freelance MERN stack developer for custom web applications using React, Node.js, MongoDB, Express.js</image:caption>
-    </image:image>
   </url>
   <url>
-    <loc>https://aniketdev.tech/#about</loc>
-    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://aniketdev.tech/#tech</loc>
-    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://aniketdev.tech/#portfolio</loc>
-    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+    <loc>https://aniketdev.tech/projects</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://aniketdev.tech/#contact</loc>
-    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://aniketdev.tech/architecture</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aniketdev.tech/#services</loc>
-    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://aniketdev.tech/case-studies</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/writing</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/case-studies/bvisionr</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/case-studies/radique</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/case-studies/aura-tech-platform</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/case-studies/stopsearch</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/case-studies/labour-link</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/architecture/distributed-messaging</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/architecture/ai-routing</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/architecture/multi-tenant-saas</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/architecture/whatsapp-infrastructure</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/architecture/healthcare-workflow</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/architecture/deployment-infrastructure</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/writing/multi-tenant-saas</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/writing/distributed-messaging-pipelines</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/writing/whatsapp-infrastructure-at-scale</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/writing/reliable-ai-automation</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/writing/rbac-patterns</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/writing/queue-based-system-design</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aniketdev.tech/writing/event-driven-architectures</loc>
+    <lastmod>2026-07-03T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

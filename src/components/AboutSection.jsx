@@ -1,8 +1,66 @@
+/**
+ * AboutSection
+ *
+ * Rebranded for engineering positioning per Requirements 3.1, 3.2, 3.3.
+ * Content is sourced from src/content/about.ts via the aboutContent module.
+ * Unauthored optional fields render a <Placeholder> sentinel via the TSX wrapper
+ * from src/sections/shared/Placeholder.tsx rather than fabricated prose.
+ *
+ * NOTE: This file remains .jsx per Requirements 12.3 (existing JSX files are not
+ * converted during the rebrand pass). The Placeholder component is imported as a
+ * regular ES module — TypeScript interop works at runtime because the project uses
+ * allowJs + react-jsx.
+ */
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-// import ParallaxScene from './ParallaxScene';
 import './AboutSection.css';
+
+// Content module – sourced from typed about.ts
+import { aboutContent } from '../content/about';
+// Placeholder helpers (TS interop via allowJs)
+import { isPlaceholder } from '../utils/placeholder';
+import { Placeholder } from '../sections/shared/Placeholder';
+
+/**
+ * Render a string field or a Placeholder sentinel for unset fields.
+ * @param {string | import('../utils/placeholder').Placeholder<string>} value
+ */
+const Field = ({ value }) => {
+  if (isPlaceholder(value)) {
+    return <Placeholder field={value.__field} />;
+  }
+  return <>{value}</>;
+};
+
+const codeLines = [
+  {
+    line: 1,
+    content: `<span class="comment">// Engineering Approach</span>`,
+  },
+  {
+    line: 2,
+    content: `<span class="keyword">class</span> <span class="function">MyWork</span> <span class="bracket">{</span>`,
+  },
+  {
+    line: 3,
+    content: `  <span class="function">constructor</span><span class="bracket">()</span> <span class="bracket">{</span>`,
+  },
+  {
+    line: 4,
+    content: `    <span class="keyword">this</span>.<span class="property">reliability</span> = <span class="string">'production-grade'</span>;`,
+  },
+  {
+    line: 5,
+    content: `    <span class="keyword">this</span>.<span class="property">scalability</span> = <span class="string">'distributed'</span>;`,
+  },
+  {
+    line: 6,
+    content: `    <span class="keyword">this</span>.<span class="property">automation</span> = <span class="string">'AI-first'</span>;`,
+  },
+  { line: 7, content: `  <span class="bracket">}</span>` },
+  { line: 8, content: `<span class="bracket">}</span>` },
+];
 
 const AboutSection = () => {
   const [ref, inView] = useInView({
@@ -10,38 +68,8 @@ const AboutSection = () => {
     threshold: 0.1,
   });
 
-  const codeLines = [
-    {
-      line: 1,
-      content: `<span class="comment">// My Development Approach</span>`,
-    },
-    {
-      line: 2,
-      content: `<span class="keyword">class</span> <span class="function">MyWork</span> <span class="bracket">{</span>`,
-    },
-    {
-      line: 3,
-      content: `  <span class="function">constructor</span><span class="bracket">()</span> <span class="bracket">{</span>`,
-    },
-    {
-      line: 4,
-      content: `    <span class="keyword">this</span>.<span class="property">performance</span> = <span class="string">'optimized'</span>;`,
-    },
-    {
-      line: 5,
-      content: `    <span class="keyword">this</span>.<span class="property">scalability</span> = <span class="string">'enterprise'</span>;`,
-    },
-    {
-      line: 6,
-      content: `    <span class="keyword">this</span>.<span class="property">codeQuality</span> = <span class="string">'excellent'</span>;`,
-    },
-    { line: 7, content: `  <span class="bracket">}</span>` },
-    { line: 8, content: `<span class="bracket">}</span>` },
-  ];
-
   return (
     <section id="about" className="about" ref={ref}>
-      {/* <ParallaxScene /> */}
       <div className="about-container">
         <motion.div
           className="about-content"
@@ -50,26 +78,25 @@ const AboutSection = () => {
           transition={{ duration: 0.6 }}
         >
           <h2>About Me</h2>
-          <p className="about-text">
-            I'm a Computer Science graduate and{' '}
-            <span className="highlight"> full-stack developer</span>{' '}
-            specializing in the MERN stack. With advanced expertise in MongoDB,
-            Express.js, React, and Node.js, I don't just use these
-            technologies—I leverage their full potential to create
-            lightning-fast, scalable applications that handle enterprise-level
-            traffic and complexity.
+
+          {/* Headline — always authored */}
+          <p className="about-text" style={{ fontWeight: 600 }}>
+            {aboutContent.headline}
           </p>
+
+          {/* Intro paragraph — sourced from content module */}
           <p className="about-text">
-            My approach goes beyond coding. I{' '}
-            <span className="highlight">engineer solutions</span> by thoroughly
-            analyzing requirements, designing scalable architecture, and
-            delivering thoroughly tested, production-ready applications with
-            clean, maintainable code.
+            <Field value={aboutContent.introParagraph} />
           </p>
+
+          {/* Approach paragraph */}
           <p className="about-text">
-            Currently pursuing my Bachelor's degree in Computer Science from
-            Changu Kana Thakur College, I combine academic rigor with practical
-            experience to deliver exceptional results.
+            <Field value={aboutContent.approachParagraph} />
+          </p>
+
+          {/* Background paragraph */}
+          <p className="about-text">
+            <Field value={aboutContent.backgroundParagraph} />
           </p>
 
           {/* Experience Timeline */}
@@ -79,27 +106,15 @@ const AboutSection = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="timeline-item">
-              <div className="timeline-dot"></div>
-              <div className="timeline-content">
-                <h3 className="timeline-item-title">2024 - Present</h3>
-                <p> MERN Stack Developer</p>
+            {aboutContent.timeline.map((entry, idx) => (
+              <div key={idx} className="timeline-item">
+                <div className="timeline-dot"></div>
+                <div className="timeline-content">
+                  <h3 className="timeline-item-title">{entry.period}</h3>
+                  <p>{entry.label}</p>
+                </div>
               </div>
-            </div>
-            <div className="timeline-item">
-              <div className="timeline-dot"></div>
-              <div className="timeline-content">
-                <h3 className="timeline-item-title">2023 - 2024</h3>
-                <p>Full Stack Development Journey</p>
-              </div>
-            </div>
-            <div className="timeline-item">
-              <div className="timeline-dot"></div>
-              <div className="timeline-content">
-                <h3 className="timeline-item-title">2023 - Present</h3>
-                <p>B.Sc Computer Science - CKT College</p>
-              </div>
-            </div>
+            ))}
           </motion.div>
         </motion.div>
 
@@ -116,7 +131,7 @@ const AboutSection = () => {
                 <div className="control-dot dot-yellow"></div>
                 <div className="control-dot dot-green"></div>
               </div>
-              <div className="editor-title">philosophy.js</div>
+              <div className="editor-title">philosophy.ts</div>
             </div>
             <div className="code-content">
               {codeLines.map((codeLine, index) => (
@@ -133,19 +148,14 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Floating skill badges */}
+          {/* Floating skill badges sourced from content module */}
           <motion.div
             className="skill-badges"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            {[
-              'Problem Solver',
-              'Team Player',
-              'Quick Learner',
-              'Creative Thinker',
-            ].map((skill, index) => (
+            {aboutContent.skills.map((skill, index) => (
               <motion.div
                 key={skill}
                 className="skill-badge"

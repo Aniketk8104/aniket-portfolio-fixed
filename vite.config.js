@@ -9,8 +9,15 @@ const removeThreePreload = () => ({
   },
 });
 
+// https://vitest.dev/config/
+
 export default defineConfig({
   plugins: [react(), removeThreePreload()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/test-setup.ts'],
+  },
   server: {
     headers: {
       'Access-Control-Allow-Origin': '*',

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Aura Tech Platform — payments platform preview">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5576c"/>
+      <stop offset="0.5" stop-color="#f093fb"/>
+      <stop offset="1" stop-color="#fa709a"/>
+    </linearGradient>
+    <linearGradient id="panel3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a1016"/>
+      <stop offset="1" stop-color="#120b0f"/>
+    </linearGradient>
+    <linearGradient id="card3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5576c"/>
+      <stop offset="1" stop-color="#f093fb"/>
+    </linearGradient>
+    <pattern id="grid3" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#ffffff" stroke-opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg3)"/>
+  <rect width="800" height="500" fill="url(#grid3)"/>
+  <rect x="64" y="70" width="672" height="360" rx="18" fill="url(#panel3)" stroke="#ffffff" stroke-opacity="0.1"/>
+  <g transform="translate(88 98)">
+    <circle cx="6" cy="6" r="6" fill="#ff5f56"/>
+    <circle cx="26" cy="6" r="6" fill="#ffbd2e"/>
+    <circle cx="46" cy="6" r="6" fill="#27ca3f"/>
+  </g>
+  <!-- payment card -->
+  <rect x="96" y="150" width="300" height="180" rx="16" fill="url(#card3)"/>
+  <rect x="120" y="186" width="56" height="40" rx="6" fill="#ffffff" fill-opacity="0.55"/>
+  <rect x="120" y="262" width="180" height="14" rx="7" fill="#ffffff" fill-opacity="0.7"/>
+  <rect x="120" y="288" width="120" height="12" rx="6" fill="#ffffff" fill-opacity="0.45"/>
+  <circle cx="350" cy="300" r="22" fill="#ffffff" fill-opacity="0.85"/>
+  <circle cx="324" cy="300" r="22" fill="#ffffff" fill-opacity="0.5"/>
+  <!-- stats -->
+  <g transform="translate(432 150)">
+    <rect width="200" height="84" rx="12" fill="#ffffff" fill-opacity="0.06"/>
+    <rect y="96" width="200" height="84" rx="12" fill="#ffffff" fill-opacity="0.06"/>
+    <rect x="20" y="22" width="120" height="16" rx="8" fill="#fa709a" fill-opacity="0.8"/>
+    <rect x="20" y="48" width="80" height="12" rx="6" fill="#ffffff" fill-opacity="0.3"/>
+    <rect x="20" y="118" width="120" height="16" rx="8" fill="#f093fb" fill-opacity="0.8"/>
+    <rect x="20" y="144" width="80" height="12" rx="6" fill="#ffffff" fill-opacity="0.3"/>
+  </g>
+  <text x="96" y="372" font-family="'JetBrains Mono',monospace" font-size="15" fill="#fbcfe8" letter-spacing="2">PAYMENTS · &lt;2s LOAD</text>
+</svg>

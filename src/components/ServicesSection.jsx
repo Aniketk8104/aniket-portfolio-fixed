@@ -1,3 +1,15 @@
+/**
+ * ServicesSection — Engineering Expertise
+ *
+ * Rebranded for engineering positioning per Requirements 2.1, 14.4.
+ * All legacy freelance copy has been replaced with engineering-expertise
+ * descriptions covering backend, platform, AI automation, and distributed systems.
+ *
+ * NOTE: This file remains .jsx per Requirements 12.3. The new TSX
+ * CoreExpertiseSection is the canonical design-system version; this file
+ * provides the legacy scroll-page integration point. It will be superseded
+ * when App.jsx is migrated to use HomePage.tsx (Phase 8 completion).
+ */
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -5,59 +17,59 @@ import './ServicesSection.css';
 
 const services = [
   {
-    id: 'mern-products',
-    title: 'End-to-End MERN Product Development',
+    id: 'backend-platform',
+    title: 'Backend & Platform Engineering',
     description:
-      'Design, build, and launch full-stack products with React, Node.js, Express, and MongoDB. I partner as your technical co-founder, shipping pixel-perfect UI, resilient APIs, and automated CI/CD so you can scale faster.',
+      'Design and build production-grade backend services, APIs, and platform infrastructure. From database schema and auth layers to event-driven microservices, I architect systems that handle real load with operational clarity.',
     deliverables: [
-      'Architecture, component library, and design systems',
-      'Secure REST/GraphQL APIs with automated testing',
-      'Multi-environment deployments on AWS, Render, or Netlify',
+      'REST / GraphQL APIs with rate-limiting, auth, and observability',
+      'Event-driven architecture using queues, pub/sub, and workers',
+      'Multi-environment deployments on AWS, Railway, Fly.io, or Render',
     ],
     cta: {
-      label: 'Plan your build',
+      label: 'Discuss your system',
       link: '#contact',
     },
   },
   {
-    id: 'modernization',
-    title: 'Full-Stack Modernization & Migration',
+    id: 'distributed-systems',
+    title: 'Distributed Systems & Infrastructure',
     description:
-      'Refactor legacy stacks into modern MERN applications. I untangle monoliths, migrate data, and deliver performance-focused frontends without interrupting business-critical traffic.',
+      'Architect multi-tenant SaaS platforms, distributed messaging pipelines, and deployment infrastructure. I identify the failure modes early and design for resilience, scalability, and maintainability from the start.',
     deliverables: [
-      'Audit of codebase, DX, and infrastructure bottlenecks',
-      'Incremental migration strategies that avoid downtime',
-      'Advanced caching, observability, and rollout safeguards',
+      'Distributed messaging, queue-based, and event-driven system design',
+      'Multi-tenant isolation strategies and RBAC patterns',
+      'CI/CD pipelines, IaC, and rollout safeguards',
     ],
     cta: {
-      label: 'Request an audit',
+      label: 'Talk architecture',
       link: '#contact',
     },
   },
   {
-    id: 'api-integrations',
-    title: 'API Engineering & Third-Party Integrations',
+    id: 'ai-automation',
+    title: 'AI Automation & Integration',
     description:
-      'Ship battle-tested Express and serverless APIs, or integrate critical platforms (Stripe, Razorpay, WhatsApp, Supabase). I own schema design, auth, monitoring, and documentation.',
+      'Build reliable AI automation pipelines, LLM integrations, and agentic workflows. I focus on production reliability — deterministic fallbacks, observability, and cost-aware routing — so AI features ship with confidence.',
     deliverables: [
-      'REST/GraphQL services with rate limiting and security hardening',
-      'Webhook, payment, CRM, and analytics integrations',
-      'Developer-first documentation and post-deployment support',
+      'LLM routing, prompt engineering, and inference pipelines',
+      'Workflow automation with reliable retry / fallback handling',
+      'Third-party AI/data integrations with monitoring and alerting',
     ],
     cta: {
-      label: 'Secure your ecosystem',
+      label: 'Explore automation',
       link: '#contact',
     },
   },
   {
-    id: 'performance-scale',
-    title: 'Performance, Security & DevOps Retainers',
+    id: 'performance-reliability',
+    title: 'Performance, Security & Reliability',
     description:
-      'Keep mission-critical MERN platforms fast and secure. I implement Core Web Vitals wins, introduce observability, and automate releases so your team focuses on growth.',
+      'Keep mission-critical platforms fast, secure, and auditable. I implement Core Web Vitals optimizations, security hardening, and observability so your engineering team can focus on shipping features.',
     deliverables: [
-      'Core Web Vitals optimization and Lighthouse 100s',
+      'Core Web Vitals optimization and bundle-size audits',
       'Security reviews, access policies, and compliance-ready logging',
-      'CI/CD pipelines, backup strategies, and on-call response',
+      'Incident response, observability stack, and on-call runbooks',
     ],
     cta: {
       label: 'Book a strategy call',
@@ -98,14 +110,14 @@ const ServicesSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <span className="section-eyebrow">Services & Engagements</span>
+          <span className="section-eyebrow">Engineering Expertise</span>
           <h2 className="section-title">
-            Full-stack MERN expertise tailored to founders, scaleups, and agencies
+            Backend depth, platform thinking, and AI automation
           </h2>
           <p className="section-subtitle">
-            Every engagement pairs product strategy with production-ready engineering.
-            Choose the track that aligns with your roadmap and I will own discovery,
-            delivery, and long-term support.
+            Every engagement starts with understanding the system&apos;s constraints
+            and growth trajectory. I own the engineering roadmap from design
+            through to production — with a focus on reliability and maintainability.
           </p>
         </motion.div>
 
