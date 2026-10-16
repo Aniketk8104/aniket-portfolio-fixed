@@ -202,17 +202,24 @@
 /* Mobile dropdown menu */
 .mobile-nav {
   position: fixed;
-  top: 64px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100vw - 2rem);
+  top: calc(64px + env(safe-area-inset-top, 0px));
+  left: max(1rem, env(safe-area-inset-left, 0px));
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  width: auto;
   max-width: 440px;
+  max-height: calc(100dvh - 80px - env(safe-area-inset-bottom, 0px));
+  margin-inline: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
   background: rgba(16, 16, 24, 0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
   padding: var(--spacing-md);
+  padding-bottom: max(var(--spacing-md), env(safe-area-inset-bottom, 0px));
   box-shadow: var(--shadow-xl);
   z-index: calc(var(--z-fixed) - 1);
 }

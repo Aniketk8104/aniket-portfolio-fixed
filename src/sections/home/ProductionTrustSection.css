@@ -390,8 +390,15 @@ a.pt-pill:hover {
 
 /* Tablet: review stacks (impact below quote); trust cards 2×2. */
 @media (max-width: 900px) {
+  .pt__stage,
+  .pt-review,
+  .pt-review__main,
+  .pt-review__impact {
+    min-width: 0;
+  }
+
   .pt-review {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-5);
   }
   .pt-review__impact {
@@ -401,31 +408,132 @@ a.pt-pill:hover {
     border-top: 1px solid var(--pt-border);
   }
   .pt-status { margin-top: 0; }
-  .pt-signals { grid-template-columns: repeat(2, 1fr); }
+  .pt-signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* Mobile: compact editorial card; trust cards become a swipe rail. */
+/* Mobile: compact card, compact controls, and a contained 2×2 stats grid. */
 @media (max-width: 600px) {
-  .pt-review { padding: 1.25rem; }
-  .pt-review__partner { position: static; align-self: flex-start; margin-bottom: 4px; }
-  .pt-quote { font-size: 1.15rem; }
-  .pt-meta { gap: var(--space-2); }
+  .pt {
+    padding-block: clamp(3rem, 12vw, 4rem);
+  }
+  .pt__inner {
+    gap: 1.75rem;
+  }
+  .pt-review {
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 20px;
+  }
+  .pt-review__main {
+    gap: var(--space-4);
+  }
+  .pt-review__partner {
+    position: static;
+    justify-self: start;
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: 2px;
+    padding-inline: 8px;
+    font-size: 0.55rem;
+  }
+  .pt-review__impact {
+    padding-top: 1rem;
+    gap: var(--space-3);
+  }
+  .pt-quote {
+    font-size: 1.05rem;
+    line-height: 1.55;
+  }
+  .pt-meta {
+    gap: var(--space-2);
+  }
+  .pt-pill {
+    min-width: 0;
+    max-width: 100%;
+    padding: 6px 9px;
+    font-size: 0.74rem;
+  }
+  .pt-pill__v {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .pt-nav {
+    gap: 0.25rem;
+  }
+  .pt-arrow {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+  }
+  .pt-dots {
+    gap: 0;
+  }
+  .pt-dot-btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 32px;
+    min-width: 28px;
+    min-height: 32px;
+    background: transparent;
+  }
+  .pt-dot-btn::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    transition: background var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  }
+  .pt-dot-btn.is-active {
+    background: transparent;
+    transform: none;
+  }
+  .pt-dot-btn.is-active::before {
+    background: var(--rev-accent);
+    transform: scale(1.25);
+  }
 
   .pt-signals {
-    display: flex;
-    grid-template-columns: none;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    margin-inline: calc(-1 * var(--page-pad-x));
-    padding-inline: var(--page-pad-x);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
   }
-  .pt-signals::-webkit-scrollbar { display: none; }
   .pt-signal {
-    flex: 0 0 64%;
-    scroll-snap-align: center;
+    min-width: 0;
+    padding: 0.9rem;
+    border-radius: 14px;
   }
+  .pt-signal__icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 2px;
+  }
+  .pt-signal__value {
+    font-size: clamp(1.5rem, 7vw, 1.85rem);
+  }
+  .pt-signal__label {
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+  }
+  .pt-signal__desc {
+    font-size: 0.72rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 360px) {
+  .pt-review { padding: 0.9rem; }
+  .pt-signal { padding: 0.75rem; }
+  .pt-signal__value { font-size: 1.4rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
