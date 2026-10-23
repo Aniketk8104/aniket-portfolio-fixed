@@ -82,44 +82,77 @@ export const PRESENTATION: Record<string, ProjectPresentation> = {
   bvisionr: {
     monogram: 'BV',
     category: 'SaaS Platform',
-    tagline: 'AI WhatsApp Infrastructure',
-    role: 'Full-Stack Engineer',
+    tagline: 'Multi-tenant WhatsApp Cloud API SaaS',
+    role: 'Primary engineer',
     accent: '#8B5CF6',
     liveUrl: 'https://connect.bvisionr.com/',
-    duration: '2025 – Present',
-    teamSize: 'Solo build',
-    status: 'Production',
-  },
-  radique: {
-    monogram: 'RA',
-    category: 'HealthTech',
-    tagline: 'Radiology Workflow SaaS',
-    role: 'Full-Stack Engineer',
-    accent: '#6366F1',
-    liveUrl: null,
-    duration: '2025',
+    duration: 'Oct 2025 – present',
     teamSize: null,
     status: 'Production',
+  },
+  'aurastack-crm': {
+    monogram: 'AS',
+    category: 'CRM',
+    tagline: 'Multi-tenant CRM for real-estate developers',
+    role: 'Primary engineer',
+    accent: '#22C55E',
+    liveUrl: 'https://crm.aurastack.in/',
+    duration: 'Jul 2026 – present',
+    teamSize: null,
+    status: 'Production',
+  },
+  'future-fortune-hrms': {
+    monogram: 'FF',
+    category: 'HRTech',
+    tagline: 'Attendance, payroll and HR across sites',
+    role: 'Primary engineer',
+    accent: '#F59E0B',
+    liveUrl: 'https://hr.futureandfortune.in/',
+    duration: 'Aug 2026 – present',
+    teamSize: null,
+    status: 'Production',
+  },
+  radioque: {
+    monogram: 'RQ',
+    category: 'HealthTech',
+    tagline: 'Multi-centre teleradiology platform',
+    role: 'Primary engineer',
+    accent: '#6366F1',
+    liveUrl: null,
+    duration: 'Jan 2026 – present',
+    teamSize: null,
+    status: 'In Progress',
   },
   'aura-tech-platform': {
     monogram: 'AT',
     category: 'Commerce',
-    tagline: 'Laptop Rental & Sales Platform',
-    role: 'Full-Stack Engineer',
+    tagline: 'Laptop rental, sales and buyback',
+    role: 'Primary engineer',
     accent: '#A855F7',
     liveUrl: 'https://auratechservices.in',
-    duration: '2025 – Present',
+    duration: 'Jan 2025 – present',
     teamSize: null,
     status: 'Production',
+  },
+  'bhagwati-group-website': {
+    monogram: 'BG',
+    category: 'Website + CMS',
+    tagline: 'Company website with a CMS and admin',
+    role: 'Primary engineer',
+    accent: '#EC4899',
+    liveUrl: null,
+    duration: 'Jun 2026 – present',
+    teamSize: null,
+    status: 'In Progress',
   },
   stopsearch: {
     monogram: 'SS',
     category: 'Hiring Platform',
-    tagline: 'Swipe-Based Job Matchmaking',
-    role: 'Full-Stack Engineer',
+    tagline: '3-role hiring marketplace',
+    role: 'Software Engineer',
     accent: '#38BDF8',
     liveUrl: 'https://stopsearch.co',
-    duration: 'Apr 2025 – Jun 2025',
+    duration: null,
     teamSize: null,
     status: 'Production',
   },
@@ -137,9 +170,9 @@ export interface ShowcaseMetric {
 }
 
 export const SHOWCASE_METRICS: ShowcaseMetric[] = [
-  { value: '4', label: 'Production Systems', icon: 'systems' },
-  { value: '4', label: 'Industries', icon: 'industries' },
-  { value: '5+', label: 'Business Clients', icon: 'users' },
+  { value: '5', label: 'Production Platforms', icon: 'systems' },
+  { value: '5+', label: 'Client Businesses', icon: 'users' },
+  { value: '62K+', label: 'Webhook Events (BVisionr)', icon: 'industries' },
 ];
 
 /** Neutral fallback accent — soft violet. */
@@ -151,7 +184,7 @@ export const MAX_TECH = 7;
 /**
  * Build a 2-character monogram from a project title.
  * - Multi-word: initials of the first two words ("Aura Tech" → "AT").
- * - Single word: first two letters ("Radique" → "RA").
+ * - Single word: first two letters ("Radioque" → "RA").
  */
 export function deriveMonogram(title: string): string {
   const words = title.trim().split(/\s+/).filter(Boolean);

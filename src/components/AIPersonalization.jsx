@@ -54,9 +54,9 @@ const AIPersonalization = () => {
           : 'night';
 
       // Check if return visitor
-      const lastVisit = localStorage.getItem('aniketdev_last_visit');
+      const lastVisit = localStorage.getItem('aniket_last_visit');
       const visitCount =
-        parseInt(localStorage.getItem('aniketdev_visit_count') || '0') + 1;
+        parseInt(localStorage.getItem('aniket_visit_count') || '0') + 1;
       const returnVisitor =
         lastVisit && Date.now() - parseInt(lastVisit) < 7 * 24 * 60 * 60 * 1000;
 
@@ -75,8 +75,8 @@ const AIPersonalization = () => {
       }));
 
       // Store visit data
-      localStorage.setItem('aniketdev_visit_count', visitCount.toString());
-      localStorage.setItem('aniketdev_last_visit', Date.now().toString());
+      localStorage.setItem('aniket_visit_count', visitCount.toString());
+      localStorage.setItem('aniket_last_visit', Date.now().toString());
     };
 
     analyzeUserBehavior();
@@ -327,7 +327,7 @@ const AIPersonalization = () => {
   };
 
   // 📈 ANALYTICS EXPORT (for development/debugging)
-  window.aniketDevAI = {
+  window.aniketAI = {
     userProfile,
     aiInsights,
     getAnalytics: () => ({

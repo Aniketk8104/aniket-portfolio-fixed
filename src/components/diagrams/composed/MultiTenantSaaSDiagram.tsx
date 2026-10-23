@@ -21,7 +21,7 @@ export const MultiTenantSaaSDiagram: React.FC = () => {
   return (
     <DiagramCanvas
       title="Multi-Tenant SaaS Architecture"
-      description="Architecture diagram showing tenant isolation boundaries, shared platform services, RBAC authorization, and billing infrastructure for a multi-tenant SaaS system."
+      description="Architecture diagram showing tenant isolation boundaries, shared platform services, RBAC authorization, and an append-only billing ledger for a multi-tenant SaaS system."
       viewBox="0 0 820 540"
       aspectRatio={820 / 540}
     >
@@ -60,7 +60,7 @@ export const MultiTenantSaaSDiagram: React.FC = () => {
         <DiagramNode
           variant="service"
           label="Auth Service"
-          sublabel="JWT / OAuth2"
+          sublabel="Sessions"
           x={335}
           y={65}
           width={140}
@@ -103,8 +103,8 @@ export const MultiTenantSaaSDiagram: React.FC = () => {
         />
         <DiagramNode
           variant="queue"
-          label="Job Scheduler"
-          sublabel="Tenant-scoped jobs"
+          label="Job Queue"
+          sublabel="SKIP LOCKED fallback"
           x={335}
           y={375}
           width={140}
@@ -120,8 +120,8 @@ export const MultiTenantSaaSDiagram: React.FC = () => {
       >
         <DiagramNode
           variant="datastore"
-          label="Tenant DB"
-          sublabel="Schema-per-tenant"
+          label="PostgreSQL 16"
+          sublabel="Tenant-scoped tables"
           x={590}
           y={70}
           width={140}
@@ -141,8 +141,8 @@ export const MultiTenantSaaSDiagram: React.FC = () => {
       {/* Billing */}
       <DiagramNode
         variant="external"
-        label="Billing Service"
-        sublabel="Stripe / usage metering"
+        label="Billing Ledger"
+        sublabel="Append-only, triggers"
         x={590}
         y={290}
         width={160}

@@ -20,11 +20,13 @@ import type { ProjectEntry } from '../content/projects';
 import './ProjectsIndexPage.css';
 
 const DOMAIN_LABEL: Record<string, string> = {
-  bvisionr: 'SaaS · AI Messaging',
-  radique: 'Healthcare · Workflow',
+  bvisionr: 'SaaS · WhatsApp Messaging',
+  'aurastack-crm': 'CRM · Real Estate',
+  'future-fortune-hrms': 'HRTech · Payroll',
+  radioque: 'Healthcare · Teleradiology',
+  'bhagwati-group-website': 'Website · CMS',
   'aura-tech-platform': 'Platform · Payments',
-  stopsearch: 'Hiring · Dashboards',
-  'labour-link': 'HRTech · Workforce',
+  stopsearch: 'Hiring · Marketplace',
 };
 
 /** Fallback cover used when a project has no thumbnail authored. */

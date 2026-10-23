@@ -21,10 +21,13 @@ const NAV_ITEMS = [
 
 /** Domain labels + cover gradients for the Projects hover mega-panel. */
 const PROJECT_DOMAINS = {
-  bvisionr: { label: 'SaaS · AI Messaging', gradient: 'linear-gradient(135deg,#4f46e5,#7c3aed 55%,#d946ef)' },
-  radique: { label: 'Healthcare · Workflow', gradient: 'linear-gradient(135deg,#6366f1,#818cf8 55%,#38bdf8)' },
+  bvisionr: { label: 'SaaS · WhatsApp Messaging', gradient: 'linear-gradient(135deg,#4f46e5,#7c3aed 55%,#d946ef)' },
+  'aurastack-crm': { label: 'CRM · Real Estate', gradient: 'linear-gradient(135deg,#15803d,#22c55e 55%,#38bdf8)' },
+  'future-fortune-hrms': { label: 'HRTech · Payroll', gradient: 'linear-gradient(135deg,#b45309,#f59e0b 55%,#ec4899)' },
+  radioque: { label: 'Healthcare · Teleradiology', gradient: 'linear-gradient(135deg,#6366f1,#818cf8 55%,#38bdf8)' },
+  'bhagwati-group-website': { label: 'Website · CMS', gradient: 'linear-gradient(135deg,#be185d,#ec4899 55%,#a855f7)' },
   'aura-tech-platform': { label: 'Platform · Payments', gradient: 'linear-gradient(135deg,#7c3aed,#a855f7 50%,#ec4899)' },
-  stopsearch: { label: 'Hiring · Dashboards', gradient: 'linear-gradient(135deg,#4338ca,#6366f1 55%,#8b5cf6)' },
+  stopsearch: { label: 'Hiring · Marketplace', gradient: 'linear-gradient(135deg,#4338ca,#6366f1 55%,#8b5cf6)' },
 };
 
 const monogram = (title) => {

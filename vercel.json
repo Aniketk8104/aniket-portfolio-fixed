@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/case-studies/radique",
+      "destination": "/case-studies/radioque",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/labour-link",
+      "destination": "/case-studies/future-fortune-hrms",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

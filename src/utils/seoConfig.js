@@ -1,9 +1,15 @@
-// SEO Configuration for AniketDev.tech
-// Rebranded per Requirements 2.2, 3.2, 14.4 — no freelance/MERN positioning.
+// Legacy SEO configuration (used only by the legacy src/App.jsx).
+// Identity values come from src/app/siteIdentity.ts.
+import {
+  SITE_ORIGIN,
+  GITHUB_URL,
+  LINKEDIN_URL,
+} from '../app/siteIdentity';
+
 export const seoConfig = {
   // Basic Site Information
-  siteName: 'Aniket Kushwaha — Software Engineer',
-  siteUrl: 'https://aniketdev.tech',
+  siteName: 'Aniket Kushwaha — Backend / Full-Stack Engineer',
+  siteUrl: SITE_ORIGIN,
   defaultTitle:
     'Aniket Kushwaha — Software Engineer · Backend · Platform · AI Automation',
   defaultDescription:
@@ -23,11 +29,10 @@ export const seoConfig = {
   // Author Information
   author: {
     name: 'Aniket Kushwaha',
-    alternateName: 'AniketDev',
     email: 'kushwahaaniket141@gmail.com',
     phone: '+91-8104661596',
     location: {
-      city: 'Mumbai',
+      city: 'Navi Mumbai',
       state: 'Maharashtra',
       country: 'India',
     },
@@ -35,11 +40,8 @@ export const seoConfig = {
 
   // Social Media
   social: {
-    linkedin: 'https://www.linkedin.com/in/aniket-kushwaha-ak/',
-    github: 'https://github.com/Aniketk8104',
-    twitter: 'https://x.com/Aniketkush89151',
-    upwork:
-      'https://www.upwork.com/freelancers/~017984919599104192?mp_source=share',
+    linkedin: LINKEDIN_URL,
+    github: GITHUB_URL,
   },
 
   // Technical Skills for Schema
@@ -117,10 +119,6 @@ export const seoConfig = {
     serviceArea: 'Worldwide (Remote Services)',
     languages: ['English', 'Hindi'],
     priceRange: '$$',
-    rating: {
-      value: '4.9',
-      count: '25',
-    },
   },
 
   // Page-specific configurations
@@ -130,25 +128,25 @@ export const seoConfig = {
         'Aniket Kushwaha — Software Engineer · Backend · Platform · AI Automation',
       description:
         'Aniket Kushwaha is a Software Engineer specialising in backend systems, platform infrastructure, and AI automation pipelines. Building production-grade distributed systems.',
-      canonical: 'https://aniketdev.tech',
+      canonical: SITE_ORIGIN,
     },
     about: {
       title: 'About Aniket Kushwaha — Software & Platform Engineer',
       description:
         'Learn about Aniket Kushwaha, Software Engineer and Platform Engineer from Mumbai. Specialising in backend systems, distributed architectures, and AI automation.',
-      canonical: 'https://aniketdev.tech/#about',
+      canonical: `${SITE_ORIGIN}/#about`,
     },
     portfolio: {
       title: 'Engineering Projects — Aniket Kushwaha',
       description:
         'Explore engineering projects by Aniket Kushwaha — distributed systems, backend APIs, AI automation pipelines, and platform infrastructure.',
-      canonical: 'https://aniketdev.tech/#portfolio',
+      canonical: `${SITE_ORIGIN}/#portfolio`,
     },
     contact: {
       title: 'Contact Aniket Kushwaha — Software & Platform Engineer',
       description:
         'Get in touch with Aniket Kushwaha for engineering engagements — backend systems, platform infrastructure, and AI automation projects.',
-      canonical: 'https://aniketdev.tech/#contact',
+      canonical: `${SITE_ORIGIN}/#contact`,
     },
   },
 };
@@ -158,7 +156,6 @@ export const generatePersonSchema = () => ({
   '@context': 'https://schema.org',
   '@type': ['Person', 'ProfessionalService'],
   name: seoConfig.author.name,
-  alternateName: seoConfig.author.alternateName,
   jobTitle: 'Software Engineer · Backend · Platform · AI Automation',
   description: seoConfig.defaultDescription,
   url: seoConfig.siteUrl,
@@ -201,11 +198,6 @@ export const generatePersonSchema = () => ({
     name: seoConfig.business.serviceArea,
   },
   priceRange: seoConfig.business.priceRange,
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: seoConfig.business.rating.value,
-    reviewCount: seoConfig.business.rating.count,
-  },
 });
 
 // Generate breadcrumb schema

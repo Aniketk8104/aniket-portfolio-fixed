@@ -14,6 +14,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { RouteSEO } from '../app/SEO/RouteSEO';
+import { SITE_ORIGIN as ORIGIN } from '../app/siteIdentity';
 import { articles } from '../content/articles';
 import { isPlaceholder } from '../utils/placeholder';
 import { Placeholder } from '../sections/shared/Placeholder';
@@ -313,7 +314,6 @@ const ArticlePage: React.FC = () => {
     return <NotFoundPage />;
   }
 
-  const ORIGIN = 'https://aniketkushwaha.dev';
 
   // Build per-article SEO overrides
   const seoOverrides = {

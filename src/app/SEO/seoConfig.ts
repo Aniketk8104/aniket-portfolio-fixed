@@ -10,48 +10,51 @@
  */
 
 import type { SeoConfigMap } from '../../types/seo';
+import {
+  DEFAULT_OG_IMAGE,
+  EMAIL,
+  JOB_TITLE,
+  PERSON_NAME,
+  SAME_AS,
+  SITE_ORIGIN as ORIGIN,
+} from '../siteIdentity';
 
-const ORIGIN = 'https://aniketkushwaha.dev';
-const DEFAULT_OG_IMAGE = `${ORIGIN}/favicon-512.png`;
-const TWITTER_HANDLE = '@aniketkushwaha';
+const HOME_TITLE = `${PERSON_NAME} — ${JOB_TITLE}`;
+const HOME_DESCRIPTION =
+  'Aniket Kushwaha, Backend / Full-Stack Engineer in Navi Mumbai. Primary engineer on 5 production platforms: multi-tenant SaaS, CRM, HRMS, teleradiology and commerce.';
 
 export const seoConfig: SeoConfigMap = {
   home: {
-    title: 'Aniket Kushwaha — Software Engineer · Backend · Platform · AI Automation',
-    description:
-      'Engineering portfolio of Aniket Kushwaha — Software Engineer specialising in backend systems, platform engineering, and AI automation.',
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
     canonical: ORIGIN,
     og: {
-      title: 'Aniket Kushwaha — Software Engineer · Backend · Platform · AI Automation',
-      description:
-        'Engineering portfolio of Aniket Kushwaha — Software Engineer specialising in backend systems, platform engineering, and AI automation.',
+      title: HOME_TITLE,
+      description: HOME_DESCRIPTION,
       image: DEFAULT_OG_IMAGE,
       type: 'profile',
       url: ORIGIN,
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Aniket Kushwaha — Software Engineer · Backend · Platform · AI Automation',
-      description:
-        'Engineering portfolio of Aniket Kushwaha — Software Engineer specialising in backend systems, platform engineering, and AI automation.',
+      title: HOME_TITLE,
+      description: HOME_DESCRIPTION,
       image: DEFAULT_OG_IMAGE,
-      site: TWITTER_HANDLE,
     },
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Person',
-      name: 'Aniket Kushwaha',
+      name: PERSON_NAME,
       url: ORIGIN,
-      jobTitle: [
-        'Software Engineer',
-        'Backend Engineer',
-        'Platform Engineer',
-        'AI Automation Builder',
-      ],
-      sameAs: [
-        'https://github.com/aniketkushwaha',
-        'https://linkedin.com/in/aniketkushwaha',
-      ],
+      jobTitle: JOB_TITLE,
+      email: `mailto:${EMAIL}`,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Navi Mumbai',
+        addressRegion: 'Maharashtra',
+        addressCountry: 'IN',
+      },
+      sameAs: [...SAME_AS],
     },
   },
 
@@ -74,7 +77,6 @@ export const seoConfig: SeoConfigMap = {
       description:
         'A curated set of engineering projects covering distributed systems, AI automation, SaaS platforms, and real-time infrastructure.',
       image: DEFAULT_OG_IMAGE,
-      site: TWITTER_HANDLE,
     },
   },
 
@@ -97,7 +99,6 @@ export const seoConfig: SeoConfigMap = {
       description:
         'Custom diagrams and engineering write-ups on distributed messaging, AI routing, multi-tenant SaaS, and more.',
       image: DEFAULT_OG_IMAGE,
-      site: TWITTER_HANDLE,
     },
   },
 
@@ -120,7 +121,6 @@ export const seoConfig: SeoConfigMap = {
       description:
         'An in-depth look at a system architecture topic — diagrams and annotated engineering decision notes.',
       image: DEFAULT_OG_IMAGE,
-      site: TWITTER_HANDLE,
     },
   },
 
@@ -143,7 +143,6 @@ export const seoConfig: SeoConfigMap = {
       description:
         'Engineering case studies covering context, problem, constraints, architecture decisions, tradeoffs, and measurable outcomes.',
       image: DEFAULT_OG_IMAGE,
-      site: TWITTER_HANDLE,
     },
   },
 
@@ -166,7 +165,6 @@ export const seoConfig: SeoConfigMap = {
       description:
         'A detailed engineering case study — context, problem definition, architecture decisions, tradeoffs, and outcomes.',
       image: DEFAULT_OG_IMAGE,
-      site: TWITTER_HANDLE,
     },
   },
 
@@ -189,7 +187,6 @@ export const seoConfig: SeoConfigMap = {
       description:
         'Engineering essays on distributed systems, AI automation, SaaS patterns, event-driven architecture, and more.',
       image: DEFAULT_OG_IMAGE,
-      site: TWITTER_HANDLE,
     },
   },
 
@@ -209,7 +206,6 @@ export const seoConfig: SeoConfigMap = {
       title: 'Article — Aniket Kushwaha',
       description: 'An engineering essay by Aniket Kushwaha.',
       image: DEFAULT_OG_IMAGE,
-      site: TWITTER_HANDLE,
     },
     /**
      * Article JSON-LD template. Per-article pages override `structuredData`
@@ -244,7 +240,6 @@ export const seoConfig: SeoConfigMap = {
       card: 'summary',
       title: '404 — Page Not Found · Aniket Kushwaha',
       description: 'The page you are looking for does not exist.',
-      site: TWITTER_HANDLE,
     },
   },
 } satisfies SeoConfigMap;

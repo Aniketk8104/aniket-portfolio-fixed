@@ -33,7 +33,8 @@ const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 
 // ─── Site configuration ───────────────────────────────────────────────────────
-const SITE_URL = process.env.SITE_URL || 'https://aniketdev.tech';
+// The origin comes from src/app/siteIdentity.ts (imported by the TS runner);
+// set SITE_URL only to override it, e.g. for a staging sitemap.
 
 // ANSI color codes for terminal output
 const colors = {
@@ -54,6 +55,7 @@ import { routeTable } from './src/app/routeTable';
 import { caseStudies } from './src/content/caseStudies';
 import { architectureTopics } from './src/content/architectureTopics';
 import { articles } from './src/content/articles';
+import { SITE_ORIGIN } from './src/app/siteIdentity';
 
 interface SitemapEntry {
   url: string;
@@ -65,7 +67,7 @@ interface RunnerOutput {
   errors: string[];
 }
 
-const siteUrl = process.env.SITE_URL || 'https://aniketdev.tech';
+const siteUrl = process.env.SITE_URL || SITE_ORIGIN;
 const now = new Date().toISOString();
 const entries: SitemapEntry[] = [];
 const errors: string[] = [];
@@ -175,7 +177,7 @@ async function main() {
         cwd: rootDir,
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
-        env: { ...process.env, SITE_URL },
+        env: process.env,
       });
     } catch (execError) {
       // tsx may exit non-zero when errors array is non-empty but still

@@ -39,8 +39,7 @@ import type { Metric } from '../types/content';
 import { aboutContent } from '../content/about';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Static content sourced inline; real values authored by user via content modules.
-// Values here are placeholders until the owner supplies final copy.
+// Values come from the "Approved facts" in the local TASKS.md.
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
@@ -49,10 +48,10 @@ import { aboutContent } from '../content/about';
  * Replace placeholder strings with real data when available.
  */
 const HOME_METRICS: Metric[] = [
-  { label: 'Production Systems', value: '4', tone: 'positive' },
-  { label: 'Years of Experience', value: '1+', tone: 'positive' },
-  { label: 'Business Clients', value: '5+', tone: 'positive' },
-  { label: 'Operators Enabled', value: '30+', tone: 'positive' },
+  { label: 'Production Platforms', value: '5', tone: 'positive' },
+  { label: 'Client Businesses', value: '5+', tone: 'positive' },
+  { label: 'Webhook Events (BVisionr)', value: '62K+', tone: 'positive' },
+  { label: 'Employees on the HRMS', value: '82', tone: 'positive' },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -89,7 +88,7 @@ export default function HomePage(): React.ReactElement {
       <section id="about">
         <AboutPreviewSection
           headline={aboutContent.headline}
-          summary="I build reliable backend platforms and AI-powered systems that stay scalable and resilient as products and teams grow."
+          summary="Primary engineer on 5 production platforms used by 5+ client businesses: multi-tenant SaaS, CRM, HRMS, teleradiology and commerce."
         />
       </section>
 

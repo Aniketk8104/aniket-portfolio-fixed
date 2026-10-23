@@ -59,12 +59,13 @@ import { routeTable } from './routeTable';
 import { caseStudies } from '../content/caseStudies';
 import { architectureTopics } from '../content/architectureTopics';
 import { articles } from '../content/articles';
+import { SITE_ORIGIN } from './siteIdentity';
 
 // ---------------------------------------------------------------------------
 // Derived constants (computed once, before any test)
 // ---------------------------------------------------------------------------
 
-const SITE_URL = 'https://aniketdev.tech';
+const SITE_URL = SITE_ORIGIN;
 
 /**
  * Non-slug routes: every entry whose `path` does NOT contain `:` and is not

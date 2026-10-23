@@ -2,8 +2,8 @@
  * Articles / Writing Content
  *
  * The seven canonical writing topics for the portfolio — all authored and
- * published. Each article is grounded in real production work (BVISIONR's
- * queue-based WhatsApp platform, StopSearch's matchmaking platform, Radique's
+ * published. Each article is grounded in real production work (BVisionr's
+ * queue-based WhatsApp platform, StopSearch's hiring marketplace, Radioque's
  * radiology workflow, and the Aura commerce platform) rather than generic
  * filler.
  *
@@ -49,7 +49,6 @@ export const articles: ArticleEntry[] = [
       'How to isolate tenants without drowning in complexity — schema strategies, access control, noisy-neighbour control, and the tradeoffs between shared and dedicated infrastructure.',
     readingTimeMinutes: 9,
     status: 'published',
-    publishedAt: '2025-02-18',
     tags: ['saas', 'multi-tenant', 'architecture'],
     toc: [
       { id: 'a-data-problem', label: 'Multi-tenancy is a data problem', level: 2 },
@@ -60,7 +59,7 @@ export const articles: ArticleEntry[] = [
       { id: 'takeaways', label: 'Takeaways', level: 2 },
     ],
     body: [
-      p('When I built BVISIONR — a WhatsApp automation platform that serves many businesses from one backend — the hardest part was never a feature. It was making sure that one tenant could never see, touch, or slow down another. Multi-tenancy looks like a product decision, but it is really a data-architecture decision that you make once and live with forever.'),
+      p('When I built BVisionr — a WhatsApp automation platform that serves many businesses from one backend — the hardest part was never a feature. It was making sure that one tenant could never see, touch, or slow down another. Multi-tenancy looks like a product decision, but it is really a data-architecture decision that you make once and live with forever.'),
       h2('Multi-tenancy is a data problem', 'a-data-problem'),
       p('A tenant is a boundary. Every row of data, every job in a queue, every websocket message belongs to exactly one tenant, and the system has to enforce that boundary on every single access. The failure mode is not subtle: a missing filter in one query leaks another company\u2019s conversations. That is the kind of bug that ends a product, so it cannot depend on a developer remembering to add a where-clause.'),
       h2('Isolation at the data layer', 'isolation-at-the-data-layer'),
@@ -72,7 +71,7 @@ export const articles: ArticleEntry[] = [
       ),
       p('For most SaaS the shared-schema model with rigorously centralised scoping is the right first choice — it is the one that lets a small team move fast without betting the company on a forgotten filter.'),
       h2('RBAC as a structural property', 'rbac-as-structure'),
-      p('Tenancy answers "whose data is this?"; role-based access control answers "what may this user do with it?". The two are separate boundaries and both should be checked on every request. On BVISIONR the event-driven RBAC model gates the shared team inbox so a tenant\u2019s roles and permissions travel with the request, not with the UI. When authorization is enforced at one boundary rather than sprinkled across the codebase, you can actually reason about it.'),
+      p('Tenancy answers "whose data is this?"; role-based access control answers "what may this user do with it?". The two are separate boundaries and both should be checked on every request. On BVisionr the event-driven RBAC model gates the shared team inbox so a tenant\u2019s roles and permissions travel with the request, not with the UI. When authorization is enforced at one boundary rather than sprinkled across the codebase, you can actually reason about it.'),
       h2('The noisy-neighbour problem', 'noisy-neighbour'),
       p('Isolation is not only about data — it is about resources. One tenant firing a huge campaign should not starve everyone else. This is where a queue earns its place: work is enqueued per tenant and drained by rate-aware workers, so scheduling stays fair and a burst is absorbed instead of cascading. Without that boundary, throughput becomes first-come-first-served, and your quietest customers feel the loudest one.'),
       h2('Onboarding without code', 'onboarding-without-code'),
@@ -93,7 +92,6 @@ export const articles: ArticleEntry[] = [
       'Designing high-throughput messaging pipelines that stay correct under load: queues, backpressure, idempotent consumers, and delivery guarantees that survive partial failure.',
     readingTimeMinutes: 11,
     status: 'published',
-    publishedAt: '2025-03-05',
     tags: ['messaging', 'distributed-systems', 'pipelines'],
     toc: [
       { id: 'synchronous-trap', label: 'The synchronous trap', level: 2 },
@@ -104,11 +102,11 @@ export const articles: ArticleEntry[] = [
       { id: 'observability', label: 'Observability', level: 2 },
     ],
     body: [
-      p('BVISIONR sends messages through the WhatsApp Cloud API at campaign scale. The first version anyone reaches for — call the API once per recipient inside the request handler — falls over almost immediately. Building a pipeline that processes 1,000+ messages per campaign with zero message loss meant unlearning the synchronous instinct.'),
+      p('BVisionr sends messages through the WhatsApp Cloud API at campaign scale. The first version anyone reaches for — call the API once per recipient inside the request handler — falls over almost immediately. Building a pipeline that sends campaigns of up to 2,001 recipients, throttled anywhere from 1 to 500 messages a second, meant unlearning the synchronous instinct.'),
       h2('The synchronous trap', 'synchronous-trap'),
       p('Sending inline couples three unrelated things: the user\u2019s request, a third-party API\u2019s availability, and your throughput. Rate limits trip, requests time out, and a naive retry sends the same message twice. The request that should take milliseconds now waits on a network call you do not control, and one slow dependency stalls the whole handler.'),
       h2('Decouple with a queue', 'decouple-with-a-queue'),
-      p('The fix is to make delivery asynchronous. API requests enqueue a job and return as soon as it is accepted; dedicated workers drain the queue and talk to the Cloud API at a controlled rate. On BVISIONR that queue is BullMQ backed by Redis. The request path stays fast, and the delivery path can be tuned, paused, and scaled independently.'),
+      p('The fix is to make delivery asynchronous. API requests enqueue a job and return as soon as it is accepted; dedicated workers drain the queue and talk to the Cloud API at a controlled rate. On BVisionr that queue is BullMQ backed by Redis. The request path stays fast, and the delivery path can be tuned, paused, and scaled independently.'),
       code('// Producer: accept fast, never call the vendor inline\nawait messageQueue.add(\'send\', {\n  tenantId, to, templateId, payload,\n}, {\n  attempts: 5,\n  backoff: { type: \'exponential\', delay: 2000 },\n  removeOnComplete: 1000,\n});\n// Handler returns 202 here \u2014 delivery happens in a worker.'),
       h2('Idempotency and retries', 'idempotency-and-retries'),
       p('Once you retry, you must guarantee that retrying is safe. Every job carries a stable key, and the worker checks whether that unit of work already completed before doing it again. Retries use exponential backoff so a struggling dependency is given room rather than hammered. The rule is simple: at-least-once delivery plus idempotent consumers equals effectively-once behaviour, which is what users actually expect.'),
@@ -128,7 +126,6 @@ export const articles: ArticleEntry[] = [
       'Lessons from running the WhatsApp Cloud API in production — rate limits, template approvals, webhook reliability, and keeping delivery fast across thousands of conversations.',
     readingTimeMinutes: 10,
     status: 'published',
-    publishedAt: '2025-03-22',
     tags: ['whatsapp', 'infrastructure', 'scale'],
     toc: [
       { id: 'low-level-api', label: 'The Cloud API is low-level', level: 2 },
@@ -138,7 +135,7 @@ export const articles: ArticleEntry[] = [
       { id: 'past-self', label: 'What I\u2019d tell my past self', level: 2 },
     ],
     body: [
-      p('Businesses want to run sales and support on WhatsApp. What they actually get from Meta is the WhatsApp Cloud API — a low-level surface of webhooks, template approvals, rate limits, and per-message delivery callbacks. BVISIONR exists to turn that raw channel into a managed product, and most of the engineering is in the gap between "the API works" and "the API is dependable".'),
+      p('Businesses want to run sales and support on WhatsApp. What they actually get from Meta is the WhatsApp Cloud API — a low-level surface of webhooks, template approvals, rate limits, and per-message delivery callbacks. BVisionr exists to turn that raw channel into a managed product, and most of the engineering is in the gap between "the API works" and "the API is dependable".'),
       h2('The Cloud API is low-level', 'low-level-api'),
       p('The Cloud API does not think in campaigns or conversations. It thinks in individual message sends and asynchronous status callbacks that arrive out of order. Anything higher-level — a campaign, an automation, a shared inbox — is something you build on top. Accepting that early stops you from fighting the API and starts you designing around it.'),
       h2('Rate limits and templates', 'rate-limits-templates'),
@@ -163,7 +160,6 @@ export const articles: ArticleEntry[] = [
       'Making AI automation trustworthy in production: treating models as a stage not a spine, fallbacks when they fail, audit trails, and keeping the whole pipeline observable and explainable.',
     readingTimeMinutes: 8,
     status: 'published',
-    publishedAt: '2025-04-10',
     tags: ['ai', 'automation', 'reliability'],
     toc: [
       { id: 'ai-as-a-stage', label: 'AI as a stage, not the spine', level: 2 },
@@ -173,15 +169,15 @@ export const articles: ArticleEntry[] = [
       { id: 'closing', label: 'Closing', level: 2 },
     ],
     body: [
-      p('Two of my products lean on AI: BVISIONR generates campaigns and drives no-code automations, and StopSearch uses a Gemini-powered layer to rank job matches. In both, the lesson was the same — an AI model is the least reliable component in the system, so the architecture has to treat it that way.'),
+      p('BVisionr has made 33K+ LLM calls since May 2026 through a router across Gemini, Groq, DeepSeek and OpenAI-compatible providers, and AuraStack CRM has an AI assistant that can only propose actions. In both, the lesson was the same — an AI model is the least reliable component in the system, so the architecture has to treat it that way.'),
       h2('AI as a stage, not the spine', 'ai-as-a-stage'),
-      p('The mistake is to put the model on the critical path where nothing works until it responds. Instead, AI runs as a stage in a pipeline that already has retries, backpressure, and observability. On BVISIONR routing and generation happen as queue stages, so a slow or failing model call never blocks delivery and can be retried on its own. The spine of the system is the pipeline; the model is a step within it.'),
+      p('The mistake is to put the model on the critical path where nothing works until it responds. Instead, AI runs as a stage in a pipeline that already has retries, backpressure, and observability. On BVisionr routing and generation happen as queue stages, so a slow or failing model call never blocks delivery and can be retried on its own. The spine of the system is the pipeline; the model is a step within it.'),
       h2('Fallbacks and mode contracts', 'mode-contracts'),
-      p('StopSearch taught me to design the feed as a mode contract: the frontend accepts either a ranked payload or a safe fallback shape, chosen by backend conditions. When the ranking branch is unavailable, users still get a coherent feed instead of an error. That single contract turns the AI layer from a single point of failure into an enhancement — the product degrades gracefully rather than breaking.'),
+      p('The BVisionr router puts a failing or rate-limited provider on a cooldown and fails over to the next one, and caches repeated requests. When a provider is unavailable, users still get an answer instead of an error. That turns each provider from a single point of failure into a replaceable part — the product degrades gracefully rather than breaking.'),
       h2('Keeping it observable', 'observable'),
       p('Trust in an AI system comes from being able to see what it did. Every decision should be traceable: what input it saw, what it produced, and which path it took. Because the automation runs inside a queue-based pipeline, it inherits the same tracing as everything else, and you can answer "why did this happen?" after the fact rather than shrugging at a black box.'),
       h2('Scoping decisions to context', 'scoped-decisions'),
-      p('AI decisions are never global. On BVISIONR they are scoped per tenant — honouring that tenant\u2019s automations, templates, and roles — and on StopSearch they are scoped to the role and job context. Scoping is what keeps an automated decision correct for the situation it is actually in, and it is also what keeps a multi-tenant AI feature from leaking one customer\u2019s behaviour into another\u2019s.'),
+      p('AI decisions are never global. On BVisionr they are scoped per tenant — honouring that tenant\u2019s automations, templates, and roles — and in AuraStack CRM the assistant only proposes actions that a person with the right role must confirm. Scoping is what keeps an automated decision correct for the situation it is actually in, and it is also what keeps a multi-tenant AI feature from leaking one customer\u2019s behaviour into another\u2019s.'),
       h2('Closing', 'closing'),
       p('Reliable AI automation is mostly good distributed-systems engineering with a model plugged into one stage. Make the model optional, make its output traceable, and give the system something sensible to do when the model is not there. Do that and AI becomes a feature you can put in front of real users.'),
     ],
@@ -193,7 +189,6 @@ export const articles: ArticleEntry[] = [
       'Practical role-based access control: modelling permissions that scale with the product, avoiding role explosion, enforcing authorization at one boundary, and isolating the admin surface.',
     readingTimeMinutes: 7,
     status: 'published',
-    publishedAt: '2025-04-28',
     tags: ['rbac', 'authorization', 'patterns'],
     toc: [
       { id: 'roles-vs-permissions', label: 'Roles vs permissions', level: 2 },
@@ -203,7 +198,7 @@ export const articles: ArticleEntry[] = [
       { id: 'audit', label: 'Audit everything', level: 2 },
     ],
     body: [
-      p('Access control shows up in every product I have built — the BVISIONR team inbox, the Aura commerce dashboards for Admin, Dealer, and Partner roles, and the StopSearch platform with its isolated SuperAdmin console. A few patterns kept RBAC from becoming the messiest part of each system.'),
+      p('Access control shows up in every product I have built — the BVisionr team inbox, the Aura commerce dashboards for Admin, Dealer, and Partner roles, and the StopSearch platform with its isolated SuperAdmin console. A few patterns kept RBAC from becoming the messiest part of each system.'),
       h2('Roles vs permissions', 'roles-vs-permissions'),
       p('The core idea that scales is to grant permissions, not roles, in your checks. A role is just a named bundle of permissions. Code should ask "does this actor have permission X?" rather than "is this actor an admin?". When the check is permission-based, adding a new role is a data change, and changing what a role can do never means hunting through conditionals.'),
       h2('Avoiding role explosion', 'role-explosion'),
@@ -223,7 +218,6 @@ export const articles: ArticleEntry[] = [
       'Why queues change how you think about systems — decoupling producers from consumers, smoothing spikes, retry semantics, and the failure modes BullMQ taught me to plan for.',
     readingTimeMinutes: 9,
     status: 'published',
-    publishedAt: '2025-05-14',
     tags: ['queues', 'system-design', 'bullmq'],
     toc: [
       { id: 'what-a-queue-buys', label: 'What a queue actually buys you', level: 2 },
@@ -233,7 +227,7 @@ export const articles: ArticleEntry[] = [
       { id: 'when-not-to', label: 'When not to use a queue', level: 2 },
     ],
     body: [
-      p('A queue is one of the highest-leverage tools in backend engineering, and also one of the easiest to misuse. Running BullMQ on Redis in production for BVISIONR changed how I reason about almost every system with a slow or unreliable step.'),
+      p('A queue is one of the highest-leverage tools in backend engineering, and also one of the easiest to misuse. Running BullMQ on Redis in production for BVisionr changed how I reason about almost every system with a slow or unreliable step.'),
       h2('What a queue actually buys you', 'what-a-queue-buys'),
       p('A queue is not primarily about speed — it is about control. It gives you a place to absorb spikes, to retry safely, to schedule fairly, and to trace work. Those properties are hard to bolt onto a synchronous request path and almost free once a queue sits between producer and consumer. The value is the boundary, not the buffer.'),
       h2('Producer/consumer decoupling', 'decoupling'),
@@ -258,7 +252,6 @@ export const articles: ArticleEntry[] = [
       'Events as the backbone of a system: when to reach for them, how to keep them versioned and ordered, and how to avoid the hidden coupling that makes event systems brittle.',
     readingTimeMinutes: 10,
     status: 'published',
-    publishedAt: '2025-05-30',
     tags: ['event-driven', 'architecture', 'patterns'],
     toc: [
       { id: 'events-as-backbone', label: 'Events as the backbone', level: 2 },
@@ -268,9 +261,9 @@ export const articles: ArticleEntry[] = [
       { id: 'closing', label: 'Closing', level: 2 },
     ],
     body: [
-      p('BVISIONR is event-driven at its core — an inbound message, a delivery receipt, a status change all become events that flow through the system. Event-driven design is powerful, but it quietly moves complexity from code you can read into flows you cannot, so it rewards discipline.'),
+      p('BVisionr is event-driven at its core — an inbound message, a delivery receipt, a status change all become events that flow through the system. Event-driven design is powerful, but it quietly moves complexity from code you can read into flows you cannot, so it rewards discipline.'),
       h2('Events as the backbone', 'events-as-backbone'),
-      p('An event is a fact: something happened. Modelling a system around events — message received, campaign started, report signed off — decouples the thing that happened from everything that reacts to it. New reactions can be added without touching the producer, which is exactly what let BVISIONR grow features around the same message pipeline. The event is the stable contract; the reactions are free to change.'),
+      p('An event is a fact: something happened. Modelling a system around events — message received, campaign started, report signed off — decouples the thing that happened from everything that reacts to it. New reactions can be added without touching the producer, which is exactly what let BVisionr grow features around the same message pipeline. The event is the stable contract; the reactions are free to change.'),
       h2('Versioning and ordering', 'versioning-ordering'),
       p('Two problems bite every event system. Events arrive out of order — WhatsApp delivery receipts are a perfect example — so consumers must tolerate reordering and reconcile against a state machine rather than assuming sequence. And event shapes change, so version them from the start; a consumer should ignore fields it does not know and never break because a producer added one. Treat the event schema as an API, because it is one.'),
       h2('The hidden coupling trap', 'hidden-coupling'),

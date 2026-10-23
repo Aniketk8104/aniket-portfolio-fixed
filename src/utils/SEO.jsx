@@ -50,7 +50,6 @@ const SEO = ({
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={`${url}${image}`} />
-      <meta property="twitter:creator" content="@aniketdev" />
 
       {/* Additional Meta Tags */}
       <meta name="theme-color" content="#667eea" />

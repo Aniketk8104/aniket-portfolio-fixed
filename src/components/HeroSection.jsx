@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import './HeroSection.css';
 import MissionControl from './MissionControl';
 import Magnetic from './ui/Magnetic';
+import { RESUME_PATH } from '../app/siteIdentity';
 
 // Ambient 3D accent — lazy-loaded so it never bloats the initial bundle.
 const HeroAccent3D = lazy(() => import('./HeroAccent3D'));
@@ -228,9 +229,9 @@ const HeroSection = () => {
             transition={{ duration: 0.5 }}
           >
             <span className="hero-os-dot" />
-            <span className="hero-os-name">Runtime&nbsp;Status</span>
+            <span className="hero-os-name">Open to backend / full-stack roles</span>
             <span className="hero-os-sep" />
-            <span className="hero-os-state">all systems operational</span>
+            <span className="hero-os-state">immediate joiner</span>
           </motion.div>
 
           <motion.h1
@@ -282,8 +283,8 @@ const HeroSection = () => {
             animate={reduced ? false : 'visible'}
             transition={{ delay: 0.28 }}
           >
-            Distributed backends, platform infrastructure, and AI automation —
-            architected for reliability and owned through production.
+            Backend / full-stack engineer in Navi Mumbai. Primary engineer on
+            5 production platforms used by 5+ client businesses.
           </motion.p>
 
           <motion.div
@@ -315,6 +316,14 @@ const HeroSection = () => {
                 <path d="M13 6L19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Magnetic>
+            <Magnetic
+              as="a"
+              href={RESUME_PATH}
+              download
+              className="btn btn-secondary"
+            >
+              Download resume (PDF)
+            </Magnetic>
           </motion.div>
 
           <motion.p
@@ -323,8 +332,8 @@ const HeroSection = () => {
             animate={reduced ? false : { opacity: 1 }}
             transition={{ delay: 1.1, duration: 0.6 }}
           >
-            <span className="hero-hint-key">↔</span> Hover a node to inspect the
-            live system · switch projects to morph it
+            <span className="hero-hint-key">↔</span> Simulated demo, not live
+            metrics · hover a node to inspect it, switch projects to morph it
           </motion.p>
         </div>
       </div>

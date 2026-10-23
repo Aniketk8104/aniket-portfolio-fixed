@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  * Not a checklist of technologies: a system that *does* things. A scripted-but-
  * randomised event engine plays scenarios (request flows, cache hit/miss,
  * traffic spikes, deploys, retries, dead-letter) across the architecture of
- * Aniket's REAL projects (BVISIONR, Radique, Aura, StopSearch). Packets travel,
+ * Aniket's real projects (BVisionr, Radioque, Aura Tech, StopSearch). Packets travel,
  * nodes light up, a log streams, metrics react. The sequence never repeats and
  * rotates between projects, so every visit feels different.
  *
@@ -66,34 +66,34 @@ const PROJECTS = [
     kind: 'Multi-tenant messaging SaaS',
     labels: {
       ingress: 'Client', edge: 'API', core: 'Automation', queue: 'BullMQ',
-      egress: 'WhatsApp', cache: 'Redis', db: 'MongoDB', cloud: 'OCI',
+      egress: 'WhatsApp', cache: 'Redis', db: 'PostgreSQL', cloud: 'Oracle Cloud',
     },
   },
   {
-    id: 'radique',
-    name: 'Radique',
-    kind: 'Radiology workflow platform',
+    id: 'radioque',
+    name: 'Radioque',
+    kind: 'Teleradiology platform',
     labels: {
-      ingress: 'Hospital', edge: 'API', core: 'Orthanc', queue: 'Workflow',
-      egress: 'Report', cache: 'Audit', db: 'MongoDB', cloud: 'Docker',
+      ingress: 'Centre', edge: 'API', core: 'Orthanc', queue: 'Workflow',
+      egress: 'Report', cache: 'Redis', db: 'MongoDB', cloud: 'AWS EC2',
     },
   },
   {
     id: 'aura',
-    name: 'Aura',
+    name: 'Aura Tech',
     kind: 'Laptop rental & commerce platform',
     labels: {
       ingress: 'Customer', edge: 'Catalog', core: 'Razorpay', queue: 'Automation',
-      egress: 'Invoice', cache: 'Inventory', db: 'MongoDB', cloud: 'Docker / K8s',
+      egress: 'Invoice', cache: 'Inventory', db: 'MongoDB', cloud: 'Oracle Cloud',
     },
   },
   {
     id: 'stopsearch',
     name: 'StopSearch',
-    kind: 'Live hiring & candidate search',
+    kind: '3-role hiring marketplace',
     labels: {
-      ingress: 'Candidate', edge: 'OTP Auth', core: 'Gemini Rank', queue: 'Socket.IO',
-      egress: 'Dashboard', cache: 'Redis', db: 'MongoDB', cloud: 'Cloud',
+      ingress: 'Candidate', edge: 'OTP Auth', core: 'Ranked feed', queue: 'Socket.IO',
+      egress: 'Dashboard', cache: 'Redis', db: 'MongoDB', cloud: 'Oracle Cloud',
     },
   },
 ];
@@ -101,13 +101,13 @@ const PROJECTS = [
 /* ── Compact "System Card" snapshot per project (mobile collapsed view) ───── */
 const SNAPSHOTS = {
   bvisionr: { service: 'Automation', status: 'Healthy', latency: '41ms', queue: '0', cache: '98%' },
-  radique: { service: 'Workflow', status: 'Healthy', latency: '210ms', queue: '127', cache: '91%' },
+  radioque: { service: 'Workflow', status: 'Healthy', latency: '210ms', queue: '127', cache: '91%' },
   aura: { service: 'Payments', status: 'Healthy', latency: '88ms', queue: '12', cache: '96%' },
   stopsearch: { service: 'Realtime', status: 'Healthy', latency: '63ms', queue: '34', cache: '94%' },
 };
 
 /* Two-letter pills for the mobile card's project switcher. */
-const ABBR = { bvisionr: 'BV', radique: 'RA', aura: 'AU', stopsearch: 'SS' };
+const ABBR = { bvisionr: 'BV', radioque: 'RQ', aura: 'AU', stopsearch: 'SS' };
 
 /* Slow count-down played on the card's Queue metric so it feels alive. */
 const QUEUE_SEQ = [127, 92, 48, 12, 0];
@@ -431,7 +431,7 @@ const MissionControl = ({ reduced = false, active = true }) => {
           <div className="mc-card__head">
             <span className="mc-card__sys">{project.name.toLowerCase()}.system</span>
             <span className="mc-live">
-              <span className="mc-live-dot" /> live
+              <span className="mc-live-dot" /> demo
             </span>
           </div>
 
@@ -463,7 +463,7 @@ const MissionControl = ({ reduced = false, active = true }) => {
                 aria-selected={i === projectIx}
                 className={`mc-pill ${i === projectIx ? 'is-active' : ''}`}
                 onClick={() => switchProject(i)}
-                aria-label={`${p.name} — ${p.kind}`}
+                aria-label={`${ABBR[p.id]}: ${p.name}, ${p.kind}`}
               >
                 {ABBR[p.id]}
               </button>
@@ -496,9 +496,9 @@ const MissionControl = ({ reduced = false, active = true }) => {
           {project.name.toLowerCase()}.system
         </span>
         <span className="mc-chrome-right" aria-hidden="true">
-          <span className="mc-sim">sim</span>
+          <span className="mc-sim">demo</span>
           <span className="mc-live">
-            <span className="mc-live-dot" /> live
+            <span className="mc-live-dot" /> simulated
           </span>
         </span>
       </div>
@@ -656,7 +656,7 @@ const MissionControl = ({ reduced = false, active = true }) => {
           <span className="mc-stat-v">{metrics.queue}</span>
         </span>
         <span className="mc-stat mc-stat--grow mc-stat--ok">
-          <span className="mc-status-dot" /> operational
+          <span className="mc-status-dot" /> simulated data, not live metrics
         </span>
       </div>
         </>

@@ -23,6 +23,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 import { RouteSEO } from '../app/SEO/RouteSEO';
+import { SITE_ORIGIN as ORIGIN, DEFAULT_OG_IMAGE } from '../app/siteIdentity';
 import { caseStudies } from '../content/caseStudies';
 import { projects } from '../content/projects';
 import { isPlaceholder } from '../utils/placeholder';
@@ -176,8 +177,6 @@ export default function CaseStudyPage() {
     ? { src: coverProject.thumbnail, alt: `${entry.title} — cover` }
     : galleryImages[0];
 
-  const ORIGIN = 'https://aniketkushwaha.dev';
-
   const stats: Array<{ label: string; node: React.ReactNode }> = [
     { label: 'Project', node: entry.projectSlug },
     {
@@ -205,11 +204,12 @@ export default function CaseStudyPage() {
         routeKey="caseStudy"
         overrides={{
           title: `${displayTitle} — Case Study · Aniket Kushwaha`,
+          description: displaySummary,
           canonical: `${ORIGIN}/case-studies/${entry.slug}`,
           og: {
             title: `${displayTitle} — Case Study · Aniket Kushwaha`,
             description: displaySummary,
-            image: `${ORIGIN}/favicon-512.png`,
+            image: DEFAULT_OG_IMAGE,
             type: 'article',
             url: `${ORIGIN}/case-studies/${entry.slug}`,
           },
@@ -217,8 +217,7 @@ export default function CaseStudyPage() {
             card: 'summary_large_image',
             title: `${displayTitle} — Case Study · Aniket Kushwaha`,
             description: displaySummary,
-            image: `${ORIGIN}/favicon-512.png`,
-            site: '@aniketkushwaha',
+            image: DEFAULT_OG_IMAGE,
           },
         }}
       />

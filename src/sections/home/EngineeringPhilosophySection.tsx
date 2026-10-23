@@ -38,7 +38,7 @@ const COMMITS: Commit[] = [
     timestamp: '2 weeks ago',
     philosophy:
       'I optimise for the system behind the feature — clear boundaries, predictable data flow, and interfaces that stay stable as requirements change.',
-    appliedIn: ['BVISIONR', 'Aura', 'StopSearch'],
+    appliedIn: ['BVisionr', 'Aura Tech', 'StopSearch'],
   },
   {
     hash: '7ab23d1',
@@ -46,7 +46,7 @@ const COMMITS: Commit[] = [
     timestamp: '3 weeks ago',
     philosophy:
       'Make it correct, then make it fast. I prove behaviour with types and tests before chasing performance that may not move the needle.',
-    appliedIn: ['Radique', 'StopSearch', 'BVISIONR'],
+    appliedIn: ['Radioque', 'StopSearch', 'BVisionr'],
   },
   {
     hash: '5cd891a',
@@ -54,7 +54,7 @@ const COMMITS: Commit[] = [
     timestamp: '1 month ago',
     philosophy:
       'Logs, metrics, and traces are part of the design, not an afterthought. If I cannot see it in production, I have not finished building it.',
-    appliedIn: ['BVISIONR', 'Aura', 'Radique'],
+    appliedIn: ['BVisionr', 'Aura Tech', 'Radioque'],
   },
   {
     hash: '3ef721c',
@@ -62,7 +62,7 @@ const COMMITS: Commit[] = [
     timestamp: '1 month ago',
     philosophy:
       'Small, reversible changes beat big-bang releases. Tight feedback loops surface problems while they are still cheap to fix.',
-    appliedIn: ['StopSearch', 'Aura', 'BVISIONR'],
+    appliedIn: ['StopSearch', 'Aura Tech', 'BVisionr'],
   },
   {
     hash: '2ab98de',
@@ -70,7 +70,7 @@ const COMMITS: Commit[] = [
     timestamp: '2 months ago',
     philosophy:
       'Networks drop, queues back up, dependencies fail. I build retries, idempotency, and graceful degradation in from the start.',
-    appliedIn: ['BVISIONR', 'Radique', 'Aura'],
+    appliedIn: ['BVisionr', 'Radioque', 'Aura Tech'],
   },
   {
     hash: '14ac09f',
@@ -78,7 +78,7 @@ const COMMITS: Commit[] = [
     timestamp: '2 months ago',
     philosophy:
       'Decisions live next to the code that implements them. Readable docs and ADRs keep systems maintainable long after the context fades.',
-    appliedIn: ['BVISIONR', 'Radique', 'StopSearch'],
+    appliedIn: ['BVisionr', 'Radioque', 'StopSearch'],
   },
 ];
 

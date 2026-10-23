@@ -21,7 +21,7 @@ export const AIRoutingDiagram: React.FC = () => {
   return (
     <DiagramCanvas
       title="AI Routing Architecture"
-      description="Architecture diagram showing LLM router with intent classification, response generation pipelines, model selection, and fallback strategies."
+      description="Architecture diagram showing LLM router across Gemini, Groq, DeepSeek and OpenAI-compatible providers, with cooldowns, caching and failover."
       viewBox="0 0 800 520"
       aspectRatio={800 / 520}
     >
@@ -79,8 +79,8 @@ export const AIRoutingDiagram: React.FC = () => {
       >
         <DiagramNode
           variant="external"
-          label="GPT-4"
-          sublabel="Complex tasks"
+          label="Gemini"
+          sublabel="Provider"
           x={220}
           y={310}
           width={100}
@@ -88,8 +88,8 @@ export const AIRoutingDiagram: React.FC = () => {
         />
         <DiagramNode
           variant="external"
-          label="Claude"
-          sublabel="Analysis"
+          label="Groq"
+          sublabel="Provider"
           x={340}
           y={310}
           width={100}
@@ -97,8 +97,8 @@ export const AIRoutingDiagram: React.FC = () => {
         />
         <DiagramNode
           variant="external"
-          label="Mistral"
-          sublabel="Fast inference"
+          label="DeepSeek"
+          sublabel="+ OpenAI-compatible"
           x={460}
           y={310}
           width={100}
@@ -120,8 +120,8 @@ export const AIRoutingDiagram: React.FC = () => {
       {/* Fallback */}
       <DiagramNode
         variant="queue"
-        label="Fallback Handler"
-        sublabel="Retry / escalate"
+        label="Failover"
+        sublabel="Cooldown / next provider"
         x={620}
         y={310}
         width={150}
@@ -132,7 +132,7 @@ export const AIRoutingDiagram: React.FC = () => {
       <DiagramNode
         variant="datastore"
         label="Response Cache"
-        sublabel="Redis / semantic"
+        sublabel="Redis"
         x={620}
         y={100}
         width={150}

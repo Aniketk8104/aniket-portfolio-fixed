@@ -21,7 +21,7 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
   return (
     <DiagramCanvas
       title="Healthcare Workflow Architecture"
-      description="Architecture diagram showing DICOM image ingestion, intelligent case routing, radiologist assignment workflow, reporting pipeline, and compliance audit trail."
+      description="Architecture diagram showing Orthanc DICOM storage, a CPU-bounded decode queue with a shared Redis frame cache, the case state machine, edit locks, the report editor and centre-scoped audit logs."
       viewBox="0 0 840 520"
       aspectRatio={840 / 520}
     >
@@ -44,8 +44,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
       >
         <DiagramNode
           variant="service"
-          label="DICOM Receiver"
-          sublabel="C-STORE SCP"
+          label="Orthanc"
+          sublabel="DICOM store"
           x={235}
           y={65}
           width={150}
@@ -53,8 +53,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
         />
         <DiagramNode
           variant="service"
-          label="Image Processor"
-          sublabel="Normalize / anonymize"
+          label="Decode Queue"
+          sublabel="CPU-bounded"
           x={235}
           y={130}
           width={150}
@@ -62,8 +62,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
         />
         <DiagramNode
           variant="datastore"
-          label="Image Store"
-          sublabel="Object storage"
+          label="Frame Cache"
+          sublabel="Shared Redis"
           x={235}
           y={195}
           width={150}
@@ -79,8 +79,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
       >
         <DiagramNode
           variant="service"
-          label="Triage Engine"
-          sublabel="Priority scoring"
+          label="Case State"
+          sublabel="State machine"
           x={470}
           y={65}
           width={140}
@@ -88,8 +88,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
         />
         <DiagramNode
           variant="lambda"
-          label="AI Pre-read"
-          sublabel="Anomaly detection"
+          label="Viewer"
+          sublabel="Cornerstone3D · MPR"
           x={470}
           y={130}
           width={140}
@@ -105,8 +105,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
       >
         <DiagramNode
           variant="service"
-          label="Worklist Manager"
-          sublabel="Load balancing"
+          label="Worklist"
+          sublabel="Centre-scoped"
           x={470}
           y={245}
           width={140}
@@ -114,8 +114,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
         />
         <DiagramNode
           variant="queue"
-          label="Assignment Queue"
-          sublabel="FIFO + priority"
+          label="Edit Locks"
+          sublabel="TTL + versioning"
           x={470}
           y={310}
           width={140}
@@ -137,8 +137,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
       {/* Reporting */}
       <DiagramNode
         variant="service"
-        label="Report Generator"
-        sublabel="Structured reports"
+        label="Report Editor"
+        sublabel="73 modality templates"
         x={670}
         y={330}
         width={140}
@@ -153,8 +153,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
       >
         <DiagramNode
           variant="datastore"
-          label="Audit Trail"
-          sublabel="Immutable log"
+          label="Audit Log"
+          sublabel="Centre-scoped"
           x={470}
           y={420}
           width={130}
@@ -162,8 +162,8 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
         />
         <DiagramNode
           variant="datastore"
-          label="HIPAA Vault"
-          sublabel="Encrypted PHI"
+          label="MongoDB"
+          sublabel="Cases + reports"
           x={630}
           y={420}
           width={130}
@@ -237,7 +237,7 @@ export const HealthcareWorkflowDiagram: React.FC = () => {
         from={{ x: 740, y: 300 }}
         to={{ x: 740, y: 330 }}
         arrowhead="end"
-        label="dictate"
+        label="report"
       />
 
       {/* Edges: Report → Audit */}

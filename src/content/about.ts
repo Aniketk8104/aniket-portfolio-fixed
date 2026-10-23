@@ -30,19 +30,14 @@ export interface AboutContent {
 }
 
 export const aboutContent: AboutContent = {
-  headline: 'Software Engineer · Backend · Platform · AI Automation',
-  roles: [
-    'Software Engineer',
-    'Backend Engineer',
-    'Platform Engineer',
-    'AI Automation Builder',
-  ],
+  headline: 'Backend / Full-Stack Engineer · Navi Mumbai',
+  roles: ['Backend Engineer', 'Full-Stack Engineer'],
   introParagraph:
-    "I'm a software engineer focused on backend and platform systems — the kind of infrastructure that has to stay reliable when traffic, data, and complexity grow. I care about clean architecture, observable systems, and shipping software that holds up in production.",
+    "I'm a backend / full-stack engineer at Aura Tech Services, where I'm the primary engineer on 5 production platforms used by 5+ client businesses, including Bhagwati Group and a US-based teleradiology company.",
   approachParagraph:
     'I approach every system by mapping the failure modes first: where data flows, what happens when a dependency goes down, and how we recover without losing state. From there I design for clear boundaries, strong typing, and automation that removes toil so teams can move quickly without breaking things.',
   backgroundParagraph:
-    "I'm currently pursuing a B.Sc in Computer Science while building production systems across SaaS, healthcare, and automation domains. My long-term focus is distributed systems and developer platforms — infrastructure that makes other engineers faster and products more resilient.",
+    'I completed a B.Sc. in Computer Science at CKT ACS College, New Panvel (2023–2026) with a CGPA of 9.79/10 and first rank in the final year, and won E-Fest first prizes in Rapid Application Development (2024) and Kill the Bugs (2025). I am open to backend, full-stack, founding or forward-deployed roles in Navi Mumbai, Mumbai or remote, and can join immediately.',
   skills: [
     'Systems Thinker',
     'Backend Depth',
@@ -50,8 +45,8 @@ export const aboutContent: AboutContent = {
     'AI / Automation',
   ],
   timeline: [
-    { period: '2024 – Present', label: 'Software Engineer · Platform & Backend' },
-    { period: '2023 – 2024', label: 'Full-Stack Engineering — React, Node.js, Cloud' },
-    { period: '2023 – Present', label: 'B.Sc Computer Science — CKT College' },
+    { period: 'Jul 2025 – Present', label: 'Full-Stack Engineer · Aura Tech Services (hybrid)' },
+    { period: 'Apr – Jun 2025', label: 'Software Engineer Intern · The StopSearch Technologies (remote)' },
+    { period: '2023 – 2026', label: 'B.Sc. Computer Science · CKT ACS College (CGPA 9.79/10)' },
   ],
 };
