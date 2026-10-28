@@ -20,7 +20,7 @@
     <title>Aniket Kushwaha — Backend / Full-Stack Engineer</title>
     <meta
       name="description"
-      content="Aniket Kushwaha, Backend / Full-Stack Engineer in Navi Mumbai. Primary engineer on 5 production platforms: multi-tenant SaaS, CRM, HRMS, teleradiology and commerce."
+      content="Aniket Kushwaha, Backend / Full-Stack Engineer in Navi Mumbai. Primary engineer on 5 production platforms used by 5+ client businesses."
     />
     <!-- seo:end -->
 
@@ -63,6 +63,12 @@
         justify-content: center;
         z-index: 10000;
       }
+      .shell { text-align: center; max-width: 36rem; padding: 0 1.5rem; }
+      .shell-mark { font-size: 3rem; font-weight: 800; color: #818cf8; letter-spacing: -0.02em; }
+      .shell h1 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.5rem; color: #fafafa; }
+      .shell p { font-size: 0.875rem; line-height: 1.5; margin: 0; color: #a1a1aa; }
+      .shell nav { margin-top: 1rem; font-size: 0.8125rem; }
+      .shell nav a { color: #a1a1aa; margin: 0 0.5rem; text-decoration: none; }
 
     </style>
 
@@ -72,15 +78,15 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <div id="root">
-      <!-- Initial loading state to prevent CLS -->
+      <!-- Initial loading state to prevent CLS. React replaces it on mount.
+           scripts/prerender-seo.mjs fills the shell with the page's H1, summary
+           and nav links so crawlers that don't run JavaScript see real content. -->
       <div class="loading-screen">
-        <div style="text-align: center">
-          <div
-            style="font-size: 3rem; font-weight: 800; color: #818cf8; letter-spacing: -0.02em"
-            aria-label="Loading Aniket Kushwaha — Engineering Portfolio"
-          >
-            AK
-          </div>
+        <div class="shell">
+          <div class="shell-mark" aria-hidden="true">AK</div>
+          <!-- shell:start -->
+          <h1>Aniket Kushwaha — Backend / Full-Stack Engineer</h1>
+          <!-- shell:end -->
         </div>
       </div>
     </div>

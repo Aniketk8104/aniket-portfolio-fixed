@@ -89,6 +89,27 @@ function renderHead(meta, noindex, ogExtras) {
   return tags.join('\n    ');
 }
 
+const SHELL_START = '<!-- shell:start -->';
+const SHELL_END = '<!-- shell:end -->';
+const NAV = [
+  ['Home', '/'],
+  ['Projects', '/projects'],
+  ['Case Studies', '/case-studies'],
+  ['Architecture', '/architecture'],
+  ['Writing', '/writing'],
+];
+
+/** Visible H1 + summary + nav inside the loading shell; React replaces it on mount. */
+function renderShell(meta) {
+  const h1 = meta.title.replace(/\s[—·]\s(Architecture\s·\s)?Aniket Kushwaha$/, '');
+  const links = NAV.map(([label, href]) => `<a href="${href}">${label}</a>`).join('');
+  return `<h1>${esc(h1)}</h1>\n          <p>${esc(meta.description)}</p>\n          <nav aria-label="Site">${links}</nav>`;
+}
+
+/** Bing flags descriptions outside ~25–160 characters. */
+const DESC_MIN = 50;
+const DESC_MAX = 160;
+
 function outFile(path) {
   if (path === '/') return join(distDir, 'index.html');
   return join(distDir, `${path.slice(1)}.html`);
@@ -126,18 +147,36 @@ function main() {
     siteName: ident.SITE_NAME,
   };
 
+  const sa = template.indexOf(SHELL_START);
+  const sb = template.indexOf(SHELL_END);
+  if (sa < 0 || sb < sa) {
+    console.error('❌ prerender-seo: shell markers not found in dist/index.html');
+    process.exit(1);
+  }
+
   let written = 0;
+  const problems = [];
   for (const { path, meta, noindex } of pages) {
     if (!meta) {
       console.error(`❌ prerender-seo: no SEO config for ${path}`);
       process.exit(1);
     }
+    const len = meta.description.length;
+    if (!noindex && (len < DESC_MIN || len > DESC_MAX)) {
+      problems.push(`${path}: description is ${len} chars (want ${DESC_MIN}–${DESC_MAX})`);
+    }
     const html =
-      template.slice(0, a) + START + '\n    ' + renderHead(meta, noindex, ogExtras) + '\n    ' + template.slice(b);
+      template.slice(0, a) + START + '\n    ' + renderHead(meta, noindex, ogExtras) + '\n    ' +
+      template.slice(b, sa) + SHELL_START + '\n          ' + renderShell(meta) + '\n          ' +
+      template.slice(sb);
     const file = outFile(path);
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, html, 'utf-8');
     written += 1;
+  }
+  if (problems.length) {
+    console.error(`❌ prerender-seo: fix these descriptions:\n  ${problems.join('\n  ')}`);
+    process.exit(1);
   }
   console.log(`✅ prerender-seo: wrote ${written} HTML files with per-page SEO tags`);
 }

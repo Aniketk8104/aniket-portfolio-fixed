@@ -16,8 +16,20 @@ import { DEFAULT_OG_IMAGE, PERSON_NAME, SITE_ORIGIN as ORIGIN } from '../siteIde
 
 const AUTHOR = { '@type': 'Person', name: PERSON_NAME, url: ORIGIN } as const;
 
+/** Search engines show ~155 characters; Bing flags descriptions over 160. */
+export const MAX_DESCRIPTION = 155;
+
 function text(value: unknown, fallback: string): string {
   return isPlaceholder(value) || typeof value !== 'string' ? fallback : value;
+}
+
+/** First sentence if it fits, otherwise cut at a word boundary. */
+export function clipDescription(summary: string): string {
+  const first = summary.match(/^.+?[.!?](?=\s|$)/)?.[0] ?? summary;
+  if (first.length >= 50 && first.length <= MAX_DESCRIPTION) return first;
+  if (summary.length <= MAX_DESCRIPTION) return summary;
+  const cut = summary.slice(0, MAX_DESCRIPTION - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:]$/, '')}…`;
 }
 
 function breadcrumbs(items: Array<[name: string, path: string]>): Record<string, unknown> {
@@ -53,7 +65,7 @@ function page(
 export function caseStudyMeta(entry: CaseStudyEntry): RouteSeoConfig {
   const path = `/case-studies/${entry.slug}`;
   const title = `${entry.title} — Aniket Kushwaha`;
-  const description = text(entry.summary, 'A detailed engineering case study.');
+  const description = clipDescription(text(entry.summary, 'A detailed engineering case study.'));
   return page(title, description, path, [
     {
       '@context': 'https://schema.org',
@@ -76,10 +88,10 @@ export function caseStudyMeta(entry: CaseStudyEntry): RouteSeoConfig {
 export function articleMeta(article: ArticleEntry): RouteSeoConfig {
   const path = `/writing/${article.slug}`;
   const title = `${article.title} — Aniket Kushwaha`;
-  const description = text(
+  const description = clipDescription(text(
     article.summary,
     `An engineering essay by Aniket Kushwaha on ${article.title}.`,
-  );
+  ));
   return page(title, description, path, [
     {
       '@context': 'https://schema.org',
@@ -102,7 +114,7 @@ export function articleMeta(article: ArticleEntry): RouteSeoConfig {
 export function architectureTopicMeta(topic: ArchitectureTopicEntry): RouteSeoConfig {
   const path = `/architecture/${topic.slug}`;
   const title = `${topic.title} — Architecture · Aniket Kushwaha`;
-  const description = text(topic.summary, 'An in-depth architecture topic with custom diagrams.');
+  const description = clipDescription(text(topic.summary, 'An in-depth architecture topic with custom diagrams.'));
   return page(title, description, path, [
     {
       '@context': 'https://schema.org',

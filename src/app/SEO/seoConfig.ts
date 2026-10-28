@@ -22,7 +22,7 @@ import {
 
 const HOME_TITLE = `${PERSON_NAME} — ${JOB_TITLE}`;
 const HOME_DESCRIPTION =
-  'Aniket Kushwaha, Backend / Full-Stack Engineer in Navi Mumbai. Primary engineer on 5 production platforms: multi-tenant SaaS, CRM, HRMS, teleradiology and commerce.';
+  'Aniket Kushwaha, Backend / Full-Stack Engineer in Navi Mumbai. Primary engineer on 5 production platforms used by 5+ client businesses.';
 
 export const seoConfig: SeoConfigMap = {
   home: {
