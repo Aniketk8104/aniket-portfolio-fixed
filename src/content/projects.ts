@@ -73,6 +73,7 @@ export const projects: ProjectEntry[] = [
     ],
     caseStudySlug: 'aurastack-crm',
     status: 'published',
+    thumbnail: '/projects/aurastack-crm.webp',
     liveUrl: 'https://crm.aurastack.in/',
     tags: ['crm', 'real-estate', 'multi-tenant', 'mobile'],
   },
@@ -92,6 +93,7 @@ export const projects: ProjectEntry[] = [
     ],
     caseStudySlug: 'future-fortune-hrms',
     status: 'published',
+    thumbnail: '/projects/future-fortune-hrms.webp',
     liveUrl: 'https://hr.futureandfortune.in/',
     tags: ['hrtech', 'payroll', 'attendance', 'multi-tenant', 'mobile'],
   },
@@ -156,6 +158,7 @@ export const projects: ProjectEntry[] = [
     ],
     caseStudySlug: 'bhagwati-group-website',
     status: 'published',
+    thumbnail: '/projects/bhagwati-group-website.webp',
     tags: ['cms', 'web', 'performance', 'media'],
   },
   {

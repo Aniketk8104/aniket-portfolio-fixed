@@ -1,25 +1,13 @@
 {
   "short_name": "Aniket Kushwaha",
-  "name": "Aniket Kushwaha — Software Engineer & Platform Builder",
-  "description": "Portfolio of Aniket Kushwaha — Software Engineer, Backend & Platform Engineer, and AI Automation Builder. Systems thinking, architecture, and engineering depth.",
+  "name": "Aniket Kushwaha — Backend / Full-Stack Engineer",
+  "description": "Portfolio of Aniket Kushwaha, Backend / Full-Stack Engineer in Navi Mumbai.",
   "icons": [
-    {
-      "src": "/favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "/logo192.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/logo512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any maskable"
-    }
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "/favicon-192.png", "type": "image/png", "sizes": "192x192", "purpose": "any" },
+    { "src": "/favicon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "any" },
+    { "src": "/logo192.png", "type": "image/png", "sizes": "192x192", "purpose": "maskable" },
+    { "src": "/logo512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
   ],
   "start_url": "/?source=pwa",
   "background_color": "#0a0a0f",
@@ -27,17 +15,5 @@
   "display": "standalone",
   "scope": "/",
   "orientation": "portrait-primary",
-  "categories": ["business", "developer", "portfolio"],
-  "screenshots": [
-    {
-      "src": "/screenshot1.png",
-      "type": "image/png",
-      "sizes": "540x720"
-    },
-    {
-      "src": "/screenshot2.png",
-      "type": "image/png",
-      "sizes": "540x720"
-    }
-  ]
+  "categories": ["business", "developer", "portfolio"]
 }

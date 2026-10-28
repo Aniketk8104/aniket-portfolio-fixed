@@ -14,7 +14,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { RouteSEO } from '../app/SEO/RouteSEO';
-import { SITE_ORIGIN as ORIGIN } from '../app/siteIdentity';
+import { articleMeta } from '../app/SEO/routeMeta';
 import { articles } from '../content/articles';
 import { isPlaceholder } from '../utils/placeholder';
 import { Placeholder } from '../sections/shared/Placeholder';
@@ -315,41 +315,7 @@ const ArticlePage: React.FC = () => {
   }
 
 
-  // Build per-article SEO overrides
-  const seoOverrides = {
-    title: `${article.title} — Aniket Kushwaha`,
-    description: isPlaceholder(article.summary)
-      ? `An engineering essay by Aniket Kushwaha on ${article.title}.`
-      : (article.summary as string),
-    canonical: `${ORIGIN}/writing/${article.slug}`,
-    og: {
-      title: `${article.title} — Aniket Kushwaha`,
-      description: isPlaceholder(article.summary)
-        ? `An engineering essay by Aniket Kushwaha on ${article.title}.`
-        : (article.summary as string),
-      type: 'article' as const,
-      url: `${ORIGIN}/writing/${article.slug}`,
-    },
-    twitter: {
-      card: 'summary_large_image' as const,
-      title: `${article.title} — Aniket Kushwaha`,
-      description: isPlaceholder(article.summary)
-        ? `An engineering essay by Aniket Kushwaha on ${article.title}.`
-        : (article.summary as string),
-    },
-    structuredData: {
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: article.title,
-      url: `${ORIGIN}/writing/${article.slug}`,
-      ...(article.publishedAt ? { datePublished: article.publishedAt } : {}),
-      author: {
-        '@type': 'Person',
-        name: 'Aniket Kushwaha',
-        url: ORIGIN,
-      },
-    },
-  };
+  const seoOverrides = articleMeta(article);
 
   // Determine body rendering
   const bodyContent = (() => {

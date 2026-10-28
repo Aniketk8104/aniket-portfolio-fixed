@@ -19,6 +19,13 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { seoConfig } from './seoConfig';
+import {
+  DEFAULT_OG_IMAGE,
+  OG_IMAGE_ALT,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
+  SITE_NAME,
+} from '../siteIdentity';
 import type { RouteSEOProps, RouteSeoConfig, StructuredData } from '../../types/seo';
 
 // ---------------------------------------------------------------------------
@@ -108,6 +115,15 @@ export const RouteSEO: React.FC<RouteSEOProps> = ({ routeKey, overrides }) => {
         <meta property="og:type" content={og.type ?? 'website'} />
         {og.url && <meta property="og:url" content={og.url} />}
         {og.image && <meta property="og:image" content={og.image} />}
+        {og.image === DEFAULT_OG_IMAGE && (
+          <meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />
+        )}
+        {og.image === DEFAULT_OG_IMAGE && (
+          <meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />
+        )}
+        {og.image && <meta property="og:image:alt" content={OG_IMAGE_ALT} />}
+        <meta property="og:site_name" content={SITE_NAME} />
+        <meta property="og:locale" content="en_IN" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content={twitter.card} />

@@ -23,7 +23,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 import { RouteSEO } from '../app/SEO/RouteSEO';
-import { SITE_ORIGIN as ORIGIN, DEFAULT_OG_IMAGE } from '../app/siteIdentity';
+import { caseStudyMeta } from '../app/SEO/routeMeta';
 import { caseStudies } from '../content/caseStudies';
 import { projects } from '../content/projects';
 import { isPlaceholder } from '../utils/placeholder';
@@ -202,24 +202,7 @@ export default function CaseStudyPage() {
       {/* Per-route SEO with per-entry overrides (Req 14.1) */}
       <RouteSEO
         routeKey="caseStudy"
-        overrides={{
-          title: `${displayTitle} — Case Study · Aniket Kushwaha`,
-          description: displaySummary,
-          canonical: `${ORIGIN}/case-studies/${entry.slug}`,
-          og: {
-            title: `${displayTitle} — Case Study · Aniket Kushwaha`,
-            description: displaySummary,
-            image: DEFAULT_OG_IMAGE,
-            type: 'article',
-            url: `${ORIGIN}/case-studies/${entry.slug}`,
-          },
-          twitter: {
-            card: 'summary_large_image',
-            title: `${displayTitle} — Case Study · Aniket Kushwaha`,
-            description: displaySummary,
-            image: DEFAULT_OG_IMAGE,
-          },
-        }}
+        overrides={caseStudyMeta(entry)}
       />
 
       <div className="csp-shell">

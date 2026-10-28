@@ -21,7 +21,12 @@ export const LINKEDIN_URL = 'https://www.linkedin.com/in/aniket-kushwaha-ak';
 /** Profile URLs for JSON-LD `sameAs`. */
 export const SAME_AS: readonly string[] = [GITHUB_URL, LINKEDIN_URL];
 
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/favicon-512.png`;
+/** 1200×630 link-preview card (public/og-image.png). */
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`;
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
+export const OG_IMAGE_ALT = 'Aniket Kushwaha — Backend / Full-Stack Engineer';
+export const SITE_NAME = 'Aniket Kushwaha — Engineering Portfolio';
 
 /** Current resume, served from /public. */
 export const RESUME_PATH = '/Aniket_Kushwaha_Resume.pdf';

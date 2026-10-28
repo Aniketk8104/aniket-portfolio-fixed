@@ -118,6 +118,13 @@ export const caseStudies: CaseStudyEntry[] = [
       { label: 'Site visits', value: '2,389', tone: 'positive' },
       { label: 'Bookings', value: '152', tone: 'positive' },
     ],
+    gallery: [
+      {
+        src: '/projects/aurastack-crm.webp',
+        alt: 'AuraStack CRM dashboard with leads, bookings, site visits and team overview',
+        caption: 'Dashboard: lead, booking and site-visit totals with a team overview and performance trend.',
+      },
+    ],
     sections: {
       overview:
         'AuraStack CRM (crm.aurastack.in) is a multi-tenant CRM for real-estate developers, with web, Android and iOS apps. I rebuilt it in 3 months (356 commits): 336 API handlers, 48 models and 62 pages. Bhagwati Group uses it for 5,400+ leads, 47K+ lead activities, 2,389 site visits and 152 bookings, with about 30 active staff a month.',
@@ -154,6 +161,13 @@ export const caseStudies: CaseStudyEntry[] = [
       { label: 'Sites', value: '25', tone: 'neutral' },
       { label: 'GPS + selfie check-ins', value: '1,900+', tone: 'positive' },
       { label: 'Jest tests', value: '1,309', tone: 'positive' },
+    ],
+    gallery: [
+      {
+        src: '/projects/future-fortune-hrms.webp',
+        alt: 'Future & Fortune HRMS dashboard with pending actions, attendance analytics and recent activity',
+        caption: 'Dashboard: pending leave and document actions, attendance analytics and recent check-ins.',
+      },
     ],
     sections: {
       overview:
@@ -301,6 +315,13 @@ export const caseStudies: CaseStudyEntry[] = [
       { label: 'Deploys in 4 weeks', value: '70', tone: 'neutral' },
       { label: 'Admin screens', value: '27', tone: 'neutral' },
       { label: 'CMS models', value: '22', tone: 'neutral' },
+    ],
+    gallery: [
+      {
+        src: '/projects/bhagwati-group-website.webp',
+        alt: 'Bhagwati Group website home page with an aircraft-window scroll sequence',
+        caption: 'Home page: the scroll sequence that now plays from one AV1 stream decoded with WebCodecs.',
+      },
     ],
     sections: {
       overview:

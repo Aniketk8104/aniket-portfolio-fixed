@@ -4,97 +4,25 @@
     <meta charset="UTF-8" />
 
     <!-- Favicons and Icons -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192.png" />
-    <link rel="apple-touch-icon" sizes="512x512" href="/favicon-512.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Origin and profile links mirror src/app/siteIdentity.ts; keep them in sync. -->
+    <meta name="theme-color" content="#6366f1" />
+    <meta name="application-name" content="Aniket Kushwaha — Engineering Portfolio" />
+
+    <!-- Per-page SEO. scripts/prerender-seo.mjs replaces everything between the
+         seo markers at build time with tags from src/app/SEO (one HTML file per
+         URL); this copy is only the dev-server fallback. -->
+    <!-- seo:start -->
     <title>Aniket Kushwaha — Backend / Full-Stack Engineer</title>
     <meta
       name="description"
       content="Aniket Kushwaha, Backend / Full-Stack Engineer in Navi Mumbai. Primary engineer on 5 production platforms: multi-tenant SaaS, CRM, HRMS, teleradiology and commerce."
     />
-    <meta
-      name="keywords"
-      content="backend engineer, full-stack engineer, Node.js, TypeScript, PostgreSQL, MongoDB, Redis, multi-tenant SaaS, Navi Mumbai"
-    />
-    <meta name="language" content="English" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="rating" content="General" />
-
-    <!-- Open Graph -->
-    <meta
-      property="og:title"
-      content="Aniket Kushwaha — Backend / Full-Stack Engineer"
-    />
-    <meta
-      property="og:description"
-      content="Primary engineer on 5 production platforms used by 5+ client businesses. Case studies, architecture notes and writing."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.aniket.page" />
-    <meta property="og:image" content="https://www.aniket.page/favicon-512.png" />
-    <meta
-      property="og:image:alt"
-      content="Aniket Kushwaha — Backend / Full-Stack Engineer"
-    />
-    <meta property="og:site_name" content="Aniket Kushwaha — Engineering Portfolio" />
-    <meta property="og:locale" content="en_US" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Aniket Kushwaha — Backend / Full-Stack Engineer"
-    />
-    <meta
-      name="twitter:description"
-      content="Primary engineer on 5 production platforms used by 5+ client businesses. Case studies, architecture notes and writing."
-    />
-    <meta name="twitter:image" content="https://www.aniket.page/favicon-512.png" />
-
-    <!-- Additional SEO Meta Tags -->
-    <meta name="theme-color" content="#6366f1" />
-    <meta name="msapplication-TileColor" content="#6366f1" />
-    <meta name="application-name" content="Aniket Kushwaha — Engineering Portfolio" />
-
-    <!-- Structured Data - JSON-LD (baseline Person; per-route overrides injected by RouteSEO) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Aniket Kushwaha",
-        "url": "https://www.aniket.page",
-        "image": "https://www.aniket.page/favicon-512.png",
-        "jobTitle": "Backend / Full-Stack Engineer",
-        "description": "Backend / Full-Stack Engineer in Navi Mumbai. Primary engineer on 5 production platforms used by 5+ client businesses.",
-        "email": "mailto:kushwahaaniket141@gmail.com",
-        "sameAs": [
-          "https://github.com/Aniketk8104",
-          "https://www.linkedin.com/in/aniket-kushwaha-ak"
-        ],
-        "knowsAbout": [
-          "Backend Engineering",
-          "Full-Stack Development",
-          "Multi-tenant SaaS",
-          "Node.js",
-          "TypeScript",
-          "PostgreSQL",
-          "MongoDB",
-          "Redis"
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Navi Mumbai",
-          "addressRegion": "Maharashtra",
-          "addressCountry": "IN"
-        },
-        "availableLanguage": ["English", "Hindi"]
-      }
-    </script>
+    <!-- seo:end -->
 
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />

@@ -16,7 +16,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { RouteSEO } from '../app/SEO/RouteSEO';
-import { SITE_ORIGIN as ORIGIN, DEFAULT_OG_IMAGE } from '../app/siteIdentity';
+import { architectureTopicMeta } from '../app/SEO/routeMeta';
 import { architectureTopics } from '../content/architectureTopics';
 import { caseStudies } from '../content/caseStudies';
 import { isPlaceholder } from '../utils/placeholder';
@@ -130,27 +130,7 @@ export default function ArchitectureTopicPage() {
     <div className="route-page-main">
       <RouteSEO
         routeKey="architectureTopic"
-        overrides={{
-          title: `${topic.title} — Architecture · Aniket Kushwaha`,
-          canonical: `${ORIGIN}/architecture/${topic.slug}`,
-          og: {
-            title: `${topic.title} — Architecture · Aniket Kushwaha`,
-            description: isPlaceholder(topic.summary)
-              ? 'An in-depth architecture topic with custom diagrams.'
-              : (topic.summary as string),
-            image: DEFAULT_OG_IMAGE,
-            type: 'article',
-            url: `${ORIGIN}/architecture/${topic.slug}`,
-          },
-          twitter: {
-            card: 'summary_large_image',
-            title: `${topic.title} — Architecture · Aniket Kushwaha`,
-            description: isPlaceholder(topic.summary)
-              ? 'An in-depth architecture topic with custom diagrams.'
-              : (topic.summary as string),
-            image: DEFAULT_OG_IMAGE,
-          },
-        }}
+        overrides={architectureTopicMeta(topic)}
       />
 
       <section aria-labelledby="topic-heading">

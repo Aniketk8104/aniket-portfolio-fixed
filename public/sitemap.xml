@@ -2,151 +2,151 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.aniket.page/</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/projects</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/architecture</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/case-studies</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/writing</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/case-studies/bvisionr</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/case-studies/aurastack-crm</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/case-studies/future-fortune-hrms</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/case-studies/radioque</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/case-studies/aura-tech-platform</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/case-studies/bhagwati-group-website</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/case-studies/stopsearch</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/architecture/distributed-messaging</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/architecture/ai-routing</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/architecture/multi-tenant-saas</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/architecture/whatsapp-infrastructure</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/architecture/healthcare-workflow</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/architecture/deployment-infrastructure</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/writing/multi-tenant-saas</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/writing/distributed-messaging-pipelines</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/writing/whatsapp-infrastructure-at-scale</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/writing/reliable-ai-automation</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/writing/rbac-patterns</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/writing/queue-based-system-design</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.aniket.page/writing/event-driven-architectures</loc>
-    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
